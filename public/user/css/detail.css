@@ -1,0 +1,83 @@
+/* Chi tiet truyen */
+/* .col-image img.ls-is-cached-lazyloaded{
+    width: 200px;
+} */
+.read-action.mrt10 {
+    margin-top: 10px;
+}
+#item-detail .detail-content p {
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+.shortened {
+    max-height: 60px;
+    overflow: hidden;
+}
+h1, h2, h3, h4, h5, h6, p, input, select {
+    margin: 0;
+    padding: 0;
+    font-weight: unset;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* margin: 0; */
+    padding: 0;
+}
+user agent stylesheet
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+body {
+    background: #ebebeb;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    float: left;
+    line-height: 1.42857143;
+    color: #333;
+}
+body {
+    font: 14px/16px Poppins,Tahoma,sans-serif,Helvetica,Arial;
+    line-height: 1.42857143;
+    color: #333;
+    -webkit-appearance: none;
+    -webkit-text-size-adjust: none;
+    background-color: #fff;
+}
+#item-detail .detail-content p.shortened:before {
+    position: absolute;
+    content: '';
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    background: linear-gradient(rgba(255,255,255,0),#fff);
+}
+.list-chapter li.row {
+    margin-left: -47px;
+}
+.list-chapter nav {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+ .list-chapter a {
+    margin: 0;
+   
+} 
+.list-chapter nav ul li {
+    border-bottom: 1px dashed #ddd;
+
+     text-overflow: ellipsis;
+   
+    padding: 6px 0;
+    margin: 0; 
+}

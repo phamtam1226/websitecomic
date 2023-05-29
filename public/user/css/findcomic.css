@@ -1,0 +1,19 @@
+/* tim truyen */
+.comic-filter .nav-tabs {
+    margin-top: 0;
+    border-bottom: none;
+    text-align: center;
+    margin-left: 40%;
+}
+.comic-filter .nav-tabs li.active a {
+    color: #fff !important;
+    background: #0d6efd;
+    border: none;
+    position: relative;
+    margin-bottom: 7px;
+    outline: 0;
+    border-top: none !important;
+}
+.comic-filter li{
+    margin: 10px;
+}

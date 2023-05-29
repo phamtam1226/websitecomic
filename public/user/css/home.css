@@ -1,0 +1,180 @@
+/* slide truyen moi*/
+
+img.lazyOwl {
+    width: 90%;
+  
+}
+.slide-caption {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 66px;
+    height: 66px;
+    line-height: 30px;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 12px;
+    display: block;
+    color: #fff;
+    background-color: #000;
+    opacity: .8;
+    filter: alpha(opacity=50);
+}
+.slide-caption a{
+    color: white;
+    /* font-size: 11px; */
+  
+    overflow: hidden;
+    font-size: 15px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-top: 7px;
+    margin-bottom: -8px;
+
+
+}
+.slide-caption .time {
+    float: right;
+    margin-top: -24px;
+}
+.owl-stage-outer {
+    margin-bottom: -6%;
+}
+/* home */
+.image img{
+    width: 100%;
+}
+ .image .view {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 12px;
+    display: block;
+    color: #fff;
+    background-color: #000;
+    opacity: .8;
+    filter: alpha(opacity=50);
+}
+.chapter .time {
+    color: #c0c0c0;
+    font-size: 11px;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 400;
+    float: right;
+    max-width: 47%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* truyen theo doi */
+span.txt-rank.fn-order.pos1 {
+    float: left;
+    font-size: 20px;
+
+    line-height: 45px;
+    text-align: center;
+    margin-top: inherit;
+}
+
+.t-item .thumb img.ls-is-cached.lazyloaded {
+    width: 85px;
+    height: 75px;
+    float: left;
+    margin: 5px;
+} 
+
+.t-item {
+ width: 90%;
+    display: block;
+    float: left;
+}
+h3.title  {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+
+   
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+   
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+h3.title {
+    
+    margin-top: inherit;
+}
+
+li.clearfix {
+    margin: 10px;
+    margin-bottom: 10px;
+}
+
+.darkBox ul li h3 {
+    
+    white-space: nowrap;
+  
+}
+a.tr-topthang-viewmore {
+    margin-left: 40%;
+}
+
+/* binh luan */
+.new-comments ul li .thumb .ls-is-cached.lazyloaded{
+    width: 40px;
+    height: 40px;
+    float: left;
+
+}
+.new-comments h5{
+    text-align: center;
+    background-color: red;
+    height: 50px;
+    padding-top: 12px;
+    color: white;
+}
+
+.new-comments ul li .authorname {
+    float: left;
+  
+}
+.new-comments ul li abbr {
+    float: right;
+}
+.new-comments ul li p.wrapper-content-cmt {
+    display: block;
+    max-width: max-content;
+    margin-left: 50px;
+    /* float: left; */
+    text-align: -webkit-left;
+}
+
+.new-comments ul li .title a{
+    /* margin-left: 94px; */
+}
+
+.new-comments ul li .cmchapter {
+    float: right;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid #dc3545;
+} 
+
