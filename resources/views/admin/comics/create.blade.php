@@ -73,7 +73,7 @@
     <div class="comic-detail">
         <h1>Thêm truyện mới</h1>
 
-        <form action="{{ route('comics.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.comics.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="comic-detail-image">

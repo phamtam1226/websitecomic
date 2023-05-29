@@ -1,6 +1,6 @@
 <h1>Genres</h1>
 
-<a href="{{ route('genres.create') }}">Create Genre</a>
+<a href="{{ route('admin.genres.create') }}">Create Genre</a>
 
 <table>
     <thead>
@@ -16,9 +16,9 @@
                 <td>{{ $genre->id }}</td>
                 <td>{{ $genre->name }}</td>
                 <td>
-                    <a href="{{ route('genres.show', $genre) }}">Show</a>
-                    <a href="{{ route('genres.edit', $genre) }}">Edit</a>
-                    <form action="{{ route('genres.destroy', $genre) }}" method="POST">
+                    <a href="{{ route('admin.genres.show', $genre) }}">Show</a>
+                    <a href="{{ route('admin.genres.edit', $genre) }}">Edit</a>
+                    <form action="{{ route('admin.genres.destroy', $genre) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Delete</button>

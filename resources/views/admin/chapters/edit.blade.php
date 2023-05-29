@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Chỉnh sửa chương: {{ $chapter->chapter_name }}</h1>
-    <form action="{{ route('comics.chapters.update', ['comic' => $comic, 'chapter' => $chapter]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.comics.chapters.update', ['comic' => $comic, 'chapter' => $chapter]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <label for="chapter_name">Tên chương:</label><br>

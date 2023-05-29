@@ -72,7 +72,7 @@
 <body>
     <div class="comic-detail">
         <h1>Chỉnh sửa truyện</h1>
-        <form action="{{ route('comics.update', $comic) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.comics.update', $comic) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="comic-detail-image">

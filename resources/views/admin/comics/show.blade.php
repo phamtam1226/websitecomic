@@ -79,8 +79,8 @@
                     <button>Đọc mới nhất</button>
                 </div>
                 <div>
-                    <a href="{{ route('comics.edit', $comic) }}">Chỉnh sửa</a>
-                    <form action="{{ route('comics.destroy', $comic) }}" method="POST">
+                    <a href="{{ route('admin.comics.edit', $comic) }}">Chỉnh sửa</a>
+                    <form action="{{ route('admin.comics.destroy', $comic) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Xoá</button>
@@ -94,16 +94,16 @@
         </div>
         <div class="chapter-list">
             <h3>Danh sách chương:</h3>
-            <a href="{{ route('comics.chapters.create', $comic) }}">Thêm chương mới</a>
+            <a href="{{ route('admin.comics.chapters.create', $comic) }}">Thêm chương mới</a>
 
             <ul>
                 @foreach ($comic->chapters as $chapter)
                 <li>
-                    <a href="{{ route('comics.chapters.show', ['comic' => $comic, 'chapter' => $chapter]) }}">{{ $chapter->chapter_name }}</a>
+                    <a href="{{ route('admin.comics.chapters.show', ['comic' => $comic, 'chapter' => $chapter]) }}">{{ $chapter->chapter_name }}</a>
 
-                    <a href="{{ route('comics.chapters.edit', ['comic' => $comic, 'chapter' => $chapter]) }}">Chỉnh sửa</a>
+                    <a href="{{ route('admin.comics.chapters.edit', ['comic' => $comic, 'chapter' => $chapter]) }}">Chỉnh sửa</a>
 
-                    <form action="{{ route('comics.chapters.destroy', ['comic' => $comic, 'chapter' => $chapter]) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('admin.comics.chapters.destroy', ['comic' => $comic, 'chapter' => $chapter]) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Xoá</button>

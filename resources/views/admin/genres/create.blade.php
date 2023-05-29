@@ -8,7 +8,7 @@
     </ul>
 @endif
 
-<form action="{{ route('genres.store') }}" method="POST">
+<form action="{{ route('admin.genres.store') }}" method="POST">
     @csrf
     <label for="name">Name</label>
     <input type="text" name="name" id="name" required>

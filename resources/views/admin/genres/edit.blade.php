@@ -8,7 +8,7 @@
     </ul>
 @endif
 
-<form action="{{ route('genres.update', $genre) }}" method="POST">
+<form action="{{ route('admin.genres.update', $genre) }}" method="POST">
     @csrf
     @method('PUT')
     <label for="name">Name</label>

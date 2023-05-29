@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Thêm chương mới</h1>
-    <form action="{{ route('comics.chapters.store', $comic) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.comics.chapters.store', $comic) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="chapter_name">Tên chương:</label><br>
         <input type="text" id="chapter_name" name="chapter_name"><br>

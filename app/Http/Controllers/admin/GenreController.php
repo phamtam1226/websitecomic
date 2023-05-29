@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use App\Http\Controllers\admin\Controller;
 
 class GenreController extends Controller
 {
     public function index()
     {
         $genres = Genre::all();
-        return view('genres.index', compact('genres'));
+        return view('admin.genres.index', compact('genres'));
     }
 
     public function create()
     {
-        return view('genres.create');
+        return view('admin.genres.create');
     }
 
     public function store(Request $request)
@@ -26,17 +27,17 @@ class GenreController extends Controller
 
         Genre::create($request->all());
 
-        return redirect()->route('genres.index')->with('success', 'Genre created successfully.');
+        return redirect()->route('admin.genres.index')->with('success', 'Genre created successfully.');
     }
 
     public function show(Genre $genre)
     {
-        return view('genres.show', compact('genre'));
+        return view('admin.genres.show', compact('genre'));
     }
 
     public function edit(Genre $genre)
     {
-        return view('genres.edit', compact('genre'));
+        return view('admin.genres.edit', compact('genre'));
     }
 
     public function update(Request $request, Genre $genre)
@@ -47,13 +48,13 @@ class GenreController extends Controller
 
         $genre->update($request->all());
 
-        return redirect()->route('genres.index')->with('success', 'Genre updated successfully.');
+        return redirect()->route('admin.genres.index')->with('success', 'Genre updated successfully.');
     }
 
     public function destroy(Genre $genre)
     {
         $genre->delete();
 
-        return redirect()->route('genres.index')->with('success', 'Genre deleted successfully.');
+        return redirect()->route('admin.genres.index')->with('success', 'Genre deleted successfully.');
     }
 }
