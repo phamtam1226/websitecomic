@@ -22,4 +22,7 @@ class UserController extends Controller
     public function chapter(){
         return view('user.pages.chapter');
     }
+    public function login(){
+        return view('login.login');
+    }
 }

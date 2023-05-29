@@ -183,7 +183,7 @@
 						<!-- Đăng nhập -->
 						<li class="dropdown">
 					
-							<span class="fa fa-user" aria-hidden="true" style="color: rgb(35, 175, 156);"></span><a href="#" class="hover-nut"> Đăng Nhập |</a>  <a href="#" class="hover-nut"> Đăng Ký </a>
+							<span class="fa fa-user" aria-hidden="true" style="color: rgb(35, 175, 156);"></span><a href="{{ route('login') }}" class="hover-nut"> Đăng Nhập </a>
 						
 					
 						</li>

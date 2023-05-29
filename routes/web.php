@@ -6,14 +6,18 @@ use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\ComicController;
 use App\Http\Controllers\admin\ChapterController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\user\LoginController;
 
-
+// User
 Route::get('/',[UserController::class,'index'])->name('index');
 Route::get('/details',[UserController::class,'details'])->name('details');
 Route::get('/timtruyen',[UserController::class,'timtruyen'])->name('timtruyen');
 Route::get('/history',[UserController::class,'history'])->name('history');
 Route::get('/chapter',[UserController::class,'chapter'])->name('chapter');
+Route::get('/login',[LoginController::class,'login'])->name('login');
 
+
+// Admin
 Route::get('/admin/genres', [GenreController::class, 'index'])->name('admin.genres.index');
 Route::get('/admin/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
 Route::post('/admin/genres', [GenreController::class, 'store'])->name('admin.genres.store');

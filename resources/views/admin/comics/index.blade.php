@@ -40,7 +40,7 @@
             @foreach ($comics as $comic)
                 <div class="comic">
                     <img src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" onclick="window.location.href='{{ route('admin.comics.show', $comic) }}';">
-                    <h2 onclick="window.location.href='{{ route('admin.comics.show', $comic) }}';">{{ $comic->comic_name }}</h2>
+                    <h2 onclick="window.location.href='{{ route(' admin.comics.show ', $comic) }}';">{{ $comic->comic_name }}</h2>
                 </div>
             @endforeach
         </div>
