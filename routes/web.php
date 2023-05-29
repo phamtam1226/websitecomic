@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\GenreController;
-use App\Http\Controllers\ComicController;
-use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\admin\GenreController;
+use App\Http\Controllers\admin\ComicController;
+use App\Http\Controllers\admin\ChapterController;
+use App\Http\Controllers\user\UserController;
+
 
 Route::get('/',[UserController::class,'index'])->name('index');
 Route::get('/details',[UserController::class,'details'])->name('details');

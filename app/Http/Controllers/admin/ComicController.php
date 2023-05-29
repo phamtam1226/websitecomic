@@ -12,13 +12,13 @@ class ComicController extends Controller
     public function index()
     {
         $comics = Comic::all();
-        return view('comics.index', compact('comics'));
+        return view('admin.comics.index', compact('comics'));
     }
 
     public function create()
     {
         $genres = Genre::all();
-        return view('comics.create', compact('genres'));
+        return view('admin.comics.create', compact('genres'));
     }
 
     public function store(Request $request)
@@ -41,18 +41,18 @@ class ComicController extends Controller
             'cover_image' => $coverImagePath,
         ]);
 
-        return redirect()->route('comics.index')->with('success','Comic created successfully.');
+        return redirect()->route('admin.comics.index')->with('success','Comic created successfully.');
     }
 
     public function show(Comic $comic)
     {
-        return view('comics.show',compact('comic'));
+        return view('admin.comics.show',compact('comic'));
     }
 
     public function edit(Comic $comic)
     {
         $genres = Genre::all();
-        return view('comics.edit',compact('comic', 'genres'));
+        return view('admin.comics.edit',compact('comic', 'genres'));
     }
 
     public function update(Request $request, Comic $comic)
@@ -80,13 +80,13 @@ class ComicController extends Controller
             'cover_image' => $coverImagePath,
         ]);
 
-        return redirect()->route('comics.show', $comic)->with('success','Comic updated successfully');
+        return redirect()->route('admin.comics.show', $comic)->with('success','Comic updated successfully');
     }
 
     public function destroy(Comic $comic)
     {
         Storage::delete($comic->cover_image);
         $comic->delete();
-        return redirect()->route('comics.index')->with('success','Comic deleted successfully');
+        return redirect()->route('admin.comics.index')->with('success','Comic deleted successfully');
     }
 }
