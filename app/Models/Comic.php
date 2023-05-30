@@ -11,15 +11,14 @@ class Comic extends Model
 
     protected $fillable = [
         'comic_name',
-        'genre_id',
         'description',
         'status',
         'cover_image'
     ];
 
-    public function genre()
+    public function genres()
     {
-        return $this->belongsTo(Genre::class);
+        return $this->belongsToMany(Genre::class);
     }
 
     public function chapters()

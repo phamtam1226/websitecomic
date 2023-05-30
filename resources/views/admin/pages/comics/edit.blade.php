@@ -48,12 +48,13 @@
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="genre_id">Thể loại</label>
-                        <select style="border: 1px solid #CED4DA;border-radius: 4px; outline: none;" id="genre_id" name="genre_id" class="form-control" placeholder="Title">
-                        @foreach($genres as $genre)
-                            <option value="{{ $genre->id }}" @if($comic->genre_id == $genre->id) selected @endif>{{ $genre->name }}</option>
-                      @endforeach
-                        </select>
+                        <label for="genre_id">Thể loại</label><br>
+                        @foreach ($genres as $genre)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="genre_ids[]" id="genre_{{ $genre->id }}" value="{{ $genre->id }}" {{ in_array($genre->id, $selectedGenres) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="genre_{{ $genre->id }}">{{ $genre->name }}</label>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="col-lg-6" style=" margin-left:-12px">
                         <label for="status">Trạng Thái</label>

@@ -24,15 +24,13 @@
             </div>
         </div>
         <div class="container">
-            <!-- form start -->
             <form action="{{ route('admin.comics.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                   
                     <div class="col-lg-6">
                         <label for="comic-cover-image">Ảnh bìa</label>
                         <div class="custom-file">
-                        <img id="comic-cover-image" src="" alt="Comic Cover Image" style="display: none;">
+                            <img id="comic-cover-image" src="" alt="Comic Cover Image" style="display: none;">
                             <input accept="*.png|*.jpg|*.jpeg" type="file" class="form-control" id="cover_image" name="cover_image" placeholder="Chọn ảnh" onchange="updateImagePreview(this)" />
                         </div>
                     </div>
@@ -42,19 +40,20 @@
                         <label for="comic_name">Tên Truyện</label>
                         <input class="form-control" type="text" id="comic_name" name="comic_name" placeholder="Tên truyện">
                     </div>
-                   
                 </div>
 
                 <div class="row">
+                    <!-- sử dụng checkbox để cho phép người dùng chọn nhiều thể loại -->
                     <div class="col-lg-6">
-                        <label for="genre_id">Thể loại</label>
-                        <select style="border: 1px solid #CED4DA;border-radius: 4px; outline: none;" id="genre_id" name="genre_id" class="form-control" placeholder="Title">
-                            @foreach ($genres as $genre)
-                            <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                            @endforeach
-                        </select>
+                        <label for="genre_id">Thể loại</label><br>
+                        @foreach ($genres as $genre)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="genre_ids[]" id="genre_{{ $genre->id }}" value="{{ $genre->id }}">
+                                <label class="form-check-label" for="genre_{{ $genre->id }}">{{ $genre->name }}</label>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="col-lg-6" style=" margin-left:-12px">
+                    <div class="col-lg-6" style="margin-left:-12px">
                         <label for="status">Trạng Thái</label>
                         <select style="border: 1px solid #CED4DA;border-radius: 4px; outline: none;" class="form-control" id="status" name="status" placeholder="Status">
                             <option value="2">new</option>

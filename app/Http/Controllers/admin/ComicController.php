@@ -28,7 +28,8 @@ class ComicController extends Controller
     {
         $request->validate([
             'comic_name' => 'required',
-            'genre_id' => 'required|exists:genres,id',
+            'genre_ids' => 'required|array',
+            'genre_ids.*' => 'exists:genres,id',
             'description' => 'nullable',
             'status' => 'required',
             'cover_image' => 'required|image',
@@ -38,21 +39,22 @@ class ComicController extends Controller
 
         $comic = Comic::create([
             'comic_name' => $request->comic_name,
-            'genre_id' => $request->genre_id,
             'description' => $request->description,
             'status' => $request->status,
             'cover_image' => $coverImagePath,
         ]);
-        if($comic->save())
-        {
-            Session::flash('message','thêm truyện thành công');
+
+        $comic->genres()->sync($request->genre_ids); // Lưu các thể loại đã chọn
+
+        if ($comic) {
+            Session::flash('message', 'Thêm truyện thành công');
+        } else {
+            Session::flash('message', 'Thêm truyện thất bại');
         }
-        else
-        {
-        Session::flash('message','thêm truyện thất bại');
-        }
+
         return redirect()->route('admin.comics.index');
     }
+
 
     public function show(Comic $comic)
     {
@@ -62,43 +64,48 @@ class ComicController extends Controller
     public function edit(Comic $comic)
     {
         $genres = Genre::all();
-        return view('admin.pages.comics.edit',compact('comic', 'genres'));
+        $selectedGenres = $comic->genres->pluck('id')->toArray();
+
+        return view('admin.pages.comics.edit', compact('comic', 'genres', 'selectedGenres'));
     }
 
     public function update(Request $request, Comic $comic)
     {
+
         $request->validate([
             'comic_name' => 'required',
-            'genre_id' => 'required|exists:genres,id',
+            'genre_ids' => 'required|array',
+            'genre_ids.*' => 'exists:genres,id',
             'description' => 'nullable',
             'status' => 'required',
-            'cover_image' => 'required|image',
+            'cover_image' => 'nullable|image',
         ]);
 
-        if($request->hasFile('cover_image')){
+        if ($request->hasFile('cover_image') && $request->file('cover_image')->isValid()) {
             Storage::delete($comic->cover_image);
             $coverImagePath = $request->file('cover_image')->store('public/comics');
-        }else{
+        } else {
             $coverImagePath = $comic->cover_image;
         }
-
+        
         $comic->update([
             'comic_name' => $request->comic_name,
-            'genre_id' => $request->genre_id,
             'description' => $request->description,
             'status' => $request->status,
             'cover_image' => $coverImagePath,
         ]);
-        if($comic->save())
-        {
-            Session::flash('message','Cập nhật truyện thành công');
+
+        $comic->genres()->sync($request->genre_ids);
+
+        if ($comic->save()) {
+            Session::flash('message', 'Cập nhật truyện thành công');
+        } else {
+            Session::flash('message', 'Cập nhật truyện thất bại');
         }
-        else
-        {
-        Session::flash('message','Cập nhật truyện thất bại');
-        }
+
         return redirect()->route('admin.comics.index');
     }
+
 
     public function destroy(Comic $comic)
     {
