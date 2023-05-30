@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Comic;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,13 +15,13 @@ class ComicController extends Controller
     public function index()
     {
         $comics = Comic::all();
-        return view('admin.comics.index', compact('comics'));
+        return view('admin.pages.comics.index', compact('comics'));
     }
 
     public function create()
     {
         $genres = Genre::all();
-        return view('admin.comics.create', compact('genres'));
+        return view('admin.pages.comics.create', compact('genres'));
     }
 
     public function store(Request $request)
@@ -42,19 +43,26 @@ class ComicController extends Controller
             'status' => $request->status,
             'cover_image' => $coverImagePath,
         ]);
-
-        return redirect()->route('admin.comics.index')->with('success','Comic created successfully.');
+        if($comic->save())
+        {
+            Session::flash('message','thêm truyện thành công');
+        }
+        else
+        {
+        Session::flash('message','thêm truyện thất bại');
+        }
+        return redirect()->route('admin.comics.index');
     }
 
     public function show(Comic $comic)
     {
-        return view('admin.comics.show',compact('comic'));
+        return view('admin.pages.comics.show',compact('comic'));
     }
 
     public function edit(Comic $comic)
     {
         $genres = Genre::all();
-        return view('admin.comics.edit',compact('comic', 'genres'));
+        return view('admin.pages.comics.edit',compact('comic', 'genres'));
     }
 
     public function update(Request $request, Comic $comic)
@@ -81,14 +89,21 @@ class ComicController extends Controller
             'status' => $request->status,
             'cover_image' => $coverImagePath,
         ]);
-
-        return redirect()->route('admin.comics.show', $comic)->with('success','Comic updated successfully');
+        if($comic->save())
+        {
+            Session::flash('message','Cập nhật truyện thành công');
+        }
+        else
+        {
+        Session::flash('message','Cập nhật truyện thất bại');
+        }
+        return redirect()->route('admin.comics.index');
     }
 
     public function destroy(Comic $comic)
     {
         Storage::delete($comic->cover_image);
         $comic->delete();
-        return redirect()->route('admin.comics.index')->with('success','Comic deleted successfully');
+        return redirect()->route('admin.comics.index');
     }
 }

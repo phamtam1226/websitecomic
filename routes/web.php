@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\ComicController;
 use App\Http\Controllers\admin\ChapterController;
@@ -18,6 +19,7 @@ Route::get('/login',[LoginController::class,'login'])->name('login');
 
 
 // Admin
+Route::get('/admin/index', [DashboardController::class, 'admin'])->name('admin.index');
 Route::get('/admin/genres', [GenreController::class, 'index'])->name('admin.genres.index');
 Route::get('/admin/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
 Route::post('/admin/genres', [GenreController::class, 'store'])->name('admin.genres.store');

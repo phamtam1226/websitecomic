@@ -19,7 +19,7 @@ class ChapterController extends Controller
 
     public function create(Comic $comic)
     {
-        return view('admin.chapters.create', compact('comic'));
+        return view('admin.pages.chapters.create', compact('comic'));
     }
 
     public function store(Request $request, Comic $comic)
@@ -45,17 +45,17 @@ class ChapterController extends Controller
 
         $comic->chapters()->save($chapter);
 
-        return redirect()->route('admin.comics.show', $comic)->with('success','Chapter created successfully.');
+        return redirect()->route('admin.pages.comics.show', $comic)->with('success','Chapter created successfully.');
     }
 
     public function show(Comic $comic, Chapter $chapter)
     {
-        return view('admin.chapters.show', compact('comic', 'chapter'));
+        return view('admin.pages.chapters.show', compact('comic', 'chapter'));
     }
 
     public function edit(Comic $comic, Chapter $chapter)
     {
-        return view('admin.chapters.edit', compact('comic', 'chapter'));
+        return view('admin.pages.chapters.edit', compact('comic', 'chapter'));
     }
 
     public function update(Request $request, Comic $comic, Chapter $chapter)
@@ -85,7 +85,7 @@ class ChapterController extends Controller
             $chapter->update(['chapter_name' => $request->chapter_name]);
         }
 
-        return redirect()->route('admin.comics.chapters.show', [$comic, $chapter])->with('success','Chapter updated successfully');
+        return redirect()->route('admin.pages.comics.chapters.show', [$comic, $chapter])->with('success','Chapter updated successfully');
     }
 
 
@@ -98,6 +98,6 @@ class ChapterController extends Controller
 
         $chapter->delete();
 
-        return redirect()->route('admin.comics.show', $comic)->with('success','Chapter deleted successfully');
+        return redirect()->route('admin.pages.comics.show', $comic)->with('success','Chapter deleted successfully');
     }
 }
