@@ -72,5 +72,5 @@ class GenreController extends Controller
         $genre->delete();
 
         return redirect()->route('admin.genres.index');
-    }
+    }    
 }

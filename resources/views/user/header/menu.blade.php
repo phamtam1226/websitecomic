@@ -17,20 +17,18 @@
       </li>
       <!-- Thể loại -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Thể Loại
-        </a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thể Loại</a>
         <ul class="dropdown-menu mega-menu">
           <li>
             <div class="row">
-
-              <div class="col-md-4 media-list span4 text-left">
-
-                <a href="{{ url('/timtruyen') }}">Action</a>
+              <div class="col-md-3 media-list span3 text-left">
+                <a href="{{ url('/timtruyen') }}">Tất cả</a>
               </div>
-              <div class="col-md-4 media-list span4 text-left">
-                <a href="{{ url('/timtruyen') }}">Anime</a>
+              @foreach ($genres as $genre)
+              <div class="col-md-3 media-list span3 text-left">
+                <a href="{{ url('/timtruyen') }}">{{ $genre->name }}</a>
               </div>
+              @endforeach
             </div>
             <hr>
             <a href="" style="text-align:center;color:black">

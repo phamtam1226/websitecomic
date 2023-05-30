@@ -3,22 +3,32 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Genre;
 
 class UserController extends Controller
 {
-    public function index(){
-        return view('user.pages.index');
+    public function index()
+    {
+        // Lấy danh sách thể loại
+        $genres = Genre::all();
+
+        // Trả về view và truyền biến genres
+        return view('user.pages.index', compact('genres'));
     }
     public function details(){
         return view('user.pages.details');
     }
-    public function timtruyen(){
-        return view('user.pages.findcomic');
+    public function timtruyen()
+    {
+        $genres = Genre::all();
+        return view('user.pages.findcomic', compact('genres'));
     }
-    public function history(){
-        return view('user.pages.history');
+    public function history()
+    {
+        $genres = Genre::all();
+        return view('user.pages.history', compact('genres'));
     }
+
     public function chapter(){
         return view('user.pages.chapter');
     }
