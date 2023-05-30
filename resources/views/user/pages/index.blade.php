@@ -152,7 +152,7 @@
 						</figcaption>
 					</div>
 				</div>
-				<div class="col-6 col-sm-6 col-md-3 p-2">
+				<!-- <div class="col-6 col-sm-6 col-md-3 p-2">
 					<div class="d-flex flex-column border height100">
 						<div class="image">
 							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
@@ -375,8 +375,7 @@
 							</ul>
 						</figcaption>
 					</div>
-				</div>
-				
+				</div> -->
 			</div>
 			<br>
 			<ul class="pagination justify-content-center ">
@@ -476,10 +475,6 @@
 												</p>
 											</div>
 										</li>
-
-
-
-
 									</ul>
 									<a href="topmonth:;" class="tr-topthang-viewmore "><i class="fa fa-plus"></i> Xem tiếp</a>
 								</div>

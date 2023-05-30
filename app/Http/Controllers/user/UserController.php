@@ -15,14 +15,19 @@ class UserController extends Controller
         // Trả về view và truyền biến genres
         return view('user.pages.index', compact('genres'));
     }
-    public function details(){
-        return view('user.pages.details');
+
+    public function details()
+    {
+        $genres = Genre::all();
+        return view('user.pages.details', compact('genres'));
     }
+
     public function timtruyen()
     {
         $genres = Genre::all();
         return view('user.pages.findcomic', compact('genres'));
     }
+
     public function history()
     {
         $genres = Genre::all();
@@ -30,7 +35,7 @@ class UserController extends Controller
     }
 
     public function chapter(){
-        return view('user.pages.chapter');
+        $genres = Genre::all();
+        return view('user.pages.chapter', compact('genres'));
     }
-    
 }
