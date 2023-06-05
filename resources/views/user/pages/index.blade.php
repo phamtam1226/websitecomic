@@ -14,13 +14,14 @@
 				<div class="slide-caption">
 					<h3><a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">{{ $comic->comic_name }}</a></h3>
 					@if($comic->chapters->isNotEmpty())
-                        @php
-                        $latestChapter = $comic->chapters->last();
-                        @endphp
-                        <a href="{{ url('/chapter') }}" title="{{ $latestChapter->chapter_name }}">{{ $latestChapter->chapter_name }}</a>
-                        <span class="time"><i class="fa fa-clock-o"></i> {{ $latestChapter->created_at->diffForHumans() }}</span>
-                    @endif
+						@php
+						$latestChapter = $comic->chapters->last();
+						@endphp
+						<a href="{{ route('chapter.details', ['chapterId' => $latestChapter->id]) }}" title="{{ $latestChapter->chapter_name }}">{{ $latestChapter->chapter_name }}</a>
+						<span class="time"><i class="fa fa-clock-o"></i> {{ $latestChapter->created_at->diffForHumans() }}</span>
+					@endif
 				</div>
+
 			</div>
 			@endforeach
 		</div>
@@ -54,10 +55,10 @@
 							</h3>
 							<ul style=" list-style-type: none;">
 								@foreach($comic->chapters as $chapter)
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="{{ $chapter->chapter_name }}">{{ $chapter->chapter_name }}</a>
-									<i class="time">{{ $chapter->created_at->diffForHumans() }}</i>
-								</li>
+									<li class="chapter clearfix">
+										<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}">{{ $chapter->chapter_name }}</a>
+										<i class="time">{{ $chapter->created_at->diffForHumans() }}</i>
+									</li>
 								@endforeach
 							</ul>
 						</figcaption>

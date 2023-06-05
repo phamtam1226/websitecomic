@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use App\Models\Genre;
 use App\Models\Comic;
+use App\Models\Chapter;
 
 class UserController extends Controller
 {
@@ -51,8 +52,25 @@ class UserController extends Controller
         return view('user.pages.history', compact('genres'));
     }
 
-    public function chapter(){
+    public function chapter($chapterId)
+    {
         $genres = Genre::all();
-        return view('user.pages.chapter', compact('genres'));
+
+        // Tìm chapter dựa trên ID được cung cấp
+        $chapter = Chapter::with('comic')->findOrFail($chapterId);
+
+        // Lấy chapter trước đó
+        $prevChapter = Chapter::where('comic_id', $chapter->comic_id)
+            ->where('id', '<', $chapterId)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        // Lấy chapter tiếp theo
+        $nextChapter = Chapter::where('comic_id', $chapter->comic_id)
+            ->where('id', '>', $chapterId)
+            ->orderBy('id', 'asc')
+            ->first();
+
+        return view('user.pages.chapter', compact('genres', 'chapter', 'prevChapter', 'nextChapter'));
     }
 }

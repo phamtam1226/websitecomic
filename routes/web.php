@@ -12,12 +12,12 @@ use App\Http\Controllers\user\LoginController;
 
 // User
 Route::get('/',[UserController::class,'index'])->name('user.index');
-// Route::get('/details',[UserController::class,'details'])->name('details');
 Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
-
 Route::get('/timtruyen',[UserController::class,'timtruyen'])->name('timtruyen');
 Route::get('/history',[UserController::class,'history'])->name('history');
-Route::get('/chapter',[UserController::class,'chapter'])->name('chapter');
+Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
+
+
 
 //Đăng nhập
 Route::get('login',[LoginController::class,'getLogin'])->name('getLogin');
@@ -69,13 +69,13 @@ Route::prefix('admin')->group(function () {
     Route::delete('/chapters/{comic}/{chapter}', [ChapterController::class, 'destroy'])->name('admin.chapters.destroy');
 
     //Tài khoản
-Route::get('/account', [AccountController::class, 'index'])->name('admin.account.index');
-Route::get('/account/create', [AccountController::class, 'create'])->name('admin.account.create');
-Route::post('/account', [AccountController::class, 'store'])->name('admin.account.store');
-Route::get('/account/{accounts}', [AccountController::class, 'show'])->name('admin.account.show');
-Route::get('/account//{accounts}/edit', [AccountController::class, 'edit'])->name('admin.account.edit');
-Route::put('/account/{accounts}', [AccountController::class, 'update'])->name('admin.account.update');
-Route::delete('/account/{accounts}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
-Route::post('/account/search', [AccountController::class, 'search'])->name('admin.account.search');
+    Route::get('/account', [AccountController::class, 'index'])->name('admin.account.index');
+    Route::get('/account/create', [AccountController::class, 'create'])->name('admin.account.create');
+    Route::post('/account', [AccountController::class, 'store'])->name('admin.account.store');
+    Route::get('/account/{accounts}', [AccountController::class, 'show'])->name('admin.account.show');
+    Route::get('/account//{accounts}/edit', [AccountController::class, 'edit'])->name('admin.account.edit');
+    Route::put('/account/{accounts}', [AccountController::class, 'update'])->name('admin.account.update');
+    Route::delete('/account/{accounts}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
+    Route::post('/account/search', [AccountController::class, 'search'])->name('admin.account.search');
 
 });

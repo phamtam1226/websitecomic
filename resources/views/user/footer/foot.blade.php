@@ -14,6 +14,14 @@
 
 <script src="{{ asset('user/js/owl.carousel.min.js') }}"></script>
 
+<script>
+	function redirectToChapter(chapterId) {
+		var redirectUrl = "{{ route('chapter.details', ['chapterId' => ':chapterId']) }}";
+		redirectUrl = redirectUrl.replace(':chapterId', chapterId);
+		window.location.href = redirectUrl;
+	}
+</script>
+
 <script type="text/javascript">
     $('.owl-carousel').owlCarousel({
         items:6,

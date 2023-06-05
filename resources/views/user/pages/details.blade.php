@@ -86,7 +86,7 @@
                 @foreach($comic->chapters as $chapter)
                 <li class="row ">
                     <div class="col-md-5 chapter">
-                        <a href="{{ url('/chapter') }}" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+                        <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}">{{ $chapter->chapter_name }}</a>
                     </div>
                     <div class="col-md-4 text-center small">{{ $chapter->created_at->diffForHumans() }}</div>
                     <div class="col-md-3 text-center small"> {{ $chapter->views }}</div>

@@ -20,7 +20,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thể Loại</a>
         <ul class="dropdown-menu mega-menu">
           <li>
-            <div class="row">
+            <div class="row" style="text-align: center;">
               <div class="col-md-3 media-list span3 text-left">
                 <a href="{{ url('/timtruyen') }}">Tất cả</a>
               </div>
@@ -30,10 +30,6 @@
               </div>
               @endforeach
             </div>
-            <hr>
-            <a href="" style="text-align:center;color:black">
-              <h5 class="tittle-w3layouts-sub"> Xem Tất Cả </h5>
-            </a>
           </li>
         </ul>
       </li>
