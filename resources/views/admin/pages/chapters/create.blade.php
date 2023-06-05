@@ -1,17 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Thêm chương mới</title>
-</head>
-<body>
-    <h1>Thêm chương mới</h1>
-    <form action="{{ route('admin.comics.chapters.store', $comic) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <label for="chapter_name">Tên chương:</label><br>
-        <input type="text" id="chapter_name" name="chapter_name"><br>
-        <label for="images">Ảnh:</label><br>
-        <input type="file" id="images" name="images[]" multiple><br>
-        <input type="submit" value="Thêm chương">
-    </form>
-</body>
-</html>
+@extends('admin.layout')
+@section('content')
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="row">
+                    <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                        <h3 class="font-weight-bold">Tạo mới chapter cho truyện "{{ $comic->comic_name }}"</h3>
+                    </div>
+                </div>
+                @if(Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show notify" role="alert">
+                    <strong>Thông báo! </strong>{{ Session::get('success') }}.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                    <div class="card-body">
+                    <form method="POST" action="{{ route('admin.chapters.store', $comic->id) }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="chapter_name">Tên chapter</label>
+                            <input type="text" class="form-control" id="chapter_name" name="chapter_name" placeholder="Nhập tên chapter" value="{{ old('chapter_name') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="images">Hình ảnh</label>
+                            <input type="file" class="form-control" id="images" name="images[]" multiple required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm chapter</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@stop

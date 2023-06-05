@@ -11,11 +11,26 @@ use Illuminate\Support\Facades\Storage;
 
 class ChapterController extends Controller
 {
-    // public function index(Comic $comic)
-    // {
-    //     $chapters = $comic->chapters;
-    //     return view('chapters.index', compact('chapters', 'comic'));
-    // }
+    public function index()
+    {
+        $comics = Comic::all();
+        return view('admin.pages.chapters.index', compact('comics'));
+    }
+
+    public function search(Request $request)
+    {
+        $comic_name = $request->comic_name;
+        $comics = Comic::where('comic_name', 'LIKE', '%' . $comic_name . '%')->get();
+        return view('admin.pages.chapters.index', compact('comics'));
+    }
+
+
+    public function showAll(Comic $comic)
+    {
+        $chapters = $comic->chapters;
+        return view('admin.pages.chapters.showAll', compact('comic', 'chapters'));
+    }
+
 
     public function create(Comic $comic)
     {
@@ -38,6 +53,7 @@ class ChapterController extends Controller
             }
         }
 
+        // Lưu chapter mới vào bảng chapters
         $chapter = new Chapter([
             'chapter_name' => $request->chapter_name,
             'images' => implode(',', $imagePaths),
@@ -45,7 +61,14 @@ class ChapterController extends Controller
 
         $comic->chapters()->save($chapter);
 
-        return redirect()->route('admin.pages.comics.show', $comic)->with('success','Chapter created successfully.');
+        // Lưu từng đường dẫn hình ảnh vào bảng chapter_images
+        foreach ($imagePaths as $imagePath) {
+            $chapter->images()->create([
+                'image_path' => $imagePath,
+            ]);
+        }
+
+        return redirect()->route('admin.chapters.show', [$comic, $chapter])->with('success', 'Chapter created successfully.');
     }
 
     public function show(Comic $comic, Chapter $chapter)
@@ -85,7 +108,7 @@ class ChapterController extends Controller
             $chapter->update(['chapter_name' => $request->chapter_name]);
         }
 
-        return redirect()->route('admin.pages.comics.chapters.show', [$comic, $chapter])->with('success','Chapter updated successfully');
+        return redirect()->route('admin.chapters.show', [$comic, $chapter])->with('success', 'Chapter updated successfully.');
     }
 
 
@@ -94,10 +117,10 @@ class ChapterController extends Controller
         foreach (explode(',', $chapter->images) as $image) {
             Storage::delete($image);
         }
-        
 
         $chapter->delete();
 
-        return redirect()->route('admin.pages.comics.show', $comic)->with('success','Chapter deleted successfully');
+        return redirect()->route('admin.chapters.showAll', $comic)->with('success', 'Chapter deleted successfully');
     }
+
 }

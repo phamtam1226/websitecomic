@@ -7,379 +7,66 @@
 <div class="container-fluid">
 	<div class="inner-sec-shop px-lg-4 px-3">
 		<h3 class="tittle-w3layouts my-lg-4 my-4">TRUYỆN ĐỀ CỬ > </h3>
-
-
 		<div class="owl-carousel owl-theme">
+			@foreach($nominatedComics as $comic)
 			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
+				<a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}"><img class="lazyOwl" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;"></a>
 				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
+					<h3><a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">{{ $comic->comic_name }}</a></h3>
+					@if($comic->chapters->isNotEmpty())
+                        @php
+                        $latestChapter = $comic->chapters->last();
+                        @endphp
+                        <a href="{{ url('/chapter') }}" title="{{ $latestChapter->chapter_name }}">{{ $latestChapter->chapter_name }}</a>
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ $latestChapter->created_at->diffForHumans() }}</span>
+                    @endif
 				</div>
 			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			<div class="item">
-				<a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần"><img class="lazyOwl" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/20230522/20230522205257_3.png" alt="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="https://baotangtruyengo.com/truyen-tranh/vua-hiep-si-da-tro-lai-voi-mot-vi-than-31054" title="Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần">Vua Hiệp Sĩ Đã Trở Lại Với Một Vị Thần</a></h3>
-					<a href="https://baotangtruyengo.com/truyen-dich/vua-hiep-si-da-tro-lai-voi-mot-vi-than/chapter-6/782213" title="Chapter 6">Chapter 6</a>
-					<span class="time"><i class="fa fa-clock-o"></i> 2 ngày trước</span>
-				</div>
-			</div>
-			
+			@endforeach
 		</div>
 	</div>
 </div>
 
+<!-- Slider truyện mới cập nhật -->
 
 <div class="container-fluid">
 	<div class="row">
-		<!-- truyện mới -->
-		<div class="col-md-8 col-sm-6 ">
+		<div class="col-md-8 col-sm-6" style="margin-top: 40px;">
 			<p style="font-style:italic;">Truyện mới cập nhật</p>
 			<div class="row">
-				<!-- truyện -->
+				@foreach($comics as $comic)
 				<div class="col-6 col-sm-6 col-md-3 p-2">
 					<div class="d-flex flex-column border height100">
-
 						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
+							<a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">
+								<img src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}">
+							</a>
 							<div class="view clearfix">
 								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
+									<!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
+									<i class="fa fa-eye"></i> <i class="fa fa-comment"></i> <i class="fa fa-heart"></i>
 								</span>
 							</div>
 						</div>
 						<figcaption>
 							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
+								<a class="jtip" data-jtip="#truyen-tranh-229" href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
 							</h3>
 							<ul style=" list-style-type: none;">
+								@foreach($comic->chapters as $chapter)
 								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
+									<a href="{{ url('/chapter') }}" title="{{ $chapter->chapter_name }}">{{ $chapter->chapter_name }}</a>
+									<i class="time">{{ $chapter->created_at->diffForHumans() }}</i>
 								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
+								@endforeach
 							</ul>
 						</figcaption>
 					</div>
 				</div>
-				<!-- <div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view clearfix">
-								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view clearfix">
-								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view clearfix">
-								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view clearfix">
-								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view clearfix">
-								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view clearfix">
-								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view clearfix">
-								<span class="pull-left">
-									<i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="{{ url('/chapter') }}" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div> -->
+				@endforeach
 			</div>
 			<br>
 			<ul class="pagination justify-content-center ">
-				
 				<li class="page-item active"><a class="page-link" href="#">1</a></li>
 				<li class="page-item"><a class="page-link" href="#">2</a></li>
 				<li class="page-item"><a class="page-link" href="#">3</a></li>
@@ -390,9 +77,10 @@
 				</li>
 			</ul>
 		</div>
+
 		<!-- truyện theo dõi -->
 		<div class="col-md-4 col-sm-6">
-			<div class="col-12 col-sm-6 col-md-12 p-2">
+			<div class="col-12 col-sm-6 col-md-12 p-2" style="margin-top: 40px;">
 				<div class="d-flex flex-column text-center border height100">
 
 					<h5>Truyện theo dõi</h5>

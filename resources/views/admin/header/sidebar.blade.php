@@ -19,7 +19,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('admin.chapters.index') }}">
               <i class="fas fa-book-open menu-icon"></i>
               <span class="menu-title">Quản lý chapter</span>
             </a>

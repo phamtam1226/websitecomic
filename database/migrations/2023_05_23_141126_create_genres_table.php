@@ -14,13 +14,6 @@ class CreateGenresTable extends Migration
             $table->timestamps();
         });
     }
-    
-    /*
-    CREATE TABLE genres (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL
-    );
-    */
 
     public function down()
     {

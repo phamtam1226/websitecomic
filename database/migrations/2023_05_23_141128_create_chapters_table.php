@@ -12,26 +12,24 @@ class CreateChaptersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('comic_id');
             $table->string('chapter_name');
-            $table->json('images');
             $table->timestamps();
 
             $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');
         });
-    }
 
-    /*
-    CREATE TABLE chapters (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        comic_id INT,
-        chapter_name VARCHAR(255) NOT NULL,
-        images TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (comic_id) REFERENCES comics(id)
-    );
-    */
+        Schema::create('chapter_images', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('chapter_id');
+            $table->string('image_path');
+            $table->timestamps();
+
+            $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('cascade');
+        });
+    }
     
     public function down()
     {
+        Schema::dropIfExists('chapter_images');
         Schema::dropIfExists('chapters');
     }
 }

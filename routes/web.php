@@ -11,7 +11,9 @@ use App\Http\Controllers\user\LoginController;
 
 // User
 Route::get('/',[UserController::class,'index'])->name('index');
-Route::get('/details',[UserController::class,'details'])->name('details');
+// Route::get('/details',[UserController::class,'details'])->name('details');
+Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
+
 Route::get('/timtruyen',[UserController::class,'timtruyen'])->name('timtruyen');
 Route::get('/history',[UserController::class,'history'])->name('history');
 Route::get('/chapter',[UserController::class,'chapter'])->name('chapter');
@@ -19,27 +21,35 @@ Route::get('/login',[LoginController::class,'login'])->name('login');
 
 
 // Admin
-Route::get('/admin/index', [DashboardController::class, 'admin'])->name('admin.index');
-Route::get('/admin/genres', [GenreController::class, 'index'])->name('admin.genres.index');
-Route::get('/admin/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
-Route::post('/admin/genres', [GenreController::class, 'store'])->name('admin.genres.store');
-Route::get('/admin/genres/{genre}', [GenreController::class, 'show'])->name('admin.genres.show');
-Route::get('/admin/genres/{genre}/edit', [GenreController::class, 'edit'])->name('admin.genres.edit');
-Route::put('/admin/genres/{genre}', [GenreController::class, 'update'])->name('admin.genres.update');
-Route::delete('/admin/genres/{genre}', [GenreController::class, 'destroy'])->name('admin.genres.destroy');
+Route::prefix('admin')->group(function () {
+    Route::get('/index', [DashboardController::class, 'admin'])->name('admin.index');
+    
+    // Genres
+    Route::get('/genres', [GenreController::class, 'index'])->name('admin.genres.index');
+    Route::get('/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
+    Route::post('/genres', [GenreController::class, 'store'])->name('admin.genres.store');
+    Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('admin.genres.show');
+    Route::get('/genres/{genre}/edit', [GenreController::class, 'edit'])->name('admin.genres.edit');
+    Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('admin.genres.update');
+    Route::delete('/genres/{genre}', [GenreController::class, 'destroy'])->name('admin.genres.destroy');
 
-Route::get('/admin/comics', [ComicController::class, 'index'])->name('admin.comics.index');
-Route::get('/admin/comics/create', [ComicController::class, 'create'])->name('admin.comics.create');
-Route::post('/admin/comics', [ComicController::class, 'store'])->name('admin.comics.store');
-Route::get('/admin/comics/{comic}', [ComicController::class, 'show'])->name('admin.comics.show');
-Route::get('/admin/comics/{comic}/edit', [ComicController::class, 'edit'])->name('admin.comics.edit');
-Route::put('/admin/comics/{comic}', [ComicController::class, 'update'])->name('admin.comics.update');
-Route::delete('/admin/comics/{comic}', [ComicController::class, 'destroy'])->name('admin.comics.destroy');
-
-Route::get('/admin/comics/{comic}/chapters', [ChapterController::class, 'index'])->name('admin.comics.chapters.index');
-Route::get('/admin/comics/{comic}/chapters/create', [ChapterController::class, 'create'])->name('admin.comics.chapters.create');
-Route::post('/admin/comics/{comic}/chapters', [ChapterController::class, 'store'])->name('admin.comics.chapters.store');
-Route::get('/admin/comics/{comic}/chapters/{chapter}', [ChapterController::class, 'show'])->name('admin.comics.chapters.show');
-Route::get('/admin/comics/{comic}/chapters/{chapter}/edit', [ChapterController::class, 'edit'])->name('admin.comics.chapters.edit');
-Route::put('/admin/comics/{comic}/chapters/{chapter}', [ChapterController::class, 'update'])->name('admin.comics.chapters.update');
-Route::delete('/admin/comics/{comic}/chapters/{chapter}', [ChapterController::class, 'destroy'])->name('admin.comics.chapters.destroy');
+    // Comics
+    Route::get('/comics', [ComicController::class, 'index'])->name('admin.comics.index');
+    Route::get('/comics/create', [ComicController::class, 'create'])->name('admin.comics.create');
+    Route::post('/comics', [ComicController::class, 'store'])->name('admin.comics.store');
+    Route::get('/comics/{comic}', [ComicController::class, 'show'])->name('admin.comics.show');
+    Route::get('/comics/{comic}/edit', [ComicController::class, 'edit'])->name('admin.comics.edit');
+    Route::put('/comics/{comic}', [ComicController::class, 'update'])->name('admin.comics.update');
+    Route::delete('/comics/{comic}', [ComicController::class, 'destroy'])->name('admin.comics.destroy');
+    
+    // Chapters
+    Route::get('/chapters', [ChapterController::class, 'index'])->name('admin.chapters.index');
+    Route::get('/chapters/search', [ChapterController::class, 'search'])->name('admin.chapters.search');
+    Route::get('/chapters/{comic}', [ChapterController::class, 'showAll'])->name('admin.chapters.showAll');
+    Route::get('/chapters/{comic}/create', [ChapterController::class, 'create'])->name('admin.chapters.create');
+    Route::post('/chapters/{comic}', [ChapterController::class, 'store'])->name('admin.chapters.store');
+    Route::get('/chapters/{comic}/{chapter}', [ChapterController::class, 'show'])->name('admin.chapters.show');
+    Route::get('/chapters/{comic}/{chapter}/edit', [ChapterController::class, 'edit'])->name('admin.chapters.edit');
+    Route::put('/chapters/{comic}/{chapter}', [ChapterController::class, 'update'])->name('admin.chapters.update');
+    Route::delete('/chapters/{comic}/{chapter}', [ChapterController::class, 'destroy'])->name('admin.chapters.destroy');
+});
