@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-12" style="padding-top:10px;">
                     <ul class="breadcrumb" style="border: none">
-                        <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+                        <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                         <li>/</li>
                         <li><a href="{{ route('admin.genres.index') }}">Quản lý thể loại</a></li>
                         <li>/</li>

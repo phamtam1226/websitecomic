@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.index') }}">
+            <a class="nav-link" href="{{route('admin.dashboard')}}">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Tổng Quan</span>
             </a>
@@ -32,7 +32,7 @@
           </li> -->
           
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{ route('admin.account.index') }}">
               <i class="icon-head menu-icon"></i>
               <span class="menu-title">Quản lý tài khoản</span>
             </a>

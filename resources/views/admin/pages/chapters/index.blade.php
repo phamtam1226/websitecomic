@@ -37,7 +37,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($comics as $comic)
-                                    <tr onclick="window.location='{{ route('admin.chapters.showAll', $comic) }}';">
+                                    <tr onclick="window.location=`{{ route('admin.chapters.showAll', $comic) }}`;">
                                         <td style="max-width: 180px; text-overflow: ellipsis; overflow: hidden">{{ $comic->comic_name }}</td>
                                     </tr>
                                 @endforeach

@@ -3,17 +3,17 @@
 @include('Login.LoginCss')
 <body>
 
-<div class="login-wrap" >
+<div class="login-wrap">
 	<div class="login-html">
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Đăng Nhập</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Đăng Kí</label>
 		<div class="login-form">
 			<div class="sign-in-htm" style="padding-top:30px">
-		<form class="sign-in-htm" action="#" method="post">
+		<form class="sign-in-htm" action="{{ route('getLogin') }}" method="post">
 			{{ csrf_field() }}
 				<div class="group">
 					<label for="user" class="label">Email</label>
-					<input id="Email" type="text" class="input" name="txtEmail">
+					<input id="email" type="text" class="input" name="txtemail">
 				</div>
 				<div class="group">
 					<label for="pass" class="label">Mật khẩu</label>
@@ -42,16 +42,16 @@
 				</div>
 		</form>
 			</div>
-		<form class="sign-up-htm" action="#" method="post">
+		<form class="sign-up-htm" action="{{ route('getregister') }}" method="post">
 			{{ csrf_field() }}
 			<div class="sign-up-htm" style="padding-top:30px">
 				<div class="group">
 					<label for="user" class="label">Họ Tên</label>
-					<input id="user" type="text" class="input" name="HoTen">
+					<input id="user" type="text" class="input" name="name">
 				</div>
 				<div class="group">
 					<label for="user" class="label">Email</label>
-					<input id="user" type="text" class="input" name="Email">
+					<input id="user" type="text" class="input" name="email">
 				</div>
 				<div class="group">
 					<label for="pass" class="label">Mật khẩu</label>

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
    
-    public function admin(){
+    public function index(){
         return view('admin.pages.dashboard');
     }
 }

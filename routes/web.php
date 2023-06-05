@@ -6,23 +6,38 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\ComicController;
 use App\Http\Controllers\admin\ChapterController;
+use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\LoginController;
 
 // User
-Route::get('/',[UserController::class,'index'])->name('index');
+Route::get('/',[UserController::class,'index'])->name('user.index');
 // Route::get('/details',[UserController::class,'details'])->name('details');
 Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
 
 Route::get('/timtruyen',[UserController::class,'timtruyen'])->name('timtruyen');
 Route::get('/history',[UserController::class,'history'])->name('history');
 Route::get('/chapter',[UserController::class,'chapter'])->name('chapter');
-Route::get('/login',[LoginController::class,'login'])->name('login');
+
+//Đăng nhập
+Route::get('login',[LoginController::class,'getLogin'])->name('getLogin');
+Route::post('login',[LoginController::class, 'postLogin'])->name('postLogin');
+//Đăng Xuất
+Route::get('logout',[LoginController::class,'getLogout'])->name('getLogout');
+//Đăng ký
+Route::get('register',[LoginController::class, 'Register'])->name('getregister');
+Route::post('register',[LoginController::class, 'postRegister'])->name('postRegister');
+//Thông tin tài khoản
+Route::get('/account',[LoginController::class, 'index'])->name("user.account");
+Route::post('/updateinfomation/{id}',[LoginController::class, 'updateinfomation'])->name("user.updateinfomation");
+//DĐổi mật khẩu
+Route::post('account/{id}',[LoginController::class, 'updateAccount'])->name('user.updateAccount');
+
 
 
 // Admin
 Route::prefix('admin')->group(function () {
-    Route::get('/index', [DashboardController::class, 'admin'])->name('admin.index');
+    Route::get('/index', [DashboardController::class, 'index'])->name('admin.dashboard');
     
     // Genres
     Route::get('/genres', [GenreController::class, 'index'])->name('admin.genres.index');
@@ -52,4 +67,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/chapters/{comic}/{chapter}/edit', [ChapterController::class, 'edit'])->name('admin.chapters.edit');
     Route::put('/chapters/{comic}/{chapter}', [ChapterController::class, 'update'])->name('admin.chapters.update');
     Route::delete('/chapters/{comic}/{chapter}', [ChapterController::class, 'destroy'])->name('admin.chapters.destroy');
+
+    //Tài khoản
+Route::get('/account', [AccountController::class, 'index'])->name('admin.account.index');
+Route::get('/account/create', [AccountController::class, 'create'])->name('admin.account.create');
+Route::post('/account', [AccountController::class, 'store'])->name('admin.account.store');
+Route::get('/account/{accounts}', [AccountController::class, 'show'])->name('admin.account.show');
+Route::get('/account//{accounts}/edit', [AccountController::class, 'edit'])->name('admin.account.edit');
+Route::put('/account/{accounts}', [AccountController::class, 'update'])->name('admin.account.update');
+Route::delete('/account/{accounts}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
+Route::post('/account/search', [AccountController::class, 'search'])->name('admin.account.search');
+
 });
