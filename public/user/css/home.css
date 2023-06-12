@@ -135,9 +135,14 @@ a.tr-topthang-viewmore {
 
 /* binh luan */
 .new-comments ul li .thumb .ls-is-cached.lazyloaded{
-    width: 40px;
-    height: 40px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #797979;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     float: left;
+    margin-right: 10px;
 
 }
 .new-comments h5{
@@ -158,7 +163,7 @@ a.tr-topthang-viewmore {
 .new-comments ul li p.wrapper-content-cmt {
     display: block;
     max-width: max-content;
-    margin-left: 50px;
+    margin-left: 61px;
     /* float: left; */
     text-align: -webkit-left;
 }

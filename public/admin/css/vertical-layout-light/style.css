@@ -30593,3 +30593,8 @@ div.tagsinput span.tag a {
 }
 
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
+/* //binh luaa */
+td.content {
+  white-space: break-spaces;
+  line-height: inherit;
+}

@@ -44,8 +44,10 @@
 							</a>
 							<div class="view clearfix">
 								<span class="pull-left">
+								
 									<!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
-									<i class="fa fa-eye"></i> <i class="fa fa-comment"></i> <i class="fa fa-heart"></i>
+									<i class="fa fa-eye"></i> <i class="fa fa-comment">{{ $totalcomment}}</i> <i class="fa fa-heart"></i>
+									
 								</span>
 							</div>
 						</div>
@@ -188,73 +190,21 @@
 					<h5>Bình luận mới</h5>
 					<ul class="list-unstyled">
 						<div data-spy="scroll" data-target="#myScrollspy" data-offset="10" style="height:500px;overflow-y: scroll;padding:5px; ">
+						@foreach($comment as $comment)
 							<li id="cmt-57469">
 								<h3 class="title">
-									<a href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai-31053#binhluan-chitiet">Kiếm Sư Cấp 9 Trở Lại Kiếm Sư Cấp 9 Trở Lại Kiếm Sư Cấp 9 Trở Lại</a>
-									<a class="cmchapter-link" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet"><span class="cmchapter">Chapter 16</span></a>
+									<a href="{{ route('details', ['comicId' => $comment->comic_id]) }}">{{ $comment->comic->comic_name }}</a>
+									<a class="cmchapter-link" href="{{ route('chapter.details', ['chapterId' => $comment->chapter_id]) }}"><span class="cmchapter">{{$comment->chapter->chapter_name}}</span></a>
 								</h3>
-								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet">
-									<img alt="Author" class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/MemberImage/20230324/pic/6974813b-275a-41e6-975f-9360ba4a2d17.jpg" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';" style="display: inline;">
+								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="{{ route('details', ['comicId' => $comic->id]) }}">
+									<img alt="Author" class=" ls-is-cached lazyloaded" src="{{ Storage::url($comment->user->avatar) }}"  style="display: inline;">
 								</a>
-								<span class="authorname">Lee JunT</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> 2 giờ trước</abbr>
+								<span class="authorname">{{$comment->user->name}}</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> {{ $comment->created_at->diffForHumans() }}</abbr>
 
-								<p class="wrapper-content-cmt"><br>hóng</p>
-							</li>
-
-							<hr>
-							<li id="cmt-57469">
-								<h3 class="title">
-									<a href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai-31053#binhluan-chitiet">Kiếm Sư Cấp 9 Trở Lại</a>
-									<a class="cmchapter-link" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet"><span class="cmchapter">Chapter 16</span></a>
-								</h3>
-								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet">
-									<img alt="Author" class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/MemberImage/20230324/pic/6974813b-275a-41e6-975f-9360ba4a2d17.jpg" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';" style="display: inline;">
-								</a>
-								<span class="authorname">Lee JunT</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> 2 giờ trước</abbr>
-
-								<p class="wrapper-content-cmt"><br>hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng</p>
+								<p class="wrapper-content-cmt"><br>{{$comment->content}}</p>
 							</li>
 							<hr>
-							<li id="cmt-57469">
-								<h3 class="title">
-									<a href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai-31053#binhluan-chitiet">Kiếm Sư Cấp 9 Trở Lại</a>
-									<a class="cmchapter-link" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet"><span class="cmchapter">Chapter 16</span></a>
-								</h3>
-								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet">
-									<img alt="Author" class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/MemberImage/20230324/pic/6974813b-275a-41e6-975f-9360ba4a2d17.jpg" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';" style="display: inline;">
-								</a>
-								<span class="authorname">Lee JunT</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> 2 giờ trước</abbr>
-
-								<p class="wrapper-content-cmt"><br>hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng</p>
-							</li>
-							<hr>
-							<li id="cmt-57469">
-								<h3 class="title">
-									<a href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai-31053#binhluan-chitiet">Kiếm Sư Cấp 9 Trở Lại</a>
-									<a class="cmchapter-link" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet"><span class="cmchapter">Chapter 16</span></a>
-								</h3>
-								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet">
-									<img alt="Author" class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/MemberImage/20230324/pic/6974813b-275a-41e6-975f-9360ba4a2d17.jpg" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';" style="display: inline;">
-								</a>
-								<span class="authorname">Lee JunT</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> 2 giờ trước</abbr>
-
-								<p class="wrapper-content-cmt"><br>hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng</p>
-							</li>
-							<hr>
-							<li id="cmt-57469">
-								<h3 class="title">
-									<a href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai-31053#binhluan-chitiet">Kiếm Sư Cấp 9 Trở Lại</a>
-									<a class="cmchapter-link" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet"><span class="cmchapter">Chapter 16</span></a>
-								</h3>
-								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="https://baotangtruyengo.com/truyen-tranh/kiem-su-cap-9-tro-lai/chapter-16/782498#binhluan-chitiet">
-									<img alt="Author" class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/MemberImage/20230324/pic/6974813b-275a-41e6-975f-9360ba4a2d17.jpg" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';" style="display: inline;">
-								</a>
-								<span class="authorname">Lee JunT</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> 2 giờ trước</abbr>
-
-								<p class="wrapper-content-cmt"><br>hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng hóng</p>
-							</li>
-							<hr>
-
+							@endforeach
 						</div>
 					</ul>
 				</div>

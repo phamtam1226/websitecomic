@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Genre;
 use App\Models\Comic;
 use App\Models\Chapter;
+use App\Models\Comment;
 
 class UserController extends Controller
 {
@@ -15,6 +17,8 @@ class UserController extends Controller
         $genres = Genre::all();
 
         $comics = Comic::all();
+        $comment = Comment::orderBy('created_at', 'desc')->get();
+
         $comics->each(function ($comic) {
             $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
         });
@@ -25,9 +29,10 @@ class UserController extends Controller
         });
 
         $nominatedComics = Comic::orderBy('created_at', 'desc')->get();
+        $totalcomment= Comment::all()->count();
 
         // Trả về view và truyền biến genres và comics
-        return view('user.pages.index', compact('genres', 'comics', 'nominatedComics'));
+        return view('user.pages.index', compact('genres', 'comics', 'nominatedComics','comment','totalcomment'));
     }
 
 
@@ -35,14 +40,18 @@ class UserController extends Controller
     {
         $comic = Comic::find($comicId);
         $genres = Genre::all();
+        $comment = Comment::orderBy('created_at', 'desc')->get();
+        $totalcomment= Comment::where('comic_id',$comicId)->count();
 
-        return view('user.pages.details', compact('comic', 'genres'));
+        return view('user.pages.details', compact('comic', 'genres','comment','totalcomment'));
     }
 
     // }
     public function timtruyen($genreId = null)
     {
         $genres = Genre::orderBy('name')->get();
+      
+
         $selectedGenre = null;
 
         if ($genreId) {
@@ -75,6 +84,7 @@ class UserController extends Controller
     public function chapter($chapterId)
     {
         $genres = Genre::all();
+        $comment = Comment::where('chapter_id',$chapterId)->where('status',1)->orderBy('created_at', 'desc')->get();
 
         // Tìm chapter dựa trên ID được cung cấp
         $chapter = Chapter::with('comic')->findOrFail($chapterId);
@@ -91,6 +101,21 @@ class UserController extends Controller
             ->orderBy('id', 'asc')
             ->first();
 
-        return view('user.pages.chapter', compact('genres', 'chapter', 'prevChapter', 'nextChapter'));
+        $totalcomment =  Comment::where('chapter_id',$chapterId)->count();
+
+        return view('user.pages.chapter', compact('genres', 'chapter', 'prevChapter', 'nextChapter','comment','totalcomment'));
+    }
+    public function postComment(Request $request)
+    {
+       
+        $comment = new Comment();
+        $comment->user_id=$request->user_id;
+        $comment->comic_id=$request->comic_id;
+        $comment->chapter_id=$request->chapter_id;
+        $comment->content=$request->content;
+        $comment->status=$request->status;
+        $comment->save();
+         return back();
+        
     }
 }

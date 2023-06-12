@@ -7,42 +7,45 @@ use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\ComicController;
 use App\Http\Controllers\admin\ChapterController;
 use App\Http\Controllers\admin\AccountController;
+use App\Http\Controllers\admin\CommentController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\LoginController;
 
 // User
-Route::get('/',[UserController::class,'index'])->name('user.index');
+Route::get('/', [UserController::class, 'index'])->name('user.index');
 Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
-Route::get('/timtruyen',[UserController::class,'timtruyen'])->name('timtruyen');
-Route::get('/timtruyen/{genre}',[UserController::class,'timtruyen'])->name('timtruyen.genre');
+Route::get('/timtruyen', [UserController::class, 'timtruyen'])->name('timtruyen');
+Route::get('/timtruyen/{genre}', [UserController::class, 'timtruyen'])->name('timtruyen.genre');
 
 Route::get('/timtruyennangcao', [UserController::class, 'timtruyennangcao'])->name('timtruyennangcao');
 
-Route::get('/history',[UserController::class,'history'])->name('history');
+Route::get('/history', [UserController::class, 'history'])->name('history');
 Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
 
 
 
 //Đăng nhập
-Route::get('login',[LoginController::class,'getLogin'])->name('getLogin');
-Route::post('login',[LoginController::class, 'postLogin'])->name('postLogin');
+Route::get('login', [LoginController::class, 'getLogin'])->name('getLogin');
+Route::post('login', [LoginController::class, 'postLogin'])->name('postLogin');
 //Đăng Xuất
-Route::get('logout',[LoginController::class,'getLogout'])->name('getLogout');
+Route::get('logout', [LoginController::class, 'getLogout'])->name('getLogout');
 //Đăng ký
-Route::get('register',[LoginController::class, 'Register'])->name('getregister');
-Route::post('register',[LoginController::class, 'postRegister'])->name('postRegister');
+Route::get('register', [LoginController::class, 'Register'])->name('getregister');
+Route::post('register', [LoginController::class, 'postRegister'])->name('postRegister');
 //Thông tin tài khoản
-Route::get('/account',[LoginController::class, 'index'])->name("user.account");
-Route::post('/updateinfomation/{id}',[LoginController::class, 'updateinfomation'])->name("user.updateinfomation");
-//DĐổi mật khẩu
-Route::post('account/{id}',[LoginController::class, 'updateAccount'])->name('user.updateAccount');
+Route::get('/account', [LoginController::class, 'index'])->name("user.account");
+Route::post('/updateinfomation/{id}', [LoginController::class, 'updateinfomation'])->name("user.updateinfomation");
+//Đổi mật khẩu
+Route::post('account/{id}', [LoginController::class, 'updateAccount'])->name('user.updateAccount');
+//Bình Luận
+Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
 
 
 
 // Admin
 Route::prefix('admin')->group(function () {
     Route::get('/index', [DashboardController::class, 'index'])->name('admin.dashboard');
-    
+
     // Genres
     Route::get('/genres', [GenreController::class, 'index'])->name('admin.genres.index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
@@ -60,7 +63,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/comics/{comic}/edit', [ComicController::class, 'edit'])->name('admin.comics.edit');
     Route::put('/comics/{comic}', [ComicController::class, 'update'])->name('admin.comics.update');
     Route::delete('/comics/{comic}', [ComicController::class, 'destroy'])->name('admin.comics.destroy');
-    
+
     // Chapters
     Route::get('/chapters', [ChapterController::class, 'index'])->name('admin.chapters.index');
     Route::get('/chapters/search', [ChapterController::class, 'search'])->name('admin.chapters.search');
@@ -81,5 +84,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/account/{accounts}', [AccountController::class, 'update'])->name('admin.account.update');
     Route::delete('/account/{accounts}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
     Route::post('/account/search', [AccountController::class, 'search'])->name('admin.account.search');
-
+    //Bình luận
+    Route::get('/comment', [CommentController::class, 'index'])->name('admin.comment.index');
+    Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('admin.comment.destroy');
 });

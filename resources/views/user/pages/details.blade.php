@@ -104,49 +104,35 @@
         <ul class="nav nav-tabs lazy-module" id="nav-lick">
             <li class="active" data-id="1">
                 <a href="javascript:;">
-                    <i class="fa fa-comments"></i> Tổng bình luận (<span class="comment-count">15</span>)
+                    <i class="fa fa-comments"></i> Tổng bình luận (<span class="comment-count">{{ $totalcomment}}</span>)
                 </a>
             </li>
         </ul>
         <div class="tab-content">
 
         </div>
-        <div class="journalrow" id="jid-32956">
+        @foreach($comment as $comment)
+        <div class="journalrow" id="{{$comment->id}}">
+
             <div class="author">
-                <img alt="Author" src="https://img.baotangtruyenvip.com/Content/Images/avata.png" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';">
+                <img alt="Author" src="{{ Storage::url($comment->user->avatar) }}">
                 <span class="cmreply" onclick="addreplyclick(this)" id="cmtbtn-32956">Trả lời</span>
             </div>
+
             <div class="journalitem">
                 <div class="journalsummary">
-
-                    <span class="authorname">Bee</span>
+                    <span class="authorname">{{$comment->user->name}}</span>
                     <span class="member">Thành viên</span>
                     <abbr title="7/7/2022 1:04:18 AM">
-                        <i class="fa fa-clock-o"></i> 10 tháng trước
+                        <i class="fa fa-clock-o"></i>{{ $comment->created_at->diffForHumans() }}
                     </abbr>
-                    <span class="cmchapter">Chapter 7</span>
+                    <span class="cmchapter">{{ $comment->chapter->chapter_name }}</span>
                     <span onclick="journalReport(this);" class="cmreport" id="report-32956">Báo vi phạm</span>
-                    <div class="summary">Má chap này bùn ghê tự nhiên 2 người này die lun<img src="http://4.bp.blogspot.com/_1Jw2fzSntT0/TZDLE6-U1TI/AAAAAAAABQw/_34TK1gvp-A/w1600/019.gif" alt="emo">&nbsp;mé cay tác giả quáaaa</div>
+                    <div class="summary">{{$comment->content}}</div>
                 </div>
             </div>
-            <ul class="jcmt" id="jcmt-32999">
-
-                <li id="cmt-34431">
-                    <img alt="Author" src="https://baotangtruyengo.com/content/images/avata.png" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';">
-                    <div class="jsummary">
-                        <i class="fa fa-angle-up"></i>
-                        <span class="authorname">Ri đỗ</span>
-                        <span class="member">Thành viên</span>
-                        <abbr title="7/17/2022 7:10:43 PM">
-                            <i class="fa fa-clock-o"></i> 10 tháng trước
-                        </abbr>
-                        <span onclick="journalReport(this);" class="cmreport" id="report-34431">Báo vi phạm</span>
-                        <div class="summary">sao pháp sư trong chuyện này ko bá như mấy pháp sư trong truyện khác nhờ</div>
-                    </div>
-                </li>
-            </ul>
-
         </div>
+        @endforeach
     </div>
 </div>
 <br>
