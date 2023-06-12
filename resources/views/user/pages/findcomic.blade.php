@@ -1,17 +1,28 @@
 @extends('user.layout')
 @section('content')
 
-
 <!-- Slider truyện đề cử -->
 
 <div class="container-fluid ">
 
     <ul class="breadcrumb bg-white">
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Trang Chủ</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tìm Truyện</li>
+        <li class="breadcrumb-item"><a href="{{ route('timtruyen') }}">Thể Loại</a></li>
+        @if($selectedGenre)
+            <li class="breadcrumb-item active" aria-current="page">{{ $selectedGenre->name }}</li>
+        @else
+            <li class="breadcrumb-item active" aria-current="page">Tất cả</li>
+        @endif
     </ul>
+
     <div class="comic-filter">
-        <h3 class="text-center" itemprop="name">Action</h3>
+        <h3 class="text-center" itemprop="name">
+            @if ($selectedGenre)
+                {{ $selectedGenre->name }}
+            @else
+                Tất cả
+            @endif
+        </h3>
         <ul id="ctl00_mainContent_ctl00_ulStatus" class="nav nav-tabs">
             <li class="active"><a class="btn btn-outline-primary" href="#">Tất cả</a></li>
             <li class=""><a class="btn btn-outline-primary" href="#">Hoàn thành</a></li>
@@ -35,413 +46,45 @@
                 <a rel="nofollow " class="btn btn-outline-dark " href="#"><i class="fa fa-list"></i> Số chapter</a>
                 <a class="btn btn-outline-dark" href="#"><i class="fa fa-sort-amount-desc"></i> Ngày cập nhật</a>
             </div>
-            
         </div>
-        
     </div>
     <br>
     <div class="row">
         <!-- truyện mới -->
         <div class="col-md-12 col-sm-6 ">
-
             <div class="row">
                 <!-- truyện -->
+                @foreach($comics as $comic)
                 <div class="col-6 col-sm-6 col-md-2 p-2">
                     <div class="d-flex flex-column border height100">
-
                         <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
+                            <a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">
+                                <img src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}">
+                            </a>
                             <div class="view clearfix">
                                 <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
+                                    <!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
+                                    <i class="fa fa-eye"></i> <i class="fa fa-comment"></i> <i class="fa fa-heart"></i>
                                 </span>
                             </div>
                         </div>
                         <figcaption>
                             <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
+                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
                             </h3>
                             <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
+                                @foreach($comic->chapters as $chapter)
+                                    <li class="chapter clearfix">
+                                        <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}">{{ $chapter->chapter_name }}</a>
+                                        <i class="time">{{ $chapter->created_at->diffForHumans() }}</i>
+                                    </li>
+                                @endforeach
                             </ul>
                         </figcaption>
                     </div>
                 </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
+                @endforeach
 
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-md-2 p-2">
-                    <div class="d-flex flex-column border height100">
-
-                        <div class="image">
-                            <img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-                            <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> 264K <i class="fa fa-comment"></i> 15 <i class="fa fa-heart"></i> 237
-                                </span>
-                            </div>
-                        </div>
-                        <figcaption>
-                            <h3>
-                                <a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-                            </h3>
-                            <ul style=" list-style-type: none;">
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-                                    <i class="time">21 ph&#250;t trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-                                    <i class="time">2 ng&#224;y trước</i>
-                                </li>
-                                <li class="chapter clearfix">
-                                    <a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-                                    <i class="time">7 ng&#224;y trước</i>
-                                </li>
-                            </ul>
-                        </figcaption>
-                    </div>
-                </div>
                 <br>
                 <ul class="pagination justify-content-center ">
 

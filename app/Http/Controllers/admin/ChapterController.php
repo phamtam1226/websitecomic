@@ -90,24 +90,33 @@ class ChapterController extends Controller
         ]);
 
         if($request->hasFile('images')){
-            foreach (explode(',', $chapter->images) as $image) {
-                Storage::delete($image);
-            }            
 
+            foreach ($chapter->images as $chapterImage) {
+                Storage::delete($chapterImage->image_path);
+                $chapterImage->delete();
+            }
+        
             $imagePaths = [];
-
+        
             foreach ($request->file('images') as $image) {
                 $imagePaths[] = $image->store('public/chapters');
             }
-
+        
             $chapter->update([
                 'chapter_name' => $request->chapter_name,
                 'images' => implode(',', $imagePaths),
             ]);
+        
+            // Lưu từng đường dẫn hình ảnh vào bảng chapter_images
+            foreach ($imagePaths as $imagePath) {
+                $chapter->images()->create([
+                    'image_path' => $imagePath,
+                ]);
+            }
         } else {
             $chapter->update(['chapter_name' => $request->chapter_name]);
         }
-
+        
         return redirect()->route('admin.chapters.show', [$comic, $chapter])->with('success', 'Chapter updated successfully.');
     }
 

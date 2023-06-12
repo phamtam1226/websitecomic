@@ -14,6 +14,10 @@ use App\Http\Controllers\user\LoginController;
 Route::get('/',[UserController::class,'index'])->name('user.index');
 Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
 Route::get('/timtruyen',[UserController::class,'timtruyen'])->name('timtruyen');
+Route::get('/timtruyen/{genre}',[UserController::class,'timtruyen'])->name('timtruyen.genre');
+
+Route::get('/timtruyennangcao', [UserController::class, 'timtruyennangcao'])->name('timtruyennangcao');
+
 Route::get('/history',[UserController::class,'history'])->name('history');
 Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
 

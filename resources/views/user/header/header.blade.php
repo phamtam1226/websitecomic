@@ -15,6 +15,11 @@
     font-size: 17px;
   }
 
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;   
+  }
+
+
   .count {
     border-radius: 100%;
     border: 2px solid red;

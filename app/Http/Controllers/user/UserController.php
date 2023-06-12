@@ -39,11 +39,31 @@ class UserController extends Controller
         return view('user.pages.details', compact('comic', 'genres'));
     }
 
-
-    public function timtruyen()
+    // }
+    public function timtruyen($genreId = null)
     {
-        $genres = Genre::all();
-        return view('user.pages.findcomic', compact('genres'));
+        $genres = Genre::orderBy('name')->get();
+        $selectedGenre = null;
+
+        if ($genreId) {
+            $selectedGenre = Genre::findOrFail($genreId);
+            $comics = $selectedGenre->comics()->get();
+        } else {
+            $comics = Comic::all();
+        }
+
+        // Lấy 3 chương mới nhất cho mỗi truyện
+        foreach ($comics as $comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        return view('user.pages.findcomic', compact('genres', 'comics', 'selectedGenre'));
+    }
+
+
+    public function timtruyennangcao()
+    {
+        // Xử lý tìm kiếm nâng cao ở đây
     }
 
     public function history()

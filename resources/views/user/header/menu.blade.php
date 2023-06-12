@@ -15,24 +15,26 @@
 
         </a>
       </li>
+
       <!-- Thể loại -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thể Loại</a>
-        <ul class="dropdown-menu mega-menu">
-          <li>
-            <div class="row" style="text-align: center;">
-              <div class="col-md-3 media-list span3 text-left">
-                <a href="{{ url('/timtruyen') }}">Tất cả</a>
-              </div>
-              @foreach ($genres as $genre)
-              <div class="col-md-3 media-list span3 text-left">
-                <a href="{{ url('/timtruyen') }}">{{ $genre->name }}</a>
-              </div>
-              @endforeach
-            </div>
-          </li>
-        </ul>
+          <a class="nav-link" href="{{ route('timtruyen') }}">Thể Loại</a>
+          <ul class="dropdown-menu mega-menu">
+              <li>
+                  <div class="row" style="text-align: center;">
+                      <div class="col-md-3 media-list span3 text-left">
+                          <a href="{{ route('timtruyen') }}">Tất cả</a>
+                      </div>
+                      @foreach ($genres as $genre)
+                      <div class="col-md-3 media-list span3 text-left">
+                          <a href="{{ route('timtruyen.genre', ['genre' => $genre->id]) }}">{{ $genre->name }}</a>
+                      </div>
+                      @endforeach
+                  </div>
+              </li> 
+          </ul>
       </li>
+
       <!-- Xếp hạng -->
       <li class="nav-item dropdown">
         <a rel="nofollow" href="#" class="nav-link " data-toggle="dropdown" role="button" aria-expanded="false">Xếp hạng <i class="fa fa-sort"></i></a>
@@ -72,8 +74,7 @@
       </li>
       <!-- Tìm truyện -->
       <li class="nav-item">
-               
-        <a class="nav-link" href="{{ url('/timtruyen') }}">Tìm Truyện</a>
+          <a class="nav-link" href="{{ route('timtruyennangcao') }}">Tìm Truyện</a>
       </li>
       <!-- Lịch sử -->
       <li class="nav-item">
