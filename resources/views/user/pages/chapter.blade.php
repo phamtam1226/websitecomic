@@ -25,7 +25,7 @@
 
             <div class="chapter-nav" id="chapter-nav" style="z-index: 1000;">
                 <a class="home" href="{{ url('/') }}" title="Trang chủ"><i class="fa fa-home"></i></a>
-                <a class="home backward" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229#nt_listchapter" title="TOÀN CHỨC PHÁP SƯ"><i class="fa fa-list"></i></a>
+                <a class="home backward" href="{{ route('details', ['comicId' => $chapter->comic->id]) }}" title="{{ $chapter->comic->comic_name }}"><i class="fa fa-list"></i></a>
                 <a class="home changeserver" href="javascript:;" title="Đổi server"><i class="fa fa-undo error"></i><span>1</span></a>
 
                 <a id="prevChapter" href="{{ $prevChapter ? route('chapter.details', ['chapterId' => $prevChapter->id]) : '#' }}" class="prev a_prev"><i class="fa fa-angle-left"></i></a>

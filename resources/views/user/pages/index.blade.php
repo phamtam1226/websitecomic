@@ -44,9 +44,8 @@
 							</a>
 							<div class="view clearfix">
 								<span class="pull-left">
-								
 									<!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
-									<i class="fa fa-eye"></i> <i class="fa fa-comment">{{ $totalcomment}}</i> <i class="fa fa-heart"></i>
+									<i class="fa fa-eye"></i> <i class="fa fa-comment">{{ $totalcomment }}</i> <i class="fa fa-heart"></i>
 									
 								</span>
 							</div>

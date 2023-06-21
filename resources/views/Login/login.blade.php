@@ -1,88 +1,126 @@
 <!DOCTYPE html>
 <html lang="zxx">
-@include('Login.LoginCss')
+@include('Login.loginCss')
 <body>
+    <div class="login-wrap">
+        <div class="login-html">
+            <!-- Nếu không có lỗi nào được trả về (!$errors->any()), tab Đăng Nhập sẽ được chọn mặc định (checked). Nếu có lỗi, tab tương ứng với form_type trong session sẽ được chọn. -->
+            <input id="tab-1" type="radio" name="tab" class="sign-in" {{ (session('form_type') == 'login' || !$errors->any()) ? 'checked' : '' }}><label for="tab-1" class="tab">Đăng Nhập</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up" {{ (session('form_type') == 'register' && $errors->any()) ? 'checked' : '' }}><label for="tab-2" class="tab">Đăng Kí</label>
 
-<div class="login-wrap">
-	<div class="login-html">
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Đăng Nhập</label>
-		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Đăng Kí</label>
-		<div class="login-form">
-			<div class="sign-in-htm" style="padding-top:30px">
-		<form class="sign-in-htm" action="{{ route('getLogin') }}" method="post">
-			{{ csrf_field() }}
-				<div class="group">
-					<label for="user" class="label">Email</label>
-					<input id="email" type="text" class="input" name="txtemail">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Mật khẩu</label>
-					<input id="pass" type="password" class="input" data-type="password" name="txtMatKhau">
-					@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+            <div class="login-form">
+                <form class="sign-in-htm" action="{{ route('getLogin') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="sign-in-htm" style="padding-top:30px">
+                        <div class="group">
+                            <label for="user" class="label">Email</label>
+                            <input id="email" type="text" class="input" name="txtemail">
+                        </div>
+                        <div class="group">
+                            <label for="pass" class="label">Mật khẩu</label>
+                            <input id="pass" type="password" class="input" data-type="password" name="txtMatKhau">
+              
+                            @if ($errors->any() && session('form_type') == 'login')
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <li>{{ $errors->first() }}</li>
+                                </ul>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="group">
+                            <input id="check" type="checkbox" class="check" checked>
+                            <label for="check"><span class="icon"></span> Nhớ mật khẩu </label>
+                        </div>
+                        <div class="group">
+                            <input type="submit" class="button" value="Đăng Nhập">
+                        </div>
+                        <div class="foot-lnk" style="padding-top:20px;color:white">
+                            <label for="tab-2">Bạn chưa có tài khoản? Đăng kí.</label>
+                        </div>
+                        <div class="foot-lnk" style="padding-top:20px;color:white">
+                            <a href="/"> Trang chủ</a>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="sign-up-htm" action="{{ route('getregister') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="sign-up-htm" style="padding-top:30px">
+                        <div class="group">
+                            <label for="user" class="label">Họ Tên</label>
+                            <input id="user" type="text" class="input" name="name">
+                        </div>
+                        <div class="group">
+                            <label for="user" class="label">Email</label>
+                            <div class="input-group" style="display: flex;">
+                                <input id="email-register" type="text" class="input" name="email" style="flex: 1;">
+                                <button id="send-otp-btn" type="button" class="button" style="width: 100px;">Gửi OTP</button>
+                            </div>
+                        </div>
+
+                        <div class="group">
+							<div style="display: flex;">
+								<div style="flex: 1;">
+									<label for="pass" class="label">Mật khẩu</label>
+									<input id="pass" type="password" class="input" data-type="password" name="password">
+								</div>
+								<div style="flex: 1;">
+									<label for="pass" class="label">Nhập lại mật khẩu</label>
+									<input id="pass" type="password" class="input" data-type="password" name="repassword">
+								</div>
+							</div>
+						</div>
+                        <div class="group">
+                            <label for="otp" class="label">Xác thực OTP</label>
+                            <input id="otp" type="text" class="input" name="otp">
+                        </div>
+                        @if ($errors->any() && session('form_type') == 'register')
+                        <div class="alert alert-danger">
+                            <ul>
+                                <li>{{ $errors->first() }}</li>
+                            </ul>
+                        </div>
+                        @endif
+                        <div class="group">
+                            <input type="submit" class="button" value="Đăng Kí">
+                        </div>
+                        <div class="foot-lnk" style="padding-top:20px;color:white">
+                            <label for="tab-1">Bạn đã có tài khoản? Đăng nhập.</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-@endif
-				</div>
-				<div class="group">
-					<input id="check" type="checkbox" class="check" checked>
-					<label for="check"><span class="icon"></span> Nhớ mật khẩu </label>
-				</div>
-				<div class="group">
-					<input type="submit" class="button" value="Đăng Nhập">
-				</div>
-				<div class="hr"></div>
-				
-				<div class="foot-lnk" style="margin-top:25px">
-					<a href="/" style="color:white;"><i class="fas fa-home"></i> Trang chủ</a>
-				</div>
-		</form>
-			</div>
-		<form class="sign-up-htm" action="{{ route('getregister') }}" method="post">
-			{{ csrf_field() }}
-			<div class="sign-up-htm" style="padding-top:30px">
-				<div class="group">
-					<label for="user" class="label">Họ Tên</label>
-					<input id="user" type="text" class="input" name="name">
-				</div>
-				<div class="group">
-					<label for="user" class="label">Email</label>
-					<input id="user" type="text" class="input" name="email">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Mật khẩu</label>
-					<input id="pass" type="password" class="input" data-type="password" name="password">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Xác thực mật khẩu</label>
-					<input id="pass" type="password" class="input" data-type="password" name="repassword">
-				</div>
-				@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-				<div class="group">
-					<input type="submit" class="button" value="Đăng Kí">
-				</div>
-				<div class="hr"></div>
-				<div class="foot-lnk">
-					<label for="tab-1">Bạn đã có tài khoản? Đăng nhập.</a>
-				</div>
-			</div>
-		</form>
-		
-		</div>
-	</div>
-</div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#send-otp-btn').click(function () {
+            $.ajax({
+                url: "{{ route('sendOtp') }}",
+                method: "POST",
+                data: {
+                    email: $('#email-register').val(),
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function (response) {
+                    alert(response.message);
+                },
+                error: function (xhr, status, error) {
+                    var response = xhr.responseJSON;
+                    if (response && response.message) {
+                        alert(response.message);
+                    } else {
+                        alert("Lỗi không xác định. Vui lòng thử lại sau.");
+                    }
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+</script>
 
 </html>

@@ -19,7 +19,7 @@ class CreateCommentTable extends Migration
             
             $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');
             $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
            
         });
     }

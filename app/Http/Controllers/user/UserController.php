@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         $comic = Comic::find($comicId);
         $genres = Genre::all();
-        $comment = Comment::orderBy('created_at', 'desc')->get();
+        $comment = Comment::where('comic_id',$comicId)->get();
         $totalcomment= Comment::where('comic_id',$comicId)->count();
 
         return view('user.pages.details', compact('comic', 'genres','comment','totalcomment'));

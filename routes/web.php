@@ -23,15 +23,22 @@ Route::get('/history', [UserController::class, 'history'])->name('history');
 Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
 
 
-
 //Đăng nhập
 Route::get('login', [LoginController::class, 'getLogin'])->name('getLogin');
 Route::post('login', [LoginController::class, 'postLogin'])->name('postLogin');
-//Đăng Xuất
-Route::get('logout', [LoginController::class, 'getLogout'])->name('getLogout');
+
 //Đăng ký
 Route::get('register', [LoginController::class, 'Register'])->name('getregister');
 Route::post('register', [LoginController::class, 'postRegister'])->name('postRegister');
+
+//OTP
+Route::post('send-otp', [LoginController::class, 'sendOtp'])->name('sendOtp');
+// Route::post('verify-otp', [LoginController::class, 'verifyOtp'])->name('verifyOtp');
+
+
+//Đăng Xuất
+Route::get('logout', [LoginController::class, 'getLogout'])->name('getLogout');
+
 //Thông tin tài khoản
 Route::get('/account', [LoginController::class, 'index'])->name("user.account");
 Route::post('/updateinfomation/{id}', [LoginController::class, 'updateinfomation'])->name("user.updateinfomation");
