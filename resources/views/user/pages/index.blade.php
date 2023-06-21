@@ -14,11 +14,11 @@
 				<div class="slide-caption">
 					<h3><a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">{{ $comic->comic_name }}</a></h3>
 					@if($comic->chapters->isNotEmpty())
-						@php
-						$latestChapter = $comic->chapters->last();
-						@endphp
-						<a href="{{ route('chapter.details', ['chapterId' => $latestChapter->id]) }}" title="{{ $latestChapter->chapter_name }}">{{ $latestChapter->chapter_name }}</a>
-						<span class="time"><i class="fa fa-clock-o"></i> {{ $latestChapter->created_at->diffForHumans() }}</span>
+					@php
+					$latestChapter = $comic->chapters->last();
+					@endphp
+					<a href="{{ route('chapter.details', ['chapterId' => $latestChapter->id]) }}" title="{{ $latestChapter->chapter_name }}">{{ $latestChapter->chapter_name }}</a>
+					<span class="time"><i class="fa fa-clock-o"></i> {{ $latestChapter->created_at->diffForHumans() }}</span>
 					@endif
 				</div>
 
@@ -44,9 +44,10 @@
 							</a>
 							<div class="view clearfix">
 								<span class="pull-left">
+
 									<!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
-									<i class="fa fa-eye"></i> <i class="fa fa-comment">{{ $totalcomment }}</i> <i class="fa fa-heart"></i>
-									
+									<i class="fa fa-eye">{{ $comic->number_views}}</i> <i class="fa fa-comment">{{ $comic->number_comments}}</i> <i class="fa fa-heart"></i>
+
 								</span>
 							</div>
 						</div>
@@ -56,10 +57,10 @@
 							</h3>
 							<ul style=" list-style-type: none;">
 								@foreach($comic->chapters as $chapter)
-									<li class="chapter clearfix">
-										<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}">{{ $chapter->chapter_name }}</a>
-										<i class="time">{{ $chapter->created_at->diffForHumans() }}</i>
-									</li>
+								<li class="chapter clearfix">
+									<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+									<i class="time">{{ $chapter->created_at->diffForHumans() }}</i>
+								</li>
 								@endforeach
 							</ul>
 						</figcaption>
@@ -87,6 +88,18 @@
 
 					<h5>Truyện theo dõi</h5>
 					<p>Không có dữ liệu</p>
+				</div>
+				<br>
+				<div class="d-flex flex-column text-center border height100">
+
+					<h5>Lịch sử đọc truyện</h5>
+					<hr>
+					@if(session()->has('infoUser'))
+					<?php $infoUser = session()->get('infoUser') ?>
+					
+					@else
+					<p>Không có dữ liệu</p>
+					@endif
 				</div>
 				<br>
 				<!-- top -->
@@ -131,40 +144,7 @@
 												</p>
 											</div>
 										</li>
-										<li class="clearfix" style="display:block">
-											<span class="txt-rank fn-order pos1">02</span>
-											<div class="t-item">
-												<a class="thumb" title="Until Your Sword Breaks" href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">
-													<img class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/API/20230511/until-your-sword-breaks.jpg" alt="Until Your Sword Breaks" style="display: inline;">
-												</a>
-												<h3 class="title">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">Until Your Sword Breaks</a>
-												</h3>
-												<p class="chapter top">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks/chapter-1/778897" title="Chapter 1">Chapter 1</a>
-													<span class="view pull-right">
-														<i class="fa fa-eye"></i> 127K
-													</span>
-												</p>
-											</div>
-										</li>
-										<li class="clearfix" style="display:block">
-											<span class="txt-rank fn-order pos1">03</span>
-											<div class="t-item">
-												<a class="thumb" title="Until Your Sword Breaks" href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">
-													<img class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/API/20230511/until-your-sword-breaks.jpg" alt="Until Your Sword Breaks" style="display: inline;">
-												</a>
-												<h3 class="title">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">Until Your</a>
-												</h3>
-												<p class="chapter top">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks/chapter-1/778897" title="Chapter 1">Chapter 1</a>
-													<span class="view pull-right">
-														<i class="fa fa-eye"></i> 127K
-													</span>
-												</p>
-											</div>
-										</li>
+
 									</ul>
 									<a href="topmonth:;" class="tr-topthang-viewmore "><i class="fa fa-plus"></i> Xem tiếp</a>
 								</div>
@@ -189,14 +169,14 @@
 					<h5>Bình luận mới</h5>
 					<ul class="list-unstyled">
 						<div data-spy="scroll" data-target="#myScrollspy" data-offset="10" style="height:500px;overflow-y: scroll;padding:5px; ">
-						@foreach($comment as $comment)
+							@foreach($comment as $comment)
 							<li id="cmt-57469">
 								<h3 class="title">
 									<a href="{{ route('details', ['comicId' => $comment->comic_id]) }}">{{ $comment->comic->comic_name }}</a>
 									<a class="cmchapter-link" href="{{ route('chapter.details', ['chapterId' => $comment->chapter_id]) }}"><span class="cmchapter">{{$comment->chapter->chapter_name}}</span></a>
 								</h3>
 								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="{{ route('details', ['comicId' => $comic->id]) }}">
-									<img alt="Author" class=" ls-is-cached lazyloaded" src="{{ Storage::url($comment->user->avatar) }}"  style="display: inline;">
+									<img alt="Author" class=" ls-is-cached lazyloaded" src="{{ Storage::url($comment->user->avatar) }}" style="display: inline;">
 								</a>
 								<span class="authorname">{{$comment->user->name}}</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> {{ $comment->created_at->diffForHumans() }}</abbr>
 

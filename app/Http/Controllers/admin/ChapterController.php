@@ -43,6 +43,8 @@ class ChapterController extends Controller
             'chapter_name' => 'required',
             'images' => 'required',
             'images.*' => 'image',
+            'number_comment' => 'required',
+            'number_view' => 'required',
         ]);
 
         $imagePaths = [];
@@ -57,6 +59,8 @@ class ChapterController extends Controller
         $chapter = new Chapter([
             'chapter_name' => $request->chapter_name,
             'images' => implode(',', $imagePaths),
+            'number_comment' => $request->number_comment,
+            'number_view' => $request->number_view,
         ]);
 
         $comic->chapters()->save($chapter);

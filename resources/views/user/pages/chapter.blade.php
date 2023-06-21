@@ -25,20 +25,20 @@
 
             <div class="chapter-nav" id="chapter-nav" style="z-index: 1000;">
                 <a class="home" href="{{ url('/') }}" title="Trang chủ"><i class="fa fa-home"></i></a>
-                <a class="home backward" href="{{ route('details', ['comicId' => $chapter->comic->id]) }}" title="{{ $chapter->comic->comic_name }}"><i class="fa fa-list"></i></a>
+                <a class="home backward" href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su-229#nt_listchapter" title="TOÀN CHỨC PHÁP SƯ"><i class="fa fa-list"></i></a>
                 <a class="home changeserver" href="javascript:;" title="Đổi server"><i class="fa fa-undo error"></i><span>1</span></a>
 
-                <a id="prevChapter" href="{{ $prevChapter ? route('chapter.details', ['chapterId' => $prevChapter->id]) : '#' }}" class="prev a_prev"><i class="fa fa-angle-left"></i></a>
+                <a id="prevChapter" href="{{ $prevChapter ? route('chapter.details', ['chapterId' => $prevChapter->id]) : '#' }}" class="prev a_prev chapterview" data-id="{{ $chapter->id }}"><i class="fa fa-angle-left"></i></a>
 
-                <select name="ctl00$mainContent$ddlSelectChapter" class="select-chapter ctl00_mainContent_ddlSelectChapter" onchange="redirectToChapter(this.value)">
+                <select name="ctl00$mainContent$ddlSelectChapter" class="select-chapter ctl00_mainContent_ddlSelectChapter " onchange="redirectToChapter(this.value)" >
                     @foreach ($chapter->comic->chapters as $comicChapter)
-                    <option value="{{ $comicChapter->id }}" {{ $comicChapter->id == $chapter->id ? 'selected' : '' }}>
-                        {{ $comicChapter->chapter_name }}
+                    <option class="chapterview" data-id="{{ $comicChapter->id }}" value="{{ $comicChapter->id }}" {{ $comicChapter->id == $chapter->id ? 'selected' : '' }} >
+                   {{ $comicChapter->chapter_name }}
                     </option>
                     @endforeach
                 </select>
 
-                <a id="nextChapter" href="{{ $nextChapter ? route('chapter.details', ['chapterId' => $nextChapter->id]) : '#' }}" class="next a_next"><i class="fa fa-angle-right"></i></a>
+                <a id="nextChapter" href="{{ $nextChapter ? route('chapter.details', ['chapterId' => $nextChapter->id]) : '#' }}" class="next a_next chapterview"  data-id="{{ $chapter->id }}"><i class="fa fa-angle-right"></i></a>
 
 
                 <a class="follow-link btn btn-success" href="javascript:void(0)" data-id="{{ $chapter->comic->id }}" onclick="story.FollowStory('{{ $chapter->comic->id }}')">
@@ -58,95 +58,90 @@
         <div class="top bottom">
             <div class="chapter-nav-bottom" style="margin:5px 0;text-align:center">
                 <div class="chapter-nav-bottom text-center mrt5 mrb5">
-                    <a href="{{ $prevChapter ? route('chapter.details', ['chapterId' => $prevChapter->id]) : '#' }}" class="btn btn-danger prev"><em>&lt;</em> Chap trước</a>
-                    <a href="{{ $nextChapter ? route('chapter.details', ['chapterId' => $nextChapter->id]) : '#' }}" class="btn btn-danger next">Chap sau <em>&gt;</em></a>
+                    <a href="{{ $prevChapter ? route('chapter.details', ['chapterId' => $prevChapter->id]) : '#' }}" class="btn btn-danger prev chapterview" data-id="{{ $chapter->id }}"><em>&lt;</em> Chap trước</a>
+                    <a href="{{ $nextChapter ? route('chapter.details', ['chapterId' => $nextChapter->id]) : '#' }}" class="btn btn-danger next chapterview" data-id="{{ $chapter->id }}">Chap sau <em>&gt;</em></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- bình luận -->
-    <div class="comment-detail">
-        <ul class="nav nav-tabs lazy-module" id="nav-lick">
-            <li class="active" data-id="1">
-                <a href="javascript:;">
-                    <i class="fa fa-comments"></i> Tổng bình luận (<span class="comment-count">{{$totalcomment}}</span>)
+    <div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link  active" id="tab-topmonth" data-toggle="tab" href="#content-topmonth" role="tab" aria-controls="content-topmonth" aria-selected="true">
+                    <form method="POST">
+                        @csrf
+                        <input type="hidden" name="chapter_id" hidden class="form-control" id="inputid_chapter" value="{{$chapter->id}}">
+                        <div id="number_comment"></div>
+                    </form>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab-topweek" data-toggle="tab" href="#content-topweek" role="tab" aria-controls="content-topweek" aria-selected="false">
+                    Bình luận Facbook
+                </a>
+            </li>
+
         </ul>
-        <div class="tab-content">
-            <form action="{{route('postComment')}}" method="POST" enctype="multipart/form-data">
 
-                @csrf
-                <div class="add-comment">
-                    <h4>Thêm nhận xét</h4>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade  show active" id="content-topmonth" role="tabpanel" aria-labelledby="tab-topmonth">
+                <div class="tab-pane">
+                    <div id="topMonth">
+                        <ul class="list-unstyled relative">
+                        <h4>Thêm nhận xét</h4>
+                            <div class="tab-content">
+                          
+                                <form method="POST">
 
-                    @if(session()->has('infoUser'))
-                    <?php $infoUser = session()->get('infoUser') ?>
+                                    @csrf
+        
+                                    <div class="add-comment">
+                                       
+                                        @if(session()->has('infoUser'))
+                                        <?php $infoUser = session()->get('infoUser') ?>
+                                        <input class="form-control" type="text" name="user_name" readonly placeholder="Bạn hãy nhập tên..." id="inputname" value="{{$infoUser['name']}}" required="">
+                                        <div class="form-outline  mb-4">
+                                            <textarea name="content" id="inputcontent" class="form-control" id="textAreaExample6" rows="3" required=""></textarea>
+                                        </div>
 
-                    <input class="form-control" type="text" name="user_name" readonly placeholder="Bạn hãy nhập tên..." id="inputname" value="{{$infoUser['name']}}" required="">
+                                        <input type="hidden" name="user_id" hidden class="form-control" id="inputid_user" value="{{$infoUser['id']}}">
+                                        <input type="hidden" name="chapter_id" hidden class="form-control" id="inputid_chapter" value="{{$chapter->id}}">
+                                        <input type="hidden" name="comic_id" hidden class="form-control" id="inputid_comic" value="{{$chapter->comic->id}}">
+                                        <input type="hidden" name="status" hidden class="form-control" id="inputstatus" value="1">
+                                        <div id="notify_comment"></div>
+                                        <button type="button" class="btn btn-primary" id="submitBinhLuan">Gửi</button>
+                                        @else
+                                        <a href="{{route('getLogin')}}" class="btn hvr-hover">Vui lòng đăng nhập để bình luận</a>
+                                        @endif
+                                </form>
+                            </div>
+                            <form method="POST">
+                                @csrf
+                                <input type="hidden" name="chapter_id" hidden class="form-control" id="inputid_chapter" value="{{$chapter->id}}">
+                                <div id="comment_show"></div>
 
-                    <div class="form-outline  mb-4">
-                        <textarea name="content" id="inputcontent" class="form-control" id="textAreaExample6" rows="3" required=""></textarea>
+                            </form>
+
+
+                        </ul>
 
                     </div>
+                    <div id="topWeek">
+                    </div>
 
-                    <input type="hidden" name="user_id" hidden class="form-control" id="inputid_user" value="{{$infoUser['id']}}">
-                    <input type="hidden" name="chapter_id" hidden class="form-control" id="inputid_sanpham" value="{{$chapter->id}}">
-                    <input type="hidden" name="comic_id" hidden class="form-control" id="inputid_comic" value="{{$chapter->comic->id}}">
-                    <input type="hidden" name="status" hidden class="form-control" id="inputtrangthai" value="1">
-                    <input type="submit" class="btn btn-primary" value="Gửi" id="submitBinhLuan">
-                    <div id="duyetbinhluan" hidden>
-                        Vui lòng chờ duyệt bình luận </div>
                 </div>
-                @else
-                <a href="{{route('getLogin')}}" class="btn hvr-hover">Vui lòng đăng nhập để bình luận</a>
-                @endif
-            </form>
-        </div>
-
-    </div>
-    @foreach($comment as $comment)
-    <div class="journalrow" id="jid-32956">
-        <div class="author">
-            <img alt="Author" src="{{ Storage::url($comment->user->avatar) }}">
-            <span class="cmreply" onclick="addreplyclick(this)" id="cmtbtn-32956">Trả lời</span>
-        </div>
-
-        <div class="journalitem">
-            <div class="journalsummary">
-                <span class="authorname">{{$comment->user->name}}</span>
-                <span class="member">Thành viên</span>
-                <abbr title="7/7/2022 1:04:18 AM">
-                    <i class="fa fa-clock-o"></i>{{ $comment->created_at->diffForHumans() }}
-                </abbr>
-                <span class="cmchapter">{{ $chapter->chapter_name }}</span>
-                <span onclick="journalReport(this);" class="cmreport" id="report-32956">Báo vi phạm</span>
-                <div class="summary">{{$comment->content}}</div>
             </div>
+            <div class="tab-pane fade" id="content-topweek" role="tabpanel" aria-labelledby="tab-topweek">
+                <ul class="list-unstyled ">
+                    <div class="fb-comments" data-href="{{\URL::current();}}" data-width="100%" data-numposts="10"></div>
+                </ul>
+            </div>
+
         </div>
-
-
-        <!-- <ul class="jcmt" id="jcmt-32999">
-
-            <li id="cmt-34431">
-                <img alt="Author" src="https://baotangtruyengo.com/content/images/avata.png" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';">
-                <div class="jsummary">
-                    <i class="fa fa-angle-up"></i>
-                    <span class="authorname">Ri đỗ</span>
-                    <span class="member">Thành viên</span>
-                    <abbr title="7/17/2022 7:10:43 PM">
-                        <i class="fa fa-clock-o"></i> 10 tháng trước
-                    </abbr>
-                    <span onclick="journalReport(this);" class="cmreport" id="report-34431">Báo vi phạm</span>
-                    <div class="summary">sao pháp sư trong chuyện này ko bá như mấy pháp sư trong truyện khác nhờ</div>
-                </div>
-            </li>
-        </ul> -->
-
     </div>
-    @endforeach
 </div>
-</div>
+
 <br>
+
 @stop

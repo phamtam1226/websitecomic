@@ -8,10 +8,12 @@ class CreateCommentTable extends Migration
 {
     public function up()
     {
+        
         Schema::create('comment', function (Blueprint $table) {
             $table->id();
             $table->string('content');
             $table->integer('status')->nullable();
+            $table->integer('total_cmtreply');
             $table->unsignedBigInteger('comic_id');
             $table->unsignedBigInteger('chapter_id');
             $table->unsignedBigInteger('user_id');
@@ -22,11 +24,24 @@ class CreateCommentTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
            
         });
+        Schema::create('commentreply', function (Blueprint $table) {
+            $table->id();
+            $table->string('content_reply');
+            $table->integer('status')->nullable();
+            $table->unsignedBigInteger('comment_id');
+            $table->unsignedBigInteger('userreply_id');
+            $table->timestamps();
+
+            $table->foreign('comment_id')->references('id')->on('comment')->onDelete('cascade');
+            $table->foreign('userreply_id')->references('id')->on('users')->onDelete('cascade');
+           
+        });
     }
     
     
     public function down()
-    {
+    { 
         Schema::dropIfExists('comment');
+        Schema::dropIfExists('commentreply');
     }
 }

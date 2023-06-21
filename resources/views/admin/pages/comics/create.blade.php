@@ -72,6 +72,8 @@
                     <button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button> &nbsp;
                     <a class="btn btn-secondary" href="{{ route('admin.comics.index') }}" style="margin-left: 15px;margin-right: 30px; color:white"><i class="fas fa-window-close"></i></a>
                 </div>
+                <input type="hidden" name="number_comments" hidden class="form-control" id="inputsnumber_comment" value="0">
+                <input type="hidden" name="number_views" hidden class="form-control" id="inputsnumber_view" value="0">
             </form>
         </div>
     </div>

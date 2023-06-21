@@ -14,6 +14,7 @@ class Comment extends Model
         'chapter_id',
         'user_id',
         'comic_id',
+        'total_cmtreply',
         'content',
         'status',
     ];
@@ -28,4 +29,5 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Models\Comic','comic_id','id');
     }
+    
 }

@@ -11,9 +11,9 @@
                     </div>
                     <div class="col-12" style="padding-top:10px;">
                         <ul class="breadcrumb" style="border: none">
-                            <li><a href="{{ route('admin.chapters.index') }}">Quản lý chapter</a></li>
+                            <li><a href="{{ route('admin.comment.index') }}">Quản lý bình luận </a></li>
                             <li>/</li>
-                            <li><a href="{{ route('admin.chapters.showAll', $comic) }}">{{ $comic->comic_name }}</a></li>
+                            <li>{{ $comic->comic_name }}</li>
                         </ul>
                     </div>
                     @if(Session::has('message'))
@@ -25,29 +25,22 @@
                     </div>
                     @endif
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0" style="padding-top:50px">
-                        <a class="btn btn-primary" href="{{ route('admin.chapters.create', $comic) }}" style="padding: 0.5rem 1.5rem; border-radius: 10px; margin-left:40px"><i class='fas fa-plus' style='font-size:15px'></i></a>
+                       
                         <!-- /.card-header -->
                         <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                             <div class="card-body">
                                 <table id="book" class="table" broder="1">
                                     <thead>
                                         <tr>
-                                            <th>Tên chương</th>
-                                            <th>Tùy Chỉnh</th>
+                                            <th>Tên Chương</th>
+                                            <th>Tổng Bình Luận</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($chapters as $chapter)
-                                        <tr onclick="window.location=`{{ route('admin.chapters.show', ['comic' => $comic, 'chapter' => $chapter]) }}`;">
+                                        <tr onclick="window.location=`{{ route('admin.comment.show', ['comic' => $comic, 'chapter' => $chapter]) }}`;">
                                             <td>{{ $chapter->chapter_name }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.chapters.edit', ['comic' => $comic, 'chapter' => $chapter]) }}" class="btn btn-warning" style="padding: 0.5rem 1.5rem; border-radius: 10px;"><i class='fas fa-edit' style='font-size:15px'></i></a>
-                                                <form action="{{ route('admin.chapters.destroy', ['comic' => $comic, 'chapter' => $chapter]) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return ConfirmDelete();" class="btn btn-danger" style="margin-top:10px; padding: 0.5rem 1.5rem; border-radius: 10px;"><i class='fas fa-trash-alt' style='font-size:15px'></i></button>
-                                                </form>
-                                            </td>
+                                            <td>{{ $chapter->number_comment }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -3,3 +3,6 @@ a.visited-remove {
     color: white;
     /* text-align: center; */
 }
+.chapter_history,.title_history{
+float: left;
+}

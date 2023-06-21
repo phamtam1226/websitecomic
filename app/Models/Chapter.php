@@ -11,7 +11,9 @@ class Chapter extends Model
 
     protected $fillable = [
         'comic_id',
-        'chapter_name'
+        'chapter_name',
+        'number_comment',
+        'number_view'
     ];
 
     public function comic()

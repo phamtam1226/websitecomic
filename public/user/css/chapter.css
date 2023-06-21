@@ -91,7 +91,7 @@ a.follow-link.btn.btn {
 }
 .nav-tabs {
     border-bottom: 1px solid #ddd;
-    padding-top: 15px;
+   
 }
 .comment-detail{
     margin-top: 10px;
@@ -162,11 +162,14 @@ a.follow-link.btn.btn {
     text-align: center;
 }
 .journalrow div.author>img {
-    max-width: 55px;
-    border-radius: 50%;
+   
+    
     overflow: hidden;
     box-sizing: border-box;
     border: 1px solid #797979;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 .cmreply {
     display: block;
@@ -183,7 +186,8 @@ a.follow-link.btn.btn {
 }
 .journalrow ul.jcmt li>img {
     float: left;
-    max-width: 40px;
+    width: 50px;
+    height: 50px;
     box-sizing: border-box;
     border: 1px solid #797979;
     border-radius: 50%;
@@ -210,4 +214,32 @@ a.follow-link.btn.btn {
 }
 .cmreport:hover {
     color:red;
+}
+/* Binh luan */
+#notify_comment {
+    color: red;
+    margin-bottom: 20px;
+}
+.comment_account {
+    color: red;
+}
+.comment_facebook{
+    color:#03f;
+}
+
+.replycomment {
+    margin-top: 25px;
+  margin-bottom: 25px;
+}
+/* .jcmt{
+    margin-left: 4%;
+} */
+.listcmt {
+    margin-left: 4%;
+    margin-bottom: 10px;
+}
+i.fa.fa-mail-forward {
+
+    color: #209cee;
+    font-size: 18px;
 }

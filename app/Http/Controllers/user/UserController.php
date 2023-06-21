@@ -8,6 +8,8 @@ use App\Models\Genre;
 use App\Models\Comic;
 use App\Models\Chapter;
 use App\Models\Comment;
+use App\Models\CommentReply;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -18,7 +20,8 @@ class UserController extends Controller
 
         $comics = Comic::all();
         $comment = Comment::orderBy('created_at', 'desc')->get();
-
+      
+      
         $comics->each(function ($comic) {
             $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
         });
@@ -29,10 +32,10 @@ class UserController extends Controller
         });
 
         $nominatedComics = Comic::orderBy('created_at', 'desc')->get();
-        $totalcomment= Comment::all()->count();
+       
 
         // Trả về view và truyền biến genres và comics
-        return view('user.pages.index', compact('genres', 'comics', 'nominatedComics','comment','totalcomment'));
+        return view('user.pages.index', compact('genres', 'comics', 'nominatedComics', 'comment'));
     }
 
 
@@ -40,17 +43,18 @@ class UserController extends Controller
     {
         $comic = Comic::find($comicId);
         $genres = Genre::all();
-        $comment = Comment::where('comic_id',$comicId)->get();
-        $totalcomment= Comment::where('comic_id',$comicId)->count();
+        $comment = Comment::where('comic_id', $comicId)->where('status', 1)->orderBy('created_at', 'desc')->get();
 
-        return view('user.pages.details', compact('comic', 'genres','comment','totalcomment'));
+        $commentreply = CommentReply::where('status', 1)->get();
+
+        return view('user.pages.details', compact('comic', 'genres', 'comment', 'commentreply'));
     }
 
     // }
     public function timtruyen($genreId = null)
     {
         $genres = Genre::orderBy('name')->get();
-      
+
 
         $selectedGenre = null;
 
@@ -84,7 +88,7 @@ class UserController extends Controller
     public function chapter($chapterId)
     {
         $genres = Genre::all();
-        $comment = Comment::where('chapter_id',$chapterId)->where('status',1)->orderBy('created_at', 'desc')->get();
+        $comment = Comment::where('chapter_id', $chapterId)->where('status', 1)->orderBy('created_at', 'desc')->get();
 
         // Tìm chapter dựa trên ID được cung cấp
         $chapter = Chapter::with('comic')->findOrFail($chapterId);
@@ -101,21 +105,83 @@ class UserController extends Controller
             ->orderBy('id', 'asc')
             ->first();
 
-        $totalcomment =  Comment::where('chapter_id',$chapterId)->count();
+        $totalcomment =  Comment::where('chapter_id', $chapterId)->count();
 
-        return view('user.pages.chapter', compact('genres', 'chapter', 'prevChapter', 'nextChapter','comment','totalcomment'));
+        return view('user.pages.chapter', compact('genres', 'chapter', 'prevChapter', 'nextChapter', 'comment', 'totalcomment'));
     }
     public function postComment(Request $request)
     {
-       
+
         $comment = new Comment();
-        $comment->user_id=$request->user_id;
-        $comment->comic_id=$request->comic_id;
-        $comment->chapter_id=$request->chapter_id;
-        $comment->content=$request->content;
-        $comment->status=$request->status;
+        $comment->user_id = $request->user_id;
+        $comment->comic_id = $request->comic_id;
+        $comment->chapter_id = $request->chapter_id;
+        $comment->content = $request->content;
+        $comment->status = $request->status;
+        $comment->total_cmtreply = 0;
         $comment->save();
-         return back();
-        
+
+        $chapter = Chapter::find($request->chapter_id);
+        // $totalcomment =  Comment::where('chapter_id', $request->chapter_id)->get();
+        $chapter->number_comment++;
+        $chapter->save();
+        $comic = Comic::find($request->comic_id);
+        // $totalcomments =  Comment::where('comic_id', $request->comic_id)->count();
+        $comic->number_comments++;
+        $comic->save();
     }
+    public function loadComment(Request $request)
+    {
+
+        $chapter_id = $request->chapter_id;
+        $comment = Comment::where('chapter_id', $chapter_id)->where('status', 1)->orderBy('created_at', 'desc')->get();
+        $commentreply = CommentReply::where('status', 1)->get();
+
+        return view('user.pages.listcomment', compact('comment', 'commentreply'));
+      
+    }
+    public function loadNumbercomment(Request $request)
+    {
+        $chapter = Chapter::find($request->chapter_id);
+        $total =  $chapter->number_comment;
+        $output = ' <span class=""> <i class="fa fa-comments"></i> Tổng bình luận (<span class="">' . $total . '</span>)</span> 
+        ';
+        echo $output;
+    }
+    public function postCommentReply(Request $request)
+    {
+
+        $cmtreply = new CommentReply();
+        $cmtreply->userreply_id = $request->userreply_id;
+        $cmtreply->comment_id = $request->comment_id;
+        $cmtreply->content_reply = $request->content_reply;
+        $cmtreply->status = $request->status;
+        $cmtreply->save();
+
+        $comment = Comment::find($request->comment_id);
+        $comment->total_cmtreply++;
+        $comment->save();
+
+        $chapter = Chapter::find($comment->chapter_id);
+        $chapter->number_comment++;
+        $chapter->save();
+
+        $comic = Comic::find($comment->comic_id);
+        // $totalcomments =  Comment::where('comic_id', $request->comic_id)->count();
+        $comic->number_comments++;
+        $comic->save();
+    }
+    public function postView(Request $request)
+    {
+
+
+        $chapter = Chapter::find($request->chapter_id);
+        $chapter->number_view++;
+        $chapter->save();
+
+        $chapter = Comic::find($chapter->comic_id);
+        $chapter->number_views++;
+        $chapter->save();
+    }
+   
 }

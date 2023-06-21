@@ -31,6 +31,8 @@
                             <input type="file" class="form-control" id="images" name="images[]" multiple required>
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm chapter</button>
+                        <input type="hidden" name="number_comment" hidden class="form-control" id="inputsnumber_comment" value="0">
+                        <input type="hidden" name="number_view" hidden class="form-control" id="inputsnumber_view" value="0">
                     </form>
                     </div>
                 </div>

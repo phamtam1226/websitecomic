@@ -86,10 +86,17 @@
                 @foreach($comic->chapters as $chapter)
                 <li class="row ">
                     <div class="col-md-5 chapter">
-                        <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}">{{ $chapter->chapter_name }}</a>
+                        @if(session()->has('infoUser'))
+                        <?php $infoUser = session()->get('infoUser') ?>
+                        <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+                        <input type="hidden" name="user_id" hidden class="form-control" id="id_userhistory" value="{{$infoUser['id']}}">
+
+                        @else
+                        <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+                        @endif
                     </div>
                     <div class="col-md-4 text-center small">{{ $chapter->created_at->diffForHumans() }}</div>
-                    <div class="col-md-3 text-center small"> {{ $chapter->views }}</div>
+                    <div class="col-md-3 text-center small"> {{ $chapter->number_view }}</div>
                 </li>
                 @endforeach
             </ul>
@@ -104,7 +111,7 @@
         <ul class="nav nav-tabs lazy-module" id="nav-lick">
             <li class="active" data-id="1">
                 <a href="javascript:;">
-                    <i class="fa fa-comments"></i> Tổng bình luận (<span class="comment-count">{{ $totalcomment}}</span>)
+                    <i class="fa fa-comments"></i> Tổng bình luận (<span class="comment-count">{{ $comic->number_comments}}</span>)
                 </a>
             </li>
         </ul>
@@ -130,6 +137,31 @@
                     <span onclick="journalReport(this);" class="cmreport" id="report-32956">Báo vi phạm</span>
                     <div class="summary">{{$comment->content}}</div>
                 </div>
+            </div>
+            <div class="listcmt">
+                @foreach($commentreply as $cmtreply)
+                @if($comment->id == $cmtreply->comment_id)
+
+                <ul class="jcmt" id="jcmt-32999">
+
+                    <li id="cmt-34431">
+                        <img alt="Author" src="{{ Storage::url($comment->user->avatar) }}" onerror="this.onerror=null;this.src='https://img.baotangtruyenvip.com/upload02/content/images/avata.png';">
+                        <div class="jsummary">
+                            <i class="fa fa-angle-up"></i>
+                            <span class="authorname">{{$cmtreply->user->name}}</span>
+                            <span class="member">Thành viên</span>
+                            <abbr title="7/17/2022 7:10:43 PM">
+                                <i class="fa fa-clock-o"></i> {{ $cmtreply->created_at->diffForHumans() }}
+                            </abbr>
+                            <span onclick="journalReport(this);" class="cmreport" id="report-34431">Báo vi phạm</span>
+                            <div class="summary"> <span>
+                                    <i class="fa fa-mail-forward"> {{$comment->user->name}}</i> {{ $cmtreply->content_reply }}</div>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+                @endif
+                @endforeach
             </div>
         </div>
         @endforeach

@@ -46,6 +46,13 @@ Route::post('/updateinfomation/{id}', [LoginController::class, 'updateinfomation
 Route::post('account/{id}', [LoginController::class, 'updateAccount'])->name('user.updateAccount');
 //Bình Luận
 Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
+//Bình Luận
+Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
+Route::post('/loadcommtent', [UserController::class, 'loadComment'])->name('loadComment');
+Route::post('/loadNumbercomment', [UserController::class, 'loadNumbercomment'])->name('loadNumbercomment');
+Route::post('/commentreply', [UserController::class, 'postCommentReply'])->name('postCommentReply');
+//View
+Route::post('/view', [UserController::class, 'postView'])->name('postView');
 
 
 
@@ -91,7 +98,12 @@ Route::prefix('admin')->group(function () {
     Route::put('/account/{accounts}', [AccountController::class, 'update'])->name('admin.account.update');
     Route::delete('/account/{accounts}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
     Route::post('/account/search', [AccountController::class, 'search'])->name('admin.account.search');
-    //Bình luận
-    Route::get('/comment', [CommentController::class, 'index'])->name('admin.comment.index');
-    Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('admin.comment.destroy');
+  //Bình luận
+  Route::get('/comment', [CommentController::class, 'index'])->name('admin.comment.index');
+  Route::get('/comment/{comic}', [CommentController::class, 'showChapter'])->name('admin.comment.showChapter');
+  Route::get('/comment/{comic}/{chapter}', [CommentController::class, 'show'])->name('admin.comment.show');
+  Route::get('/commentreply/{comic}/{chapter}/{comment}', [CommentController::class, 'showcmtreply'])->name('admin.comment.showcmtreply');
+  Route::delete('/comment/{comic}/{chapter}/{comment}', [CommentController::class, 'destroy'])->name('admin.comment.destroy');
+  Route::delete('/comment/{comic}/{chapter}/{comment}/{commentreply}', [CommentController::class, 'destroyreply'])->name('admin.comment.destroyreply');
+  
 });
