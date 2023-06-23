@@ -46,7 +46,7 @@
 								<span class="pull-left">
 
 									<!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
-									<i class="fa fa-eye">{{ $comic->number_views}}</i> <i class="fa fa-comment">{{ $comic->number_comments}}</i> <i class="fa fa-heart"></i>
+									<i class="fa fa-eye">{{ $comic->number_views}}</i> <i class="fa fa-comment">{{ $comic->number_comments}}</i> <i class="fa fa-heart">{{ $comic->number_follows}}</i>
 
 								</span>
 							</div>
@@ -87,7 +87,19 @@
 				<div class="d-flex flex-column text-center border height100">
 
 					<h5>Truyện theo dõi</h5>
-					<p>Không có dữ liệu</p>
+					@if (session()->has('infoUser') == null)
+						<p>Không có dữ liệu</p>
+					@else
+						<?php $infoUser = session()->get('infoUser') ?>
+						<form class="hidden" id="form" enctype="multipart/form-data">
+							@csrf
+							{{-- <input style="display: none" name='comic_id' type="text" value="{{ $comic->id }}"> --}}
+							<input style="display: none" name='user_id' type="text" value="{{$infoUser['id']}}">
+							{{-- <input style="display: none" name='chapter' type="text" value="1"> --}}
+						</form>
+						@include('user.pages.f_panel')
+					@endif
+
 				</div>
 				<br>
 				<div class="d-flex flex-column text-center border height100">

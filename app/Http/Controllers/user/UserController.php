@@ -10,6 +10,8 @@ use App\Models\Chapter;
 use App\Models\Comment;
 use App\Models\CommentReply;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Follow;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
@@ -183,5 +185,61 @@ class UserController extends Controller
         $chapter->number_views++;
         $chapter->save();
     }
-   
+
+    public function theodoi(Request $request)
+    {
+        $follow = new Follow();
+        $follow->comic_id = $request->comic_id;
+        $follow->user_id = $request->user_id;
+        $follow->save();  
+        $comic = Comic::find($request->comic_id);
+        $comic->number_follows++;  
+        $comic->save();
+        return Response::json([$comic], 200);
+    }
+
+    public function botheodoi(Request $request)
+    {
+        $follow = Follow::where('comic_id', $request->comic_id)->where('user_id',$request->user_id);
+        $follow->delete();   
+        $comic = Comic::find($request->comic_id);
+        $comic->number_follows--;  
+        $comic->save();  
+        return Response::json([$follow], 200);
+    }
+
+    public function check(Request $request)
+    {
+        $follow = Follow::where('comic_id', $request->comic_id)->where('user_id',$request->user_id)->get();
+        return Response::json([$follow], 200);
+
+        //return view('user.pages.button',);// compact('comment', 'commentreply')
+    }
+
+    public function followlist(Request $request) {
+        $list = Follow::where('user_id', $request->user_id)->orderBy('updated_at', 'desc')->get();
+        return Response::json([$list], 200);
+    }
+
+    public function getcomic($comicId)
+    {
+        $comic = Comic::find($comicId);
+        return Response::json([$comic], 200);
+    }   
+
+    public function f_list($userId){
+        $comicId = Follow::select('comic_id')->where('user_id',$userId);
+        
+        $comics = Comic::whereIn('id',$comicId)->get();
+        $comics->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+        });
+
+
+        // Sắp xếp lại các truyện dựa trên thời gian tạo của chapter mới nhất
+        $comics = $comics->sortByDesc(function ($comic) {
+            return $comic->chapters->max('created_at');
+        });
+        return view('user.pages.f_list', compact('comics'));
+    }
 }

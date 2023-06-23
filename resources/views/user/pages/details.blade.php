@@ -53,9 +53,25 @@
                     </li>
                 </ul>
                 <div class="follow" id="followUser">
-                    <a class="follow-link btn btn-success btn-theodoi" href="javascript:void(0)" data-id="229" onclick="story.FollowStory('229')"><i class="fa fa-heart"></i> <span>Theo dõi</span></a>
-                    <span>
-                        <b>0</b> Người Đã Theo Dõi
+                    @if (session()->has('infoUser') == null)
+                        <form class="hidden" id="FORM" enctype="multipart/form-data">
+                            @csrf
+                            <input style="display: none" name='comic_id' type="text" value="{{ $comic->id }}">
+                            <input style="display: none" name='user_id' type="text" value="1">
+                        </form>
+                        <button class="btn btn-success" onclick="alert('Bạn cần đăng nhập trước')"><i class="fa fa-heart"></i> <span>Theo dõi</span></button>
+                    @else
+                        <?php $infoUser = session()->get('infoUser') ?>
+                        <form class="hidden" id="FORM" enctype="multipart/form-data">
+                            @csrf
+                            <input style="display: none" name='comic_id' type="text" value="{{ $comic->id }}">
+                            <input style="display: none" name='user_id' type="text" value="{{$infoUser['id']}}">
+                        </form>
+                        
+                        @include('user.pages.button')
+                    @endif
+                    <span id="f_count">
+                        <b>{{ $comic->number_follows }}</b> Người Đã Theo Dõi
                     </span>
                 </div>
                 <div class="read-action mrt10">
@@ -168,4 +184,11 @@
     </div>
 </div>
 <br>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
+<script>
+    $('#button').on('click',function(){
+        console.log('click');
+    })
+</script>
 @stop

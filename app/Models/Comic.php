@@ -15,7 +15,8 @@ class Comic extends Model
         'status',
         'cover_image',
         'number_comments',
-        'number_views'
+        'number_views',
+        'number_follows'
     ];
 
     public function genres()

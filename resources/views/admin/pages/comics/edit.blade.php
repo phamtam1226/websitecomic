@@ -58,10 +58,9 @@
                     </div>
                     <div class="col-lg-6" style=" margin-left:-12px">
                         <label for="status">Trạng Thái</label>
-                        <select style="border: 1px solid #CED4DA;border-radius: 4px; outline: none;" class="form-control" id="status" name="status" placeholder="Status">
-                            <option value="2">2</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
+                        <select style="border: 1px solid #CED4DA;border-radius: 4px; outline: none;" class="form-control" id="status" name="status" value="{{ $comic->status }}">
+                            <option value="0">Đang tiếp tục</option>
+                            <option value="1">Đã hoàn thành</option>
                         </select>
                     </div>
                 </div>

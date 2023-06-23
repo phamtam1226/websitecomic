@@ -22,6 +22,23 @@
             <button type="button" class="btn btn-warning" id="chapter_error" style="display: inline-block;" onclick="ErrorSubmit()">
                 <span class="mdi mdi-information-outline"></span> Báo lỗi chương
             </button>
+            @if (session()->has('infoUser') == null)
+                        <form class="hidden" id="FORM" enctype="multipart/form-data">
+                            @csrf
+                            <input style="display: none" name='comic_id' type="text" value="{{ $chapter->comic->id }}">
+                            <input style="display: none" name='user_id' type="text" value="1">
+                        </form>
+                        <button class="btn btn-success" onclick="alert('Bạn cần đăng nhập trước')"><i class="fa fa-heart"></i> <span>Theo dõi</span></button>
+                    @else
+                        <?php $infoUser = session()->get('infoUser') ?>
+                        <form class="hidden" id="FORM" enctype="multipart/form-data">
+                            @csrf
+                            <input style="display: none" name='comic_id' type="text" value="{{ $chapter->comic->id }}">
+                            <input style="display: none" name='user_id' type="text" value="{{$infoUser['id']}}">
+                        </form>
+                        
+                        @include('user.pages.button')
+                    @endif
 
             <div class="chapter-nav" id="chapter-nav" style="z-index: 1000;">
                 <a class="home" href="{{ url('/') }}" title="Trang chủ"><i class="fa fa-home"></i></a>
@@ -41,9 +58,9 @@
                 <a id="nextChapter" href="{{ $nextChapter ? route('chapter.details', ['chapterId' => $nextChapter->id]) : '#' }}" class="next a_next chapterview"  data-id="{{ $chapter->id }}"><i class="fa fa-angle-right"></i></a>
 
 
-                <a class="follow-link btn btn-success" href="javascript:void(0)" data-id="{{ $chapter->comic->id }}" onclick="story.FollowStory('{{ $chapter->comic->id }}')">
+                {{-- <a class="follow-link btn btn-success" href="javascript:void(0)" data-id="{{ $chapter->comic->id }}" onclick="story.FollowStory('{{ $chapter->comic->id }}')">
                     <i class="fa fa-heart"></i> <span>Theo dõi</span>
-                </a>
+                </a> --}}
             </div>
         </div>
 

@@ -35,6 +35,7 @@ class ComicController extends Controller
             'cover_image' => 'required|image',
             'number_comments' => 'required',
             'number_views' => 'required',
+            'number_follows' => 'required'
         ]);
 
         $coverImagePath = $request->file('cover_image')->store('public/comics');
@@ -46,6 +47,7 @@ class ComicController extends Controller
             'cover_image' => $coverImagePath,
             'number_comments' => $request->number_comments,
             'number_views' =>  $request->number_views,
+            'number_follows' =>  $request->number_follows,
         ]);
 
         $comic->genres()->sync($request->genre_ids); // Lưu các thể loại đã chọn

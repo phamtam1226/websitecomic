@@ -22,6 +22,16 @@ Route::get('/timtruyennangcao', [UserController::class, 'timtruyennangcao'])->na
 Route::get('/history', [UserController::class, 'history'])->name('history');
 Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
 
+//Theo dõi
+Route::post('/theodoi',[UserController::class,'theodoi'])->name('theodoi');
+Route::post('/botheodoi', [UserController::class, 'botheodoi'])->name('botheodoi');
+Route::post('/check', [UserController::class, 'check'])->name('check');
+//Route::post('/count',[UserController::class,'followcount'])->name('count');
+Route::post('/list',[UserController::class,'followlist'])->name('list');
+Route::get('/gett/{comicId}', [UserController::class, 'getcomic'])->name('getcomic');
+Route::get('/list/{userId}', [UserController::class, 'f_list'])->name('f_list');
+
+
 
 //Đăng nhập
 Route::get('login', [LoginController::class, 'getLogin'])->name('getLogin');

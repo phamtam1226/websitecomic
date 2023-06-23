@@ -19,8 +19,10 @@
 <div class="container">
   <div class="row">
     <!--/tabs-->
-    @if (session()->has('infoUser') != null)
-    <?php
+@if (session()->has('infoUser') == null)
+    
+@else
+<?php
     $user = session()->get('infoUser');
     ?>
     <div class="responsive_tabs">
@@ -48,6 +50,22 @@
           </tr>
         </tbody>
       </table>
+
+      <h6 style="font-weight:700; width:1100px; padding-bottom:10px">TRUYỆN ĐANG THEO DÕI</h6>
+      <table class="thong-tin" style="border-style:double">
+        <tbody>
+          <tr>
+          </tr>
+            <td id="f_list" class="container">
+
+            </td>
+          </tr>
+          <tr>
+            <td>Không còn truyện nào khác</td>
+          </tr>
+        </tbody>
+      </table>
+      
       <br>
       @endif
     </div>
@@ -94,6 +112,11 @@
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
+<script>
+
+  $('#f_list').load("/list/{{ $user['id'] }}") 
+</script>
 @endif
 <!--//tabs-->
 </div>

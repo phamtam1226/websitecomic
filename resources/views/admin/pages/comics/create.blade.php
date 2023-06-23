@@ -55,10 +55,9 @@
                     </div>
                     <div class="col-lg-6" style="margin-left:-12px">
                         <label for="status">Trạng Thái</label>
-                        <select style="border: 1px solid #CED4DA;border-radius: 4px; outline: none;" class="form-control" id="status" name="status" placeholder="Status">
-                            <option value="2">new</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
+                        <select style="border: 1px solid #CED4DA;border-radius: 4px; outline: none;" class="form-control" id="status" name="status" value="0">
+                            <option value="0">Đang tiếp tục</option>
+                            <option value="1">Đã hoàn thành</option>
                         </select>
                     </div>
                 </div>
@@ -74,6 +73,7 @@
                 </div>
                 <input type="hidden" name="number_comments" hidden class="form-control" id="inputsnumber_comment" value="0">
                 <input type="hidden" name="number_views" hidden class="form-control" id="inputsnumber_view" value="0">
+                <input type="hidden" name="number_follows" hidden class="form-control" id="inputsnumber_follow" value="0">
             </form>
         </div>
     </div>

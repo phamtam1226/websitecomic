@@ -16,6 +16,7 @@ class CreateComicsTable extends Migration
             $table->string('cover_image');
             $table->integer('number_comments');
             $table->integer('number_views');
+            $table->integer('number_follows');
             $table->timestamps();
         });
         
