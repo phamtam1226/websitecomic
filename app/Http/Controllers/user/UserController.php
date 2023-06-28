@@ -75,6 +75,58 @@ class UserController extends Controller
         return view('user.pages.findcomic', compact('genres', 'comics', 'selectedGenre'));
     }
 
+    public function foundcomic($status,$filter){
+        //$comics = Comic::all();
+        if ($status != 0 && $status != 1) {
+            $status = [0,1];
+        } else {
+            $status = [$status];
+        }
+        
+        switch ($filter) {
+            case 'fol':
+                $comics = Comic::whereIn('status', $status)->orderBy('number_follows', 'desc')->get();
+                break;
+
+            case 'cmt':
+                $comics = Comic::whereIn('status', $status)->orderBy('number_comments', 'desc')->get();
+                break;
+
+            case 'new':
+                $comics = Comic::whereIn('status', $status)->orderBy('created_at', 'desc')->get();
+                break;
+                
+            case 'upd':
+                $comics = Comic::whereIn('status', $status)->orderBy('updated_at', 'desc')->get();
+                break;
+
+            // case 'cha':
+            //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
+            //     break;
+
+            // case 'day':
+            //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
+            //     break;
+
+            // case 'wek':
+            //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
+            //     break;
+
+            // case 'mon':
+            //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
+            //     break;
+
+            default:
+                $comics = Comic::whereIn('status', $status)->orderBy('number_views', 'desc')->get();
+                break;
+        }
+        
+        foreach ($comics as $comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+        }
+         
+        return view('user.pages.foundcomic', compact('comics'));
+    }
 
     public function timtruyennangcao()
     {
