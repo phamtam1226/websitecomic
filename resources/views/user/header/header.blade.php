@@ -1,4 +1,47 @@
 <style>
+    .time-dialog {
+    width: 60px;
+    height: 30px
+  }
+  .search-results {
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    width: 23.2%;
+    background-color: white;
+    overflow: auto;
+    right: 35px;
+  }
+  .suggested-comics {
+    border: 1px solid #00000052;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .suggested-comics:hover {
+    background: #e0e0e0;
+  }
+  .suggested-row {
+    display: flex;
+  }
+  .col-md-9 h3 {
+    font-size: 16px;
+    padding-left: 5px;
+    font-weight: 700;
+    font-family: -webkit-body;
+  }
+
+  .col-md-9 p {
+    padding-left: 5px;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+  }
+  .list-unstyled {
+    max-height: 470px;
+    overflow-y: auto;
+  }
+  
   #snackbar {
     visibility: hidden;
     min-width: 250px;

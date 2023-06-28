@@ -50,7 +50,6 @@
           </tr>
         </tbody>
       </table>
-
       <h6 style="font-weight:700; width:1100px; padding-bottom:10px">TRUYỆN ĐANG THEO DÕI</h6>
       <table class="thong-tin" style="border-style:double">
         <tbody>
@@ -65,7 +64,6 @@
           </tr>
         </tbody>
       </table>
-      
       <br>
       @endif
     </div>
@@ -118,7 +116,10 @@
   $('#f_list').load("/list/{{ $user['id'] }}") 
 </script>
 @endif
-<!--//tabs-->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
+<script>
+  $('#f_list').load("/list/{{ $user['id'] }}") 
+</script>
 </div>
 </div>
 

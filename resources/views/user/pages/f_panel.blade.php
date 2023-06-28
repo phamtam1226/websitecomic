@@ -33,7 +33,6 @@
             .then(data => {
                 a = data[0];
             })
-
         var limit = 0;
         for (const e of a) {
             if (limit > 5) {

@@ -10,18 +10,19 @@ use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CommentController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\LoginController;
+use App\Http\Controllers\user\RegisterController;
+use App\Http\Controllers\user\ForgotPasswordController;
 
 // User
 Route::get('/', [UserController::class, 'index'])->name('user.index');
 Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
-Route::get('/timtruyen', [UserController::class, 'timtruyen'])->name('timtruyen');
+Route::get('/comics_search', [UserController::class, 'comics_search'])->name('comics_search');
 
 Route::get('/foundcomic/{status}/{filter}', [UserController::class, 'foundcomic'])->name('foundcomic');
 
-Route::get('/timtruyen/{genre}', [UserController::class, 'timtruyen'])->name('timtruyen.genre');
-
-Route::get('/timtruyennangcao', [UserController::class, 'timtruyennangcao'])->name('timtruyennangcao');
-
+Route::get('/comics_search/{genre}', [UserController::class, 'comics_search'])->name('comics_search.genre');
+Route::get('/comics_search_keyword', [UserController::class, 'comics_search_keyword'])->name('comics_search_keyword');
+Route::get('/advanced_comics_search', [UserController::class, 'advanced_comics_search'])->name('advanced_comics_search');
 Route::get('/history', [UserController::class, 'history'])->name('history');
 Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
 
@@ -35,35 +36,35 @@ Route::get('/gett/{comicId}', [UserController::class, 'getcomic'])->name('getcom
 Route::get('/list/{userId}', [UserController::class, 'f_list'])->name('f_list');
 
 
+//Đăng nhập, đăng kí, xác thực otp
+Route::get('/login', [LoginController::class, 'getLogin'])->name('getLogin');
+Route::post('/login', [LoginController::class, 'postLogin'])->name('postLogin');
 
-//Đăng nhập
-Route::get('login', [LoginController::class, 'getLogin'])->name('getLogin');
-Route::post('login', [LoginController::class, 'postLogin'])->name('postLogin');
+Route::get('/register', [RegisterController::class, 'Register'])->name('getregister');
+Route::post('/register', [RegisterController::class, 'postRegister'])->name('postRegister');
+Route::post('/send-otp', [RegisterController::class, 'sendOtp'])->name('sendOtp');
 
-//Đăng ký
-Route::get('register', [LoginController::class, 'Register'])->name('getregister');
-Route::post('register', [LoginController::class, 'postRegister'])->name('postRegister');
-
-//OTP
-Route::post('send-otp', [LoginController::class, 'sendOtp'])->name('sendOtp');
-// Route::post('verify-otp', [LoginController::class, 'verifyOtp'])->name('verifyOtp');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'postForgotPassword'])->name('postForgotPassword');
+Route::post('/reset-password', [ForgotPasswordController::class, 'postResetPassword'])->name('postResetPassword');
 
 
 //Đăng Xuất
-Route::get('logout', [LoginController::class, 'getLogout'])->name('getLogout');
+Route::get('/logout', [LoginController::class, 'getLogout'])->name('getLogout');
 
 //Thông tin tài khoản
 Route::get('/account', [LoginController::class, 'index'])->name("user.account");
 Route::post('/updateinfomation/{id}', [LoginController::class, 'updateinfomation'])->name("user.updateinfomation");
+
 //Đổi mật khẩu
-Route::post('account/{id}', [LoginController::class, 'updateAccount'])->name('user.updateAccount');
+Route::post('/account/{id}', [LoginController::class, 'updateAccount'])->name('user.updateAccount');
+
 //Bình Luận
 Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
-//Bình Luận
 Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
 Route::post('/loadcommtent', [UserController::class, 'loadComment'])->name('loadComment');
 Route::post('/loadNumbercomment', [UserController::class, 'loadNumbercomment'])->name('loadNumbercomment');
 Route::post('/commentreply', [UserController::class, 'postCommentReply'])->name('postCommentReply');
+
 //View
 Route::post('/view', [UserController::class, 'postView'])->name('postView');
 
@@ -111,12 +112,12 @@ Route::prefix('admin')->group(function () {
     Route::put('/account/{accounts}', [AccountController::class, 'update'])->name('admin.account.update');
     Route::delete('/account/{accounts}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
     Route::post('/account/search', [AccountController::class, 'search'])->name('admin.account.search');
-  //Bình luận
-  Route::get('/comment', [CommentController::class, 'index'])->name('admin.comment.index');
-  Route::get('/comment/{comic}', [CommentController::class, 'showChapter'])->name('admin.comment.showChapter');
-  Route::get('/comment/{comic}/{chapter}', [CommentController::class, 'show'])->name('admin.comment.show');
-  Route::get('/commentreply/{comic}/{chapter}/{comment}', [CommentController::class, 'showcmtreply'])->name('admin.comment.showcmtreply');
-  Route::delete('/comment/{comic}/{chapter}/{comment}', [CommentController::class, 'destroy'])->name('admin.comment.destroy');
-  Route::delete('/comment/{comic}/{chapter}/{comment}/{commentreply}', [CommentController::class, 'destroyreply'])->name('admin.comment.destroyreply');
-  
+
+    //Bình luận
+    Route::get('/comment', [CommentController::class, 'index'])->name('admin.comment.index');
+    Route::get('/comment/{comic}', [CommentController::class, 'showChapter'])->name('admin.comment.showChapter');
+    Route::get('/comment/{comic}/{chapter}', [CommentController::class, 'show'])->name('admin.comment.show');
+    Route::get('/commentreply/{comic}/{chapter}/{comment}', [CommentController::class, 'showcmtreply'])->name('admin.comment.showcmtreply');
+    Route::delete('/comment/{comic}/{chapter}/{comment}', [CommentController::class, 'destroy'])->name('admin.comment.destroy');
+    Route::delete('/comment/{comic}/{chapter}/{comment}/{commentreply}', [CommentController::class, 'destroyreply'])->name('admin.comment.destroyreply');
 });

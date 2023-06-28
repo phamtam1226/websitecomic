@@ -17,7 +17,7 @@ a{color:inherit;text-decoration:none}
 	width:100%;
 	bottom: 50px;
 	margin:auto;
-	max-width:525px;
+	max-width:630px;
 	min-height:670px;
 	position:relative;
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
@@ -30,6 +30,7 @@ a{color:inherit;text-decoration:none}
 	background:rgba(40,57,101,.9);
 }
 .login-html .sign-in-htm,
+.login-html .forgot-password-htm,
 .login-html .sign-up-htm{
 	top:0;
 	left:0;
@@ -40,7 +41,9 @@ a{color:inherit;text-decoration:none}
 	backface-visibility:hidden;
 	transition:all .4s linear;
 }
+
 .login-html .sign-in,
+.login-html .forgot-password,
 .login-html .sign-up,
 .login-form .group .check{
 	display:none;
@@ -59,10 +62,12 @@ a{color:inherit;text-decoration:none}
 	border-bottom:2px solid transparent;
 }
 .login-html .sign-in:checked + .tab,
+.login-html .forgot-password:checked + .tab,
 .login-html .sign-up:checked + .tab{
 	color:#fff;
 	border-color:#1161ee;
 }
+
 .login-form{
 	min-height:345px;
 	position:relative;
@@ -87,7 +92,6 @@ a{color:inherit;text-decoration:none}
 	background:rgba(255,255,255,.1);
 }
 .login-form .group input[data-type="password"]{
-	/* text-security:circle; */
 	-webkit-text-security:circle;
 }
 .login-form .group .label{
@@ -137,11 +141,14 @@ a{color:inherit;text-decoration:none}
 .login-form .group .check:checked + label .icon:after{
 	transform:scale(1) rotate(-45deg);
 }
-.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm{
+.login-html .sign-in:checked + .tab + .sign-up + .tab + .forgot-password + .tab + .login-form .sign-in-htm{
 	transform:rotate(0);
 }
-.login-html .sign-up:checked + .tab + .login-form .sign-up-htm{
-	transform:rotate(0);
+.login-html .sign-up:checked + .tab + .forgot-password + .tab + .login-form .sign-up-htm {
+    transform: rotate(0);
+}
+.login-html .forgot-password:checked + .tab + .login-form .forgot-password-htm {
+    transform: rotate(0);
 }
 
 .hr{

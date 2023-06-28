@@ -50,7 +50,6 @@
             alert("Có lỗi xảy ra, thử lại sau!")
         }
     })
-
     //Bỏ theo dõi
     $('#456').on('click',function () {
         var form = document.getElementById ("FORM");

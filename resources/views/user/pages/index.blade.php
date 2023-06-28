@@ -93,13 +93,10 @@
 						<?php $infoUser = session()->get('infoUser') ?>
 						<form class="hidden" id="form" enctype="multipart/form-data">
 							@csrf
-							{{-- <input style="display: none" name='comic_id' type="text" value="{{ $comic->id }}"> --}}
 							<input style="display: none" name='user_id' type="text" value="{{$infoUser['id']}}">
-							{{-- <input style="display: none" name='chapter' type="text" value="1"> --}}
 						</form>
 						@include('user.pages.f_panel')
 					@endif
-
 				</div>
 				<br>
 				<div class="d-flex flex-column text-center border height100">

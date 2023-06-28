@@ -18,16 +18,16 @@
 
       <!-- Thể loại -->
       <li class="nav-item dropdown">
-          <a class="nav-link" href="{{ route('timtruyen') }}">Thể Loại</a>
+          <a class="nav-link" href="{{ route('comics_search') }}">Thể Loại</a>
           <ul class="dropdown-menu mega-menu">
               <li>
                   <div class="row" style="text-align: center;">
                       <div class="col-md-3 media-list span3 text-left">
-                          <a href="{{ route('timtruyen') }}">Tất cả</a>
+                          <a href="{{ route('comics_search') }}">Tất cả</a>
                       </div>
                       @foreach ($genres as $genre)
                       <div class="col-md-3 media-list span3 text-left">
-                          <a href="{{ route('timtruyen.genre', ['genre' => $genre->id]) }}">{{ $genre->name }}</a>
+                          <a href="{{ route('comics_search.genre', ['genre' => $genre->id]) }}">{{ $genre->name }}</a>
                       </div>
                       @endforeach
                   </div>
@@ -74,7 +74,7 @@
       </li>
       <!-- Tìm truyện -->
       <li class="nav-item">
-          <a class="nav-link" href="{{ route('timtruyennangcao') }}">Tìm Truyện</a>
+          <a class="nav-link" href="{{ route('advanced_comics_search') }}">Tìm Truyện</a>
       </li>
       <!-- Lịch sử -->
       <li class="nav-item">
@@ -82,23 +82,68 @@
       </li>
       <!-- Thanh tìm kiếm -->
       <li style="padding: 5px 0 0 15px;">
-        <form id="form-search" action="">
-          @csrf
-          <input type="text" class="input-search" name="keyword" id="keywords" placeholder="Tìm truyện ...">
-
-          <button style="border-radius: 0.25rem; padding: 0.25rem 0.5rem; background-color: rgb(104, 101, 92); color: cornsilk;" type="button" onclick="saveSearch()">
-            <i class="fa fa-search"></i>
-          </button>
-        </form>
+          <form id="form-search" action="{{ route('comics_search_keyword') }}" method="GET">
+              <div class="search-container">
+                  <input type="text" class="input-search" name="keyword" id="keywords" autocomplete="off" placeholder="Tìm truyện ..." value="{{ request()->input('keyword') }}">
+                  <button style="border-radius: 0.25rem; padding: 0.25rem 0.5rem; background-color: rgb(104, 101, 92); color: cornsilk;" type="submit">
+                      <i class="fa fa-search"></i>
+                  </button>
+                  <div class="search-results">
+                      <ul class="list-unstyled" id="search-results">
+                      </ul>
+                  </div>
+              </div>
+          </form>
       </li>
-    </ul>
     <div id="search_ajax"></div>
   </div>
 </nav>
 </header>
-<style>
-  .time-dialog {
-    width: 60px;
-    height: 30px
-  }
-</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#keywords').on('keyup', function() {
+        var keyword = $(this).val();
+        if (keyword.length >= 1) {
+          $.ajax({
+            url: '{{ route("comics_search_keyword") }}',
+            type: 'GET',
+            data: { keyword: keyword },
+            success: function(data) {
+              var html = '';
+              if (data.length > 0) {
+                data.forEach(function(comic) {                  
+                  html += '<li class="suggested-comics">';
+                  html += '<a href="/details/' + comic.id + '">';
+                  html += '<div class="suggested-row">';
+                  html += '<div class="col-md-3">';
+                  html += '<img src="' + comic.cover_image + '" alt="' + comic.comic_name + '" style="width: 100%;height: 80px;"/>';
+                  html += '</div>';
+                  html += '<div class="col-md-9">';
+                  html += '<h3>' + comic.comic_name + '</h3>';
+                  html += '<p>' + comic.latest_chapter + '</p>';
+                  html += '<p>' + comic.genre_names.join(', ') + '</p>';
+                  html += '</div>';
+                  html += '</div>';
+                  html += '</a>';
+                  html += '</li>';
+                });
+              }
+              $('#search-results').html(html);
+              $('#search-results').show();
+            }
+          });
+
+        } else {
+            $('#search-results').hide();
+        }
+    });
+
+    // Ẩn dropdown khi người dùng nhấp vào nơi khác trên trang
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#form-search').length) {
+            $('#search-results').hide();
+        }
+    });
+});
+</script>

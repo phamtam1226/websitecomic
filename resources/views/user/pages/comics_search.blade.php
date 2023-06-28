@@ -7,7 +7,7 @@
 
     <ul class="breadcrumb bg-white">
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Trang Chủ</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('timtruyen') }}">Thể Loại</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('comics_search') }}">Thể Loại</a></li>
         @if($selectedGenre)
             <li class="breadcrumb-item active" aria-current="page">{{ $selectedGenre->name }}</li>
         @else
@@ -52,7 +52,7 @@
     <div class="row">
         <!-- truyện mới -->
         <div class="col-md-12 col-sm-6 " id="comiclist">
-            {{-- <div class="row">
+            <!-- <div class="row"> -->
                 <!-- truyện -->
                 @foreach($comics as $comic)
                 <div class="col-6 col-sm-6 col-md-2 p-2">
@@ -63,7 +63,6 @@
                             </a>
                             <div class="view clearfix">
                                 <span class="pull-left">
-                                    <!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
                                     <i class="fa fa-eye"></i> <i class="fa fa-comment"></i> <i class="fa fa-heart"></i>
                                 </span>
                             </div>
@@ -97,28 +96,24 @@
                         <a class="page-link" href="#">></a>
                     </li>
                 </ul>
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>
 <br>
-
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
 <script>
     $("[id='sta_btn']").click(function() {
         $("[id='sta_btn']").removeClass("active");
         $(this).addClass("active");
         $('#comiclist').load('/foundcomic/'+$('#sta_btn.active').attr("value")+'/'+$('#fil_btn.active').attr("data-value"))
-
     });
-
     $("[id='fil_btn']").click(function() {
         $("[id='fil_btn']").removeClass("active");
         $(this).addClass("active");
         $('#comiclist').load('/foundcomic/'+$('#sta_btn.active').attr("value")+'/'+$('#fil_btn.active').attr("data-value"))
         //console.log($('#fil_btn.active').attr("data-value"));
     });
-
     $('#comiclist').load('/foundcomic/-1/1')
 </script>
 @stop
