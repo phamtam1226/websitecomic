@@ -32,7 +32,7 @@
                         </button>
                     </p>
                 </div>
-            <div class="form-group clearfix">
+            <div class="row form-group clearfix">
             <label class="col-sm-2 control-label mrt5 mrt5">Thể loại</label>
             <div class="col-sm-10">
               <div class="row">
@@ -54,7 +54,7 @@
               </div>
             </div>
           </div>
-        <div class="form-group clearfix">
+        <div class="row form-group clearfix">
             <div class="col-sm-2 control-label mrt5">
                 <label for="status">Số lượng chapter</label>
             </div>
@@ -81,7 +81,7 @@
                 </select>
             </div>
         </div>
-          <div class="form-group">
+          <div class="row form-group">
             <div class="col-sm-2 control-label mrt5">
               <label for="gender">Dành cho</label>
             </div>
@@ -110,6 +110,32 @@
             </div>
           </div>
         </form>
+        <!-- truyện -->
+                <div class="col-6 col-sm-6 col-md-2 p-2">
+                    <div class="d-flex flex-column border height100">
+                        <div class="image">
+                            <a >
+                                <img src="">
+                            </a>
+                            <div class="view clearfix">
+                                <span class="pull-left">
+                                    <i class="fa fa-eye"></i> <i class="fa fa-comment"></i> <i class="fa fa-heart"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <figcaption>
+                            <h3>
+                                <a class="jtip" data-jtip="#truyen-tranh-229" href=""></a>
+                            </h3>
+                            <ul style=" list-style-type: none;">
+                                    <li class="chapter clearfix">
+                                        <a href="" title=""></a>
+                                        <i class="time"></i>
+                                    </li>
+                            </ul>
+                        </figcaption>
+                    </div>
+                </div>
       </div>
     </div>
   </div>
