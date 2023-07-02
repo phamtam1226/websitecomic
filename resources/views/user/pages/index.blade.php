@@ -69,16 +69,8 @@
 				@endforeach
 			</div>
 			<br>
-			<ul class="pagination justify-content-center ">
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">...</a></li>
-				<li class="page-item"><a class="page-link" href="#">20</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#">></a>
-				</li>
-			</ul>
+			<!-- Phân trang -->
+			<ul class="pagination justify-content-center" style="margin-top: 20px;">{{ $comics->links() }}</ul>
 		</div>
 
 		<!-- truyện theo dõi -->

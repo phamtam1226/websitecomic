@@ -12,34 +12,39 @@ use App\Models\CommentReply;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Follow;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class UserController extends Controller
 {
     public function index()
     {
-        // Lấy danh sách thể loại
         $genres = Genre::all();
-
         $comics = Comic::all();
         $comment = Comment::orderBy('created_at', 'desc')->get();
-      
-      
+    
         $comics->each(function ($comic) {
             $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
         });
-
+    
         // Sắp xếp lại các truyện dựa trên thời gian tạo của chapter mới nhất
         $comics = $comics->sortByDesc(function ($comic) {
             return $comic->chapters->max('created_at');
         });
 
-        $nominatedComics = Comic::orderBy('created_at', 'desc')->get();
-       
+        // Phân trang bằng tay sau khi đã sắp xếp
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $itemCollection = collect($comics);
+        $perPage = 8;
+        $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+        $comics= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
 
+        $nominatedComics = Comic::orderBy('created_at', 'desc')->get();
+    
         // Trả về view và truyền biến genres và comics
         return view('user.pages.index', compact('genres', 'comics', 'nominatedComics', 'comment'));
     }
-
+    
 
     public function details($comicId)
     {
@@ -49,8 +54,39 @@ class UserController extends Controller
 
         $commentreply = CommentReply::where('status', 1)->get();
 
-        return view('user.pages.details', compact('comic', 'genres', 'comment', 'commentreply'));
+        $firstChapterId = null;
+        $lastChapterId = null; 
+
+        if ($comic->chapters->first()) {
+            $firstChapterId = $comic->chapters->first()->id;
+        }
+        
+        if ($comic->chapters->last()) {
+            $lastChapterId = $comic->chapters->last()->id;
+        }
+        
+
+        return view('user.pages.details', compact('comic', 'genres', 'comment', 'commentreply', 'firstChapterId', 'lastChapterId'));
     }
+
+    // public function comics_search($genreId = null)
+    // {
+    //     $genres = Genre::orderBy('name')->get();
+    //     $selectedGenre = null;
+
+    //     if ($genreId) {
+    //         $selectedGenre = Genre::findOrFail($genreId);
+    //         $comics = $selectedGenre->comics()->get();
+    //     } else {
+    //         $comics = Comic::all();
+    //     }
+
+    //     foreach ($comics as $comic) {
+    //         $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+    //     }
+
+    //     return view('user.pages.comics_search', compact('genres', 'comics', 'selectedGenre'));
+    // }
 
     public function comics_search($genreId = null)
     {
@@ -59,9 +95,9 @@ class UserController extends Controller
 
         if ($genreId) {
             $selectedGenre = Genre::findOrFail($genreId);
-            $comics = $selectedGenre->comics()->get();
+            $comics = $selectedGenre->comics()->paginate(12);
         } else {
-            $comics = Comic::all();
+            $comics = Comic::paginate(12);
         }
 
         foreach ($comics as $comic) {
@@ -70,6 +106,7 @@ class UserController extends Controller
 
         return view('user.pages.comics_search', compact('genres', 'comics', 'selectedGenre'));
     }
+
 
     public function comics_search_keyword(Request $request)
     {
@@ -153,12 +190,70 @@ class UserController extends Controller
 
     //     return view('user.pages.foundcomic', compact('comics'));
     // }
-
-    public function advanced_comics_search()
+    public function advanced_comics_search(Request $request)
     {
         $genres = Genre::all();
-        return view('user.pages.advanced_comics_search', compact('genres'));
+        $comics = Comic::query();
+
+        // Đếm số lượng chương cho mỗi truyện
+        $comics->withCount('chapters');
+
+        // Lọc theo thể loại
+        if ($request->has('genres')) {
+            $selectedGenres = $request->get('genres');
+
+            $request->session()->flash('genres', $selectedGenres);
+
+            foreach ($selectedGenres as $genre) {
+                $comics->WhereHas('genres', function ($query) use ($genre) {
+                    $query->where('id', $genre);
+                });
+            }
+        }
+
+        // Lọc theo tình trạng truyện
+        if ($request->filled('status')) {
+            $status = $request->get('status');
+            $comics->where('status', $status);
+        }
+
+        // Lọc theo số lượng chương
+        if ($request->filled('chapter')) {
+            $chapterCount = $request->get('chapter');
+            $comics->having('chapters_count', '>=', $chapterCount);
+        }
+
+        // Sắp xếp lại $comics theo thứ tự mong muốn
+        $sort = $request->input('sort');
+
+        switch ($sort) {
+            case 'newest':
+                $comics->orderByDesc('created_at');
+                break;
+            case 'most_view':
+                $comics->orderByDesc('number_views');
+                break;
+            case 'most_follow':
+                $comics->orderByDesc('number_follows');
+                break;
+            case 'most_comment':
+                $comics->orderByDesc('number_comments');
+                break;
+            case 'most_chapter':
+                $comics->orderByDesc('chapters_count');
+                break;
+        }
+
+        $comics = $comics->paginate(12);
+
+        $comics->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+        });
+        
+        return view('user.pages.advanced_comics_search', compact('genres', 'comics'));
     }
+
+
 
     public function history()
     {

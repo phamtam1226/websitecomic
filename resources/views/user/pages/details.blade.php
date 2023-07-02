@@ -22,7 +22,7 @@
                     <li class="kind row">
                         <p class="col-md-10">
                             @foreach ($comic->genres as $genre)
-                            <a itemprop="genre" class="btn btn-outline-danger" href="#">{{ $genre->name }}</a>
+                            <a itemprop="genre" class="btn btn-outline-danger" href="{{ route('comics_search.genre', ['genre' => $genre->id]) }}">{{ $genre->name }}</a>
                             @endforeach
                         </p>
                     </li>
@@ -33,7 +33,7 @@
                             </i> Tác Giả/Team Dịch
                         </p>
                         <p class="col-md-10">
-                            <a itemprop="author" href="https://baotangtruyengo.com/tim-truyen?tac-gia=Đang tiến hành">Đang tiến hành</a>
+                            <a itemprop="author">Đang cập nhât</a>
                         </p>
                     </li>
                     <li class="status row">
@@ -41,7 +41,13 @@
                             <i class="fa fa-rss">
                             </i> Tình trạng
                         </p>
-                        <p class="col-md-10">{{ $comic->status }}</p>
+                        <p class="col-md-10">
+                            @if($comic->status == 0)
+                                <a href="/advanced_comics_search?status=0">Đang tiến hành</a>
+                            @else
+                                <a href="/advanced_comics_search?status=1">Đã hoàn thành</a>
+                            @endif
+                        </p>
                     </li>
 
                     <li class="view row">
@@ -49,7 +55,7 @@
                             <i class="fa fa-eye">
                             </i> Lượt xem
                         </p>
-                        <p class="col-md-10">0</p>
+                        <p class="col-md-10">{{ $comic->number_views}}</p>
                     </li>
                 </ul>
                 <div class="follow" id="followUser">
@@ -75,9 +81,14 @@
                     </span>
                 </div>
                 <div class="read-action mrt10">
-                    <a class="btn btn-warning mrb5 btn-doctu-dau" href="#"><i class="fa fa-book" aria-hidden="true"></i> Đọc từ đầu</a>
-                    <a class="btn btn-warning mrb5 btn-docmoinhat" href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Đọc mới nhất</a>
+                    @if (isset($firstChapterId))
+                        <a class="btn btn-warning mrb5 btn-doctu-dau" href="{{ route('chapter.details', ['chapterId' => $firstChapterId]) }}"><i class="fa fa-book" aria-hidden="true"></i> Đọc từ đầu</a>
+                    @endif
+                    @if (isset($lastChapterId))
+                        <a class="btn btn-warning mrb5 btn-docmoinhat" href="{{ route('chapter.details', ['chapterId' => $lastChapterId]) }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Đọc mới nhất</a>
+                    @endif
                 </div>
+
             </div>
         </div>
     </div>
@@ -85,8 +96,12 @@
     <div class="detail-content">
         <h3 class="list-title"><i class="fa fa-info-circle"></i> Giới thiệu</h3>
         <hr style="color:red; opacity: 1; height: 2px;">
-        <p id="summary" itemprop="description" class="shortened">{{ $comic->description }}</p>
-        <a href="javascript:;" class="c">Xem thêm <i class="fa fa-angle-right"></i></a>
+        <div id="descriptionContainer">
+            <p id="summary" itemprop="description" class="shortened">{{ $comic->description }}</p>
+            <a id="showMoreBtn" href="#">
+                <i>Xem thêm +</i>
+            </a>
+        </div>
     </div>
     <br>
     <div class="list-chapter" id="nt_listchapter">
@@ -184,10 +199,27 @@
     </div>
 </div>
 <br>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
+
+<style>
+    #descriptionContainer {
+    /* Điều chỉnh khoảng cách giữa mô tả và nút "Xem thêm" / "Thu gọn" */
+    padding-bottom: 10px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
-    $('#button').on('click',function(){
-        console.log('click');
-    })
+$('#showMoreBtn').on('click', function(event){
+    event.preventDefault();
+    var summaryElement = $('#summary');
+    if (summaryElement.css('overflow') === 'hidden') {
+        summaryElement.css('overflow', 'visible');
+        summaryElement.css('height', 'auto');
+        $(this).text('Thu gọn -');
+    } else {
+        summaryElement.css('overflow', 'hidden');
+        summaryElement.css('height', '100px'); 
+        $(this).text('Xem thêm +');
+    }
+});
 </script>
 @stop

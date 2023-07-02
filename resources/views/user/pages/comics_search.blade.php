@@ -52,7 +52,7 @@
     <div class="row">
         <!-- truyện mới -->
         <div class="col-md-12 col-sm-6 " id="comiclist">
-            <!-- <div class="row"> -->
+            <div class="row">
                 <!-- truyện -->
                 @foreach($comics as $comic)
                 <div class="col-6 col-sm-6 col-md-2 p-2">
@@ -62,10 +62,10 @@
                                 <img src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}">
                             </a>
                             <div class="view clearfix">
-                                <span class="pull-left">
-                                    <i class="fa fa-eye"></i> <i class="fa fa-comment"></i> <i class="fa fa-heart"></i>
-                                </span>
-                            </div>
+								<span class="pull-left">
+									<i class="fa fa-eye">{{ $comic->number_views}}</i> <i class="fa fa-comment">{{ $comic->number_comments}}</i> <i class="fa fa-heart">{{ $comic->number_follows}}</i>
+								</span>
+							</div>
                         </div>
                         <figcaption>
                             <h3>
@@ -83,22 +83,11 @@
                     </div>
                 </div>
                 @endforeach
-
-                <br>
-                <ul class="pagination justify-content-center ">
-
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#">20</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">></a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
+    <!-- Phân trang -->
+	<ul class="pagination justify-content-center" style="margin-top: 20px;">{{ $comics->links() }}</ul>
 </div>
 <br>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 

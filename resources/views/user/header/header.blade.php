@@ -1,5 +1,60 @@
 <style>
-    .time-dialog {
+
+  .col-md-12 {
+    margin-top: 40px;
+  }
+
+  .mrt5 {
+    margin-top: 5px;
+  }
+
+  .row {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+  .col-sm-4 {
+    width: 33.33333333%;
+    float: left;
+  }
+
+  label {
+    margin-bottom: 5px;
+    font-weight: 700;
+    display: inline-block;
+  }
+
+  .col-sm-10 {
+    width: 83.33333333%;
+    float: right;
+  }
+
+  .mrb10 {
+    margin-bottom: 10px;
+  }
+
+  .mrb5 {
+    margin-bottom: 5px;
+  }
+
+  .comic-filter h1 {
+    font-size: 25px;
+  }
+
+  .btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+  }
+
+  .hidden {
+    display: none!important;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .time-dialog {
     width: 60px;
     height: 30px
   }

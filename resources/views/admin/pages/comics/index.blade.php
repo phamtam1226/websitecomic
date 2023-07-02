@@ -48,13 +48,23 @@
                                 <tr>
                                     <td><img src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="width:50px; height:50px; border-radius:0%"></td>
                                     <td style="max-width: 180px; text-overflow: ellipsis; overflow: hidden">{{ $comic->comic_name }}</td>
-                                    <td>
+                                    
+                                    <td style="max-width: 280px; text-overflow: ellipsis; overflow: hidden">
                                         @foreach ($comic->genres as $genre)
                                         <span class="badge badge-primary">{{ $genre->name }}</span>
                                         @endforeach
                                     </td>
-                                    <td>{{ $comic->description }}</td>
-                                    <td>{{ $comic->status }}</td>
+
+                                    <td style="max-width: 380px; text-overflow: ellipsis; overflow: hidden">{{ $comic->description }}</td>
+
+                                    <td>
+                                        @if($comic->status == 0)
+                                            Đang tiến hành
+                                        @else
+                                            Đã hoàn thành
+                                        @endif
+                                    </td>
+
                                     <td>
                                         <a href="{{ route('admin.comics.edit', $comic) }}" class="btn btn-warning" style="padding: 0.5rem 1.5rem; border-radius: 10px;"><i class='fas fa-edit' style='font-size:15px'></i></a>
                                         <form action="{{ route('admin.comics.destroy', $comic) }}" method="POST">
