@@ -114,29 +114,41 @@
                     <div class="col-md-4 no-wrap text-center"><b>Cập nhật</b></div>
                     <div class="col-md-3 no-wrap text-center"><b>Lượt xem</b></div>
                 </li>
-                @foreach($comic->chapters as $chapter)
+                @if(session()->has('infoUser'))
+                <?php $infoUser = session()->get('infoUser') ?>
+                <form method="POST">
+                    @csrf
+                    <input type="hidden" name="comic_id" hidden class="form-control" id="inputid_comic" value="{{$comic->id}}">
+                    <input type="hidden" name="user_id" hidden class="form-control" id="id_userhistory" value="{{$infoUser['id']}}">
+                    <div id="chapter_show"></div>
+                </form>
+                @else
+
+                @foreach($chapter as $chapter)
                 <li class="row ">
                     <div class="col-md-5 chapter">
-                        @if(session()->has('infoUser'))
-                        <?php $infoUser = session()->get('infoUser') ?>
-                        <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-                        <input type="hidden" name="user_id" hidden class="form-control" id="id_userhistory" value="{{$infoUser['id']}}">
-
-                        @else
+                        @if($chapter->coin ==0)
                         <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-                        @endif
+                  @else
+                  <a  type="button" onclick="alert('Bạn cần đăng nhập trước')" title="{{ $chapter->chapter_name }}"  data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }} <i class='fas fa-lock' ></i></a><span style="color: gold; float:right;">{{$chapter->coin}} <i class='fas fa-coins' style="color: gold;"></i></span>
+                  @endif
                     </div>
                     <div class="col-md-4 text-center small">{{ $chapter->created_at->diffForHumans() }}</div>
                     <div class="col-md-3 text-center small"> {{ $chapter->number_view }}</div>
                 </li>
                 @endforeach
+                @endif
+
             </ul>
-            <a class="hidden view-more" href="javascript:;">
+            <a class="hidden view-more"  onclick="myFunction()" id="myBtn">
                 <i class="fa fa-plus "></i> Xem thêm
             </a>
         </nav>
     </div>
 
+    <div style="float: right;">
+        <div class="fb-share-button" data-href="{{\URL::current();}}" data-layout="" data-size=""><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fchapter%2F1&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+    </div>
     <div class="comment-detail">
 
         <ul class="nav nav-tabs lazy-module" id="nav-lick">
@@ -144,17 +156,21 @@
                 <a href="javascript:;">
                     <i class="fa fa-comments"></i> Tổng bình luận (<span class="comment-count">{{ $comic->number_comments}}</span>)
                 </a>
+
+
             </li>
+
         </ul>
         <div class="tab-content">
 
+           
         </div>
         @foreach($comment as $comment)
         <div class="journalrow" id="{{$comment->id}}">
 
             <div class="author">
                 <img alt="Author" src="{{ Storage::url($comment->user->avatar) }}">
-                <span class="cmreply" onclick="addreplyclick(this)" id="cmtbtn-32956">Trả lời</span>
+
             </div>
 
             <div class="journalitem">

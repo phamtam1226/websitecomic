@@ -14,6 +14,8 @@ class Comment extends Model
         'chapter_id',
         'user_id',
         'comic_id',
+        'user_name',
+        'user_email',
         'total_cmtreply',
         'content',
         'status',

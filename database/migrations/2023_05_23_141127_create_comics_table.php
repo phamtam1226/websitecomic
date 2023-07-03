@@ -14,6 +14,7 @@ class CreateComicsTable extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('status');
             $table->string('cover_image');
+            $table->integer('number_chapters');
             $table->integer('number_comments');
             $table->integer('number_views');
             $table->integer('number_follows');

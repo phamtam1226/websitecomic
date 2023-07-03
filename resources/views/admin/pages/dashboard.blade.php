@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
+            <div class="col-md-6 grid-margin stretch-card">
                 <div class="card tale-bg">
                     <div class="card-people mt-auto">
                         <img src="images/dashboard/people.svg" alt="people">
@@ -31,6 +31,80 @@
                                
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 grid-margin transparent">
+                <div class="row">
+                    <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card card-tale">
+                            <div class="card-body">
+                                <p class="mb-4">Thống Kê Theo Đơn Hàng Trong Tháng</p>
+                                <p class="fs-30 mb-2">0 VND</p>
+                                <p>0 VND (1 Tháng)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card card-dark-blue">
+                            <div class="card-body">
+                                <p class="mb-4">Tổng Số Khách Hàng Trong Tháng</p>
+                                <p class="fs-30 mb-2">0</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+                        <div class="card card-light-blue">
+                            <div class="card-body">
+                                <p class="mb-4">Tổng Đơn Hàng Trong Tháng</p>
+                                <p class="fs-30 mb-2">0</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="col-md-6 stretch-card transparent">
+                        <div class="card card-light-danger">
+                            <div class="card-body">
+                                <p class="mb-4">Tổng Số Truyện</p>
+                                <p class="fs-30 mb-2">{{$totalcomic}}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">Biểu Đồ Thống Kê Đơn Hàng</p>
+                        <script src="https://code.highcharts.com/highcharts.js"></script>
+                        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+                        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+                        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+                        <figure class="highcharts-figure">
+                            <div id="container" ></div>
+                            
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <p class="card-title">Doanh thu đơn hàng từng năm</p>
+                            <!-- <a href="#" class="text-info">Xem tất cả</a> -->
+                        </div>
+                        <canvas id="myChart" ></canvas>
                     </div>
                 </div>
             </div>

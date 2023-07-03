@@ -5,28 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CommentReply extends Model
+class ChapterBill extends Model
 {
     use HasFactory;
-    protected $table='commentreply';
+    protected $table='chapter_bill';
     protected $fillable = [
         'id',
-        'user_name',
-        'user_email',
-        'userreply_name',
-        'content_reply',
-        'status',
-        'comment_id',
+        'total_coin',
         'user_id',
-       
+        'chapter_id',
+      
+        
     ];
-    public function Comment()
-    {
-        return $this->belongsTo('App\Models\Comment','comment_id','id');
-    }
+ 
     public function User()
     {
         return $this->belongsTo('App\Models\User','user_id','id');
     }
+    
+    
     
 }

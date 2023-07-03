@@ -3,154 +3,31 @@
 
 
 <div class="container-fluid">
-<ul class="breadcrumb bg-white">
-        <li class="breadcrumb-item"><a href="{{ url('/') }}">Trang Chủ</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Lịch Sử</li>
-    </ul>
+	<ul class="breadcrumb bg-white">
+		<li class="breadcrumb-item"><a href="{{ url('/') }}">Trang Chủ</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Lịch Sử</li>
+	</ul>
 	<div class="row">
 		<!-- truyện mới -->
 		<div class="col-md-8 col-sm-6 ">
-        <h3 class="tittle-w3layouts my-lg-4 my-4">LỊCH SỬ ĐỌC TRUYỆN > </h3>
-			<div class="row">
+			
+			<h3 class="tittle-w3layouts my-lg-4 my-4">LỊCH SỬ ĐỌC TRUYỆN > </h3>
+		
 				<!-- truyện -->
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view text-center">
-								
-                                <a class="visited-remove" href="javascript:;"><i class="fa fa-times"></i> Xóa</a>
-								
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-                <div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view text-center">
-								
-                                <a class="visited-remove" href="javascript:;"><i class="fa fa-times"></i> Xóa</a>
-								
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-                <div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view text-center">
-								
-                                <a class="visited-remove" href="javascript:;"><i class="fa fa-times"></i> Xóa</a>
-								
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-                <div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
-
-						<div class="image">
-							<img src="https://img.baotangtruyenvip.com/Upload/AvatarStory/20210915/toan-chuc-phap-su.jpg" alt="TO&#192;N CHỨC PH&#193;P SƯ">
-
-							<div class="view text-center">
-								
-                                <a class="visited-remove" href="javascript:;"><i class="fa fa-times"></i> Xóa</a>
-								
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="{{ url('/details') }}">TO&#192;N CHỨC PH&#193;P SƯ</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1036/782611" title="Chapter 1036">Chapter 1036</a>
-									<i class="time">21 ph&#250;t trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1035/781826" title="Chapter 1035">Chapter 1035</a>
-									<i class="time">2 ng&#224;y trước</i>
-								</li>
-								<li class="chapter clearfix">
-									<a href="https://baotangtruyengo.com/truyen-tranh/toan-chuc-phap-su/chapter-1034/780545" title="Chapter 1034">Chapter 1034</a>
-									<i class="time">7 ng&#224;y trước</i>
-								</li>
-							</ul>
-						</figcaption>
-					</div>
-				</div>
 				
+				<form method="POST">
+					@csrf
+					@if(session()->has('infoUser'))
+					<?php $infoUser = session()->get('infoUser') ?>
+					<input type="hidden" name="user_id" hidden class="form-control" id="id_userhistory" value="{{$infoUser['id']}}">
+					<div id="history_show"></div>
+					@endif
+				</form>
 				
-			</div>
+			
 			<br>
 			<ul class="pagination justify-content-center ">
-				
+
 				<li class="page-item active"><a class="page-link" href="#">1</a></li>
 				<li class="page-item"><a class="page-link" href="#">2</a></li>
 				<li class="page-item"><a class="page-link" href="#">3</a></li>

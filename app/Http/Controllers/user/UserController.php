@@ -11,6 +11,10 @@ use App\Models\Comment;
 use App\Models\CommentReply;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Follow;
+use App\Models\History;
+use App\Models\Bill;
+use App\Models\ChapterBill;
+use App\Models\User;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -19,25 +23,34 @@ class UserController extends Controller
 {
     public function index()
     {
-        $genres = Genre::all();
-        $comics = Comic::all();
-        $comment = Comment::orderBy('created_at', 'desc')->get();
-    
-        $comics->each(function ($comic) {
-            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
-        });
-    
-        // Sắp xếp lại các truyện dựa trên thời gian tạo của chapter mới nhất
-        $comics = $comics->sortByDesc(function ($comic) {
-            return $comic->chapters->max('created_at');
-        });
+         // Lấy danh sách thể loại
+         $genres = Genre::all();
 
-        // Phân trang bằng tay sau khi đã sắp xếp
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $itemCollection = collect($comics);
-        $perPage = 8;
-        $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
-        $comics= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
+         $comics = Comic::orderBy('updated_at', 'desc')->paginate(4);
+         $comment = Comment::orderBy('created_at', 'desc')->get();
+         $history = History::where('status', 0)->where('status', 0)->orderBy('created_at', 'desc')->get();
+         $comics->each(function ($comic) {
+             $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+         });
+        // $genres = Genre::all();
+        // $comics = Comic::all();
+        // $comment = Comment::orderBy('created_at', 'desc')->get();
+    
+        // $comics->each(function ($comic) {
+        //     $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+        // });
+    
+        // // Sắp xếp lại các truyện dựa trên thời gian tạo của chapter mới nhất
+        // $comics = $comics->sortByDesc(function ($comic) {
+        //     return $comic->chapters->max('created_at');
+        // });
+
+        // // Phân trang bằng tay sau khi đã sắp xếp
+        // $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        // $itemCollection = collect($comics);
+        // $perPage = 8;
+        // $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+        // $comics= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
 
         $nominatedComics = Comic::orderBy('created_at', 'desc')->get();
     
@@ -45,7 +58,9 @@ class UserController extends Controller
         $topweekComic = Comic::orderBy('week_views','desc')->take(5)->get();
         $topmonthComic = Comic::orderBy('month_views','desc')->take(5)->get();
         // Trả về view và truyền biến genres và comics
-        return view('user.pages.index', compact('genres', 'comics', 'nominatedComics', 'comment', 'topdayComic', 'topweekComic', 'topmonthComic'));
+       
+        $opchapter = ChapterBill::all();
+        return view('user.pages.index', compact('genres', 'comics', 'history', 'opchapter', 'nominatedComics', 'comment', 'topdayComic', 'topweekComic', 'topmonthComic'));
     }
     
 
@@ -53,10 +68,13 @@ class UserController extends Controller
     {
         $comic = Comic::find($comicId);
         $genres = Genre::all();
+        $chapter = Chapter::where('comic_id', $comicId)->orderBy('created_at', 'desc')->get();
+
         $comment = Comment::where('comic_id', $comicId)->where('status', 1)->orderBy('created_at', 'desc')->get();
 
         $commentreply = CommentReply::where('status', 1)->get();
-
+        $history = History::where('comic_id', $comicId)->where('user_id', 1)->get();
+        $opchapter = ChapterBill::all();
         $firstChapterId = null;
         $lastChapterId = null; 
 
@@ -69,7 +87,7 @@ class UserController extends Controller
         }
         
 
-        return view('user.pages.details', compact('comic', 'genres', 'comment', 'commentreply', 'firstChapterId', 'lastChapterId'));
+        return view('user.pages.details', compact('comic', 'chapter', 'genres', 'comment', 'commentreply', 'history', 'opchapter', 'firstChapterId', 'lastChapterId'));
     }
 
     // public function comics_search($genreId = null)
@@ -431,5 +449,87 @@ class UserController extends Controller
             return $comic->chapters->max('created_at');
         });
         return view('user.pages.f_list', compact('comics'));
+    }
+    public function postHistory(Request $request)
+    {
+        $chapter = Chapter::find($request->chapter_id);
+        $history_chapter = History::where('chapter_id', $chapter->id);
+        $history_chapter->delete();
+        $history_newchapter = History::where('comic_id', $chapter->comic_id)->where('status', 0)->first();
+        if ($history_newchapter != null) {
+            $history_newchapter->status = 1;
+            $history_newchapter->save();
+        }
+        $history = new History();
+        $history->user_id = $request->user_id;
+        $history->chapter_id = $chapter->id;
+        $history->comic_id = $chapter->comic_id;
+        $history->status = 0;
+        $history->save();
+    }
+    public function destroyHistory(Request $request)
+    {
+        $historyid = History::find($request->history_id);
+        $historyid->status = 1;
+        $historyid->save();
+        $history = History::where('user_id',  $request->user_id)->where('status', 0)->orderBy('created_at', 'desc')->get();
+        return view('user.pages.listhistory', compact('history'));
+    }
+    public function loadHistory(Request $request)
+    {
+        $history = History::where('user_id',  $request->user_id)->where('status', 0)->orderBy('created_at', 'desc')->get();
+        return view('user.pages.listhistory', compact('history'));
+    }
+
+    public function payment(Request $request, $id)
+    {
+
+        $payment = new Bill();
+        $payment->user_id = $id;
+        $payment->coin = $request->options;
+        $payment->save();
+
+        $user = User::find($id);
+        $user->total_coin = $user->total_coin + $request->options / 5;
+        $user->save();
+        $request->session()->forget('infoUser');
+        $request->session()->put('infoUser', $user);
+        return redirect()->route('user.account');
+    }
+
+    public function checkchapter(Request $request)
+    {
+        $chapters = Chapter::where('comic_id', $request->comic_id)->orderBy('created_at', 'desc')->get();
+        $history = History::where('comic_id', $request->comic_id)->where('user_id', $request->user_id)->get();
+        $opchapter = ChapterBill::where('user_id', $request->user_id)->get();
+        return view('user.pages.listchapter', compact('history', 'chapters', 'opchapter'));
+    }
+    public function openchapter(Request $request)
+    {
+
+
+        $user = User::find($request->user_id);
+        if ($user->total_coin >= 300) {
+            $user->total_coin = $user->total_coin - $request->coin;
+            $user->save();
+
+            $paychapter = new ChapterBill();
+            $paychapter->user_id = $request->user_id;
+            $paychapter->chapter_id = $request->chapter_id;
+            $paychapter->coin = $request->coin;
+            $paychapter->save();
+
+            $request->session()->forget('infoUser');
+            $request->session()->put('infoUser', $user);
+            return "Mở chapter thành công!";
+        } else
+            return "Số xu không đủ!";
+    }
+    public function loadcoin(Request $request)
+    {
+
+        $user = User::find($request->user_id);
+        $coin =  $user->total_coin;
+        echo  $coin;
     }
 }

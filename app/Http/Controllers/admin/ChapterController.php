@@ -13,7 +13,7 @@ class ChapterController extends Controller
 {
     public function index()
     {
-        $comics = Comic::all();
+        $comics = Comic::orderBy('created_at', 'desc')->paginate(1);
         return view('admin.pages.chapters.index', compact('comics'));
     }
 
@@ -41,6 +41,7 @@ class ChapterController extends Controller
     {
         $request->validate([
             'chapter_name' => 'required',
+            'coin' => 'required',
             'images' => 'required',
             'images.*' => 'image',
             'number_comment' => 'required',
@@ -58,6 +59,7 @@ class ChapterController extends Controller
         // Lưu chapter mới vào bảng chapters
         $chapter = new Chapter([
             'chapter_name' => $request->chapter_name,
+            'coin' => $request->coin,
             'images' => implode(',', $imagePaths),
             'number_comment' => $request->number_comment,
             'number_view' => $request->number_view,
@@ -71,8 +73,11 @@ class ChapterController extends Controller
                 'image_path' => $imagePath,
             ]);
         }
+      //  $comic = Comic::find($comic);
+        $comic->number_chapters++;
+        $comic->save();
 
-        return redirect()->route('admin.chapters.show', [$comic, $chapter])->with('success', 'Chapter created successfully.');
+        return redirect()->route('admin.chapters.showAll', [$comic])->with('success', 'Chapter created successfully.');
     }
 
     public function show(Comic $comic, Chapter $chapter)
@@ -89,6 +94,7 @@ class ChapterController extends Controller
     {
         $request->validate([
             'chapter_name' => 'required',
+            'coin' => 'required',
             'images' => 'nullable',
             'images.*' => 'image',
         ]);
@@ -108,6 +114,7 @@ class ChapterController extends Controller
         
             $chapter->update([
                 'chapter_name' => $request->chapter_name,
+                'coin' => $request->coin,
                 'images' => implode(',', $imagePaths),
             ]);
         
@@ -118,10 +125,10 @@ class ChapterController extends Controller
                 ]);
             }
         } else {
-            $chapter->update(['chapter_name' => $request->chapter_name]);
+            $chapter->update(['chapter_name' => $request->chapter_name,'coin' => $request->coin]);
         }
         
-        return redirect()->route('admin.chapters.show', [$comic, $chapter])->with('success', 'Chapter updated successfully.');
+        return redirect()->route('admin.chapters.showAll', [$comic])->with('success', 'Chapter updated successfully.');
     }
 
 

@@ -78,7 +78,7 @@ class LoginController extends Controller
                 Auth::login($user);
     
                 // Lưu thông tin người dùng vào phiên
-                $infoUser = ['id' => Auth::User()->id, 'email' => Auth::User()->email, 'name' => Auth::User()->name, 'avatar' => Auth::User()->avatar];
+                $infoUser = ['id' => Auth::User()->id, 'email' => Auth::User()->email, 'name' => Auth::User()->name, 'avatar' => Auth::User()->avatar,'total_coin' => Auth::User()->total_coin];
                 $request->session()->put('infoUser', $infoUser);
                 
                 // Kiểm tra vai trò người dùng và chuyển hướng

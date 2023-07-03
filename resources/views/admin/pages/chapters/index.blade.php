@@ -43,6 +43,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <br>
+                        {{$comics->links()}}
                     </div>
                 </div>
             </div>

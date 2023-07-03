@@ -8,7 +8,7 @@ use App\Models\Genre;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\DB;
 
 class ComicController extends Controller
 {
@@ -33,6 +33,7 @@ class ComicController extends Controller
             'description' => 'nullable',
             'status' => 'required',
             'cover_image' => 'required|image',
+            'number_chapters' => 'required',
             'number_comments' => 'required',
             'number_views' => 'required',
             'number_follows' => 'required'
@@ -45,6 +46,7 @@ class ComicController extends Controller
             'description' => $request->description,
             'status' => $request->status,
             'cover_image' => $coverImagePath,
+            'number_chapters' => $request->number_chapters,
             'number_comments' => $request->number_comments,
             'number_views' =>  $request->number_views,
             'number_follows' =>  $request->number_follows,

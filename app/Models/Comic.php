@@ -14,6 +14,7 @@ class Comic extends Model
         'description',
         'status',
         'cover_image',
+        'number_chapters',
         'number_comments',
         'number_views',
         'number_follows',

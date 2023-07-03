@@ -11,6 +11,8 @@ class CreateCommentTable extends Migration
         
         Schema::create('comment', function (Blueprint $table) {
             $table->id();
+            $table->string('user_name');
+            $table->string('user_email')->nullable();
             $table->string('content');
             $table->integer('status')->nullable();
             $table->integer('total_cmtreply');
@@ -26,15 +28,18 @@ class CreateCommentTable extends Migration
         });
         Schema::create('commentreply', function (Blueprint $table) {
             $table->id();
+            $table->string('user_name');
+            $table->string('user_email')->nullable();
+            $table->string('userreply_name');
             $table->string('content_reply');
             $table->integer('status')->nullable();
             $table->unsignedBigInteger('comment_id');
-            $table->unsignedBigInteger('userreply_id');
+            $table->unsignedBigInteger('user_id');
+           
             $table->timestamps();
 
             $table->foreign('comment_id')->references('id')->on('comment')->onDelete('cascade');
-            $table->foreign('userreply_id')->references('id')->on('users')->onDelete('cascade');
-           
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
     

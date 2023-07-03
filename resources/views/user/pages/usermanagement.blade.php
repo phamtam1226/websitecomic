@@ -19,10 +19,8 @@
 <div class="container">
   <div class="row">
     <!--/tabs-->
-@if (session()->has('infoUser') == null)
-    
-@else
-<?php
+    @if (session()->has('infoUser') != null)
+    <?php
     $user = session()->get('infoUser');
     ?>
     <div class="responsive_tabs">
@@ -46,21 +44,10 @@
           </tr>
           <tr>
             <td><button class="btn btn-success" style="font-size:90%" data-toggle="modal" data-target="#exampleEditModalCenter">CẬP NHẬT</button>
+            <td><button type="button" class="btn btn-success" style="font-size:90%" data-bs-toggle="modal" data-bs-target="#myModal">
+                NẠP XU
+              </button>
             <td>
-          </tr>
-        </tbody>
-      </table>
-      <h6 style="font-weight:700; width:1100px; padding-bottom:10px">TRUYỆN ĐANG THEO DÕI</h6>
-      <table class="thong-tin" style="border-style:double">
-        <tbody>
-          <tr>
-          </tr>
-            <td id="f_list" class="container">
-
-            </td>
-          </tr>
-          <tr>
-            <td>Không còn truyện nào khác</td>
           </tr>
         </tbody>
       </table>
@@ -70,6 +57,49 @@
   </div>
 </div>
 </div>
+
+
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    @if (session()->has('infoUser') != null)
+    <?php
+    $myaccount = session()->get('infoUser');
+    ?>
+    <form action="{{ route('payment', $myaccount) }}" method="POST" enctype="multipart/form-data" id="save1">
+      @csrf
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Nạp xu</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <input type="radio" class="btn-check" name="options" id="option1" value="100000" autocomplete="off" checked>
+          <label class="btn btn-secondary" for="option1">100.000 vnd<br>20.000 coin</label>
+        
+          <input type="radio" class="btn-check" name="options" id="option2"  value="200000" autocomplete="off" checked>
+          <label class="btn btn-secondary" for="option2">200.000 vnd<br>40.000 coin</label>
+          <input type="radio" class="btn-check" name="options" id="option3"  value="500000" autocomplete="off" checked>
+          <label class="btn btn-secondary" for="option3">500.000 vnd<br>100.000 coin</label>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Thanh toán</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+@endif
 
 <div class="modal fade" id="exampleEditModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -110,16 +140,8 @@
     </div>
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
-<script>
-
-  $('#f_list').load("/list/{{ $user['id'] }}") 
-</script>
 @endif
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
-<script>
-  $('#f_list').load("/list/{{ $user['id'] }}") 
-</script>
+<!--//tabs-->
 </div>
 </div>
 

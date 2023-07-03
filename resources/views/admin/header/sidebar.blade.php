@@ -7,17 +7,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.comics.index') }}">
-              <i class="icon-book menu-icon"></i>
-              <span class="menu-title">Quản lý truyện</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.genres.index') }}">
               <i class="fas fa-newspaper menu-icon"></i>
               <span class="menu-title">Quản lý thể loại</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.comics.index') }}">
+              <i class="icon-book menu-icon"></i>
+              <span class="menu-title">Quản lý truyện</span>
+            </a>
+          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.chapters.index') }}">
               <i class="fas fa-book-open menu-icon"></i>

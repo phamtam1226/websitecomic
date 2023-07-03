@@ -1,102 +1,4 @@
 <style>
-
-  .col-md-12 {
-    margin-top: 40px;
-  }
-
-  .mrt5 {
-    margin-top: 5px;
-  }
-
-  .row {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-
-  .col-sm-4 {
-    width: 33.33333333%;
-    float: left;
-  }
-
-  label {
-    margin-bottom: 5px;
-    font-weight: 700;
-    display: inline-block;
-  }
-
-  .col-sm-10 {
-    width: 83.33333333%;
-    float: right;
-  }
-
-  .mrb10 {
-    margin-bottom: 10px;
-  }
-
-  .mrb5 {
-    margin-bottom: 5px;
-  }
-
-  .comic-filter h1 {
-    font-size: 25px;
-  }
-
-  .btn-info {
-    color: #fff;
-    background-color: #5bc0de;
-    border-color: #46b8da;
-  }
-
-  .hidden {
-    display: none!important;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-  .time-dialog {
-    width: 60px;
-    height: 30px
-  }
-  .search-results {
-    position: absolute;
-    z-index: 999;
-    top: 100%;
-    width: 23.2%;
-    background-color: white;
-    overflow: auto;
-    right: 35px;
-  }
-  .suggested-comics {
-    border: 1px solid #00000052;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-  .suggested-comics:hover {
-    background: #e0e0e0;
-  }
-  .suggested-row {
-    display: flex;
-  }
-  .col-md-9 h3 {
-    font-size: 16px;
-    padding-left: 5px;
-    font-weight: 700;
-    font-family: -webkit-body;
-  }
-
-  .col-md-9 p {
-    padding-left: 5px;
-    font-style: italic;
-    font-size: 12px;
-    font-weight: 400;
-    color: #333;
-  }
-  .list-unstyled {
-    max-height: 470px;
-    overflow-y: auto;
-  }
-  
   #snackbar {
     visibility: hidden;
     min-width: 250px;
@@ -114,7 +16,7 @@
   }
 
   .nav-item.dropdown:hover .dropdown-menu {
-    display: block;   
+    display: block;
   }
 
 
@@ -318,6 +220,7 @@
             @if (session()->has('infoUser') == null)
             <span class="fa fa-user" aria-hidden="true" style="color: rgb(35, 175, 156);"></span><a href="{{route('getLogin')}}" class="hover-nut"> Đăng Nhập </a>
             @else
+
             <span class="fa fa-user" aria-hidden="true" style="color: rgb(35, 175, 156);"><a id="a" class="hover-nut dropdown-toggle" href="#" data-toggle="dropdown" style="margin-left: 5px;" id="profileDropdown"><?php $infoUser = session()->get('infoUser') ?>Hi!&nbsp{{$infoUser['name']}} </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown" style="margin-top:-2px; margin-left: -20px;">
                 <a class="dropdown-item hover-nut" href="{{ route('user.account') }}" style="text-transform:none;font-size: 1rem;letter-spacing: 3px;color: #9c9b9b;cursor: pointer">
@@ -333,6 +236,18 @@
                   Đăng Xuất
                 </a>
               </div>
+              @if( $infoUser['total_coin'] != null)
+              <form method="POST" style=" display: inherit; margin-left: 10px; color:gold;">
+              <input type="hidden" name="user_id" hidden class="form-control" id="id_usercoin" value="{{$infoUser['id']}}">
+
+              <span id="coin_show"> 
+         
+            </span> <i class='fas fa-coins' style="color: gold"></i>
+            </form>
+              @else
+              <span style="margin-left: 10px; color:gold;">0</span> <i class='fas fa-coins' style="color: gold"></i>
+              @endif
+
               @endif
           </li>
         </ul>

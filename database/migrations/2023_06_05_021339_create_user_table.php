@@ -16,6 +16,7 @@ class CreateUserTable extends Migration
             $table->integer('role');
             $table->string('avatar')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('total_coin')->nullable();
             $table->integer('login_attempts')->default(0);
             $table->timestamps();
         });

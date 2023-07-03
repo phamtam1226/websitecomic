@@ -60,13 +60,25 @@ Route::post('/account/{id}', [LoginController::class, 'updateAccount'])->name('u
 
 //Bình Luận
 Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
-Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
 Route::post('/loadcommtent', [UserController::class, 'loadComment'])->name('loadComment');
 Route::post('/loadNumbercomment', [UserController::class, 'loadNumbercomment'])->name('loadNumbercomment');
 Route::post('/commentreply', [UserController::class, 'postCommentReply'])->name('postCommentReply');
+Route::post('/commentreplyuser', [UserController::class, 'postCmtReplyuser'])->name('postCmtReplyuser');
 
 //View
 Route::post('/view', [UserController::class, 'postView'])->name('postView');
+//Lich su
+Route::post('/history', [UserController::class, 'postHistory'])->name('postHistory');
+Route::post('/destroyhistory', [UserController::class, 'destroyHistory'])->name('destroyHistory');
+Route::post('/loadhistory', [UserController::class, 'loadHistory'])->name('loadHistory');
+//check
+Route::post('/checkchapter', [UserController::class, 'checkchapter'])->name('checkchapter');
+//mo chap
+Route::post('/openchapter', [UserController::class, 'openchapter'])->name("openchapter");
+//
+Route::post('/coin', [UserController::class, 'loadcoin'])->name("loadcoin");
+//thanh toan 
+Route::post('/payment/{id}', [UserController::class, 'payment'])->name("payment");
 
 
 
