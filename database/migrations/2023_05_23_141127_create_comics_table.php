@@ -17,6 +17,9 @@ class CreateComicsTable extends Migration
             $table->integer('number_comments');
             $table->integer('number_views');
             $table->integer('number_follows');
+            $table->integer('day_views');
+            $table->integer('week_views');
+            $table->integer('month_views');
             $table->timestamps();
         });
         

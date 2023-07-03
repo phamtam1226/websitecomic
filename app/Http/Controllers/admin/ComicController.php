@@ -48,6 +48,9 @@ class ComicController extends Controller
             'number_comments' => $request->number_comments,
             'number_views' =>  $request->number_views,
             'number_follows' =>  $request->number_follows,
+            'day_views' => 0,
+            'month_views' => 0,
+            'week_views' => 0,
         ]);
 
         $comic->genres()->sync($request->genre_ids); // Lưu các thể loại đã chọn
@@ -112,6 +115,17 @@ class ComicController extends Controller
         return redirect()->route('admin.comics.index');
     }
 
+    public function day_fresh(){
+        DB::table('comics')->update(['day_views' => 0]);
+    }
+
+    public function week_fresh(){
+        DB::table('comics')->update(['week_views' => 0]);
+    }
+
+    public function month_fresh(){
+        DB::table('comics')->update(['month_views' => 0]);
+    }
 
     public function destroy(Comic $comic)
     {

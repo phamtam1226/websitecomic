@@ -41,8 +41,11 @@ class UserController extends Controller
 
         $nominatedComics = Comic::orderBy('created_at', 'desc')->get();
     
+        $topdayComic = Comic::orderBy('day_views','desc')->take(5)->get();
+        $topweekComic = Comic::orderBy('week_views','desc')->take(5)->get();
+        $topmonthComic = Comic::orderBy('month_views','desc')->take(5)->get();
         // Trả về view và truyền biến genres và comics
-        return view('user.pages.index', compact('genres', 'comics', 'nominatedComics', 'comment'));
+        return view('user.pages.index', compact('genres', 'comics', 'nominatedComics', 'comment', 'topdayComic', 'topweekComic', 'topmonthComic'));
     }
     
 
@@ -355,6 +358,9 @@ class UserController extends Controller
 
         $chapter = Comic::find($chapter->comic_id);
         $chapter->number_views++;
+        $chapter->day_views++;
+        $chapter->week_views++;
+        $chapter->month_views++;
         $chapter->save();
     }
 
