@@ -141,58 +141,70 @@ class UserController extends Controller
         return response()->json($comics);
     }
 
-    // public function foundcomic($status,$filter){
-    //     //$comics = Comic::all();
-    //     if ($status != 0 && $status != 1) {
-    //         $status = [0,1];
-    //     } else {
-    //         $status = [$status];
-    //     }
+    public function foundcomic($genreId,$status,$filter){
+        //$comics = Comic::all();
+        // if ($status != 0 && $status != 1) {
+        //     $status = [0,1];
+        // } else {
+        //     $status = [$status];
+        // }
 
-    //     switch ($filter) {
-    //         case 'fol':
-    //             $comics = Comic::whereIn('status', $status)->orderBy('number_follows', 'desc')->get();
-    //             break;
+        if ($genreId != 0) {
+            $selectedGenre = Genre::findOrFail($genreId);
+            $comics = $selectedGenre->comics()->paginate(12);
+        } else {
+            $comics = Comic::paginate(12);
+        }
 
-    //         case 'cmt':
-    //             $comics = Comic::whereIn('status', $status)->orderBy('number_comments', 'desc')->get();
-    //             break;
+        if ($status == 1 || $status == 0) {
+            $comics = $comics->where('status',$status);
+        }
 
-    //         case 'new':
-    //             $comics = Comic::whereIn('status', $status)->orderBy('created_at', 'desc')->get();
-    //             break;
+        switch ($filter) {
+            case 'fol':
+                $comics = $comics->sortByDesc('number_follows');
+                break;
 
-    //         case 'upd':
-    //             $comics = Comic::whereIn('status', $status)->orderBy('updated_at', 'desc')->get();
-    //             break;
+            case 'cmt':
+                $comics = $comics->sortByDesc('number_comments');
+                break;
 
-    //         // case 'cha':
-    //         //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
-    //         //     break;
+            case 'new':
+                $comics = $comics->sortByDesc('created_at');
+                break;
 
-    //         // case 'day':
-    //         //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
-    //         //     break;
+            case 'upd':
+                $comics = $comics->sortByDesc('updated_at');
+                break;
 
-    //         // case 'wek':
-    //         //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
-    //         //     break;
+            // case 'cha':
+            //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
+            //     break;
 
-    //         // case 'mon':
-    //         //     $comics = Comic::whereIn('status', $status)->orderBy(chapter()->count(), 'desc')->get();
-    //         //     break;
+            case 'day':
+                $comics = $comics = $comics->sortByDesc('day_views');
+                break;
 
-    //         default:
-    //             $comics = Comic::whereIn('status', $status)->orderBy('number_views', 'desc')->get();
-    //             break;
-    //     }
+            case 'wek':
+                $comics = $comics->sortByDesc('week_views');
+                break;
 
-    //     foreach ($comics as $comic) {
-    //         $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
-    //     }
+            case 'mon':
+                $comics = $comics->sortByDesc('month_views');
+                break;
 
-    //     return view('user.pages.foundcomic', compact('comics'));
-    // }
+            default:
+                $comics = $comics->sortByDesc('number_views');
+                break;
+        }
+
+        foreach ($comics as $comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        return view('user.pages.foundcomic', compact('comics'));
+    }
+
     public function advanced_comics_search(Request $request)
     {
         $genres = Genre::all();

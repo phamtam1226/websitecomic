@@ -18,7 +18,7 @@ Route::get('/', [UserController::class, 'index'])->name('user.index');
 Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
 Route::get('/comics_search', [UserController::class, 'comics_search'])->name('comics_search');
 
-Route::get('/foundcomic/{status}/{filter}', [UserController::class, 'foundcomic'])->name('foundcomic');
+Route::get('/foundcomic/{genreId}/{status}/{filter}', [UserController::class, 'foundcomic'])->name('foundcomic');
 
 Route::get('/comics_search/{genre}', [UserController::class, 'comics_search'])->name('comics_search.genre');
 Route::get('/comics_search_keyword', [UserController::class, 'comics_search_keyword'])->name('comics_search_keyword');

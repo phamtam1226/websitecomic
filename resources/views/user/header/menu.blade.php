@@ -23,7 +23,7 @@
               <li>
                   <div class="row" style="text-align: center;">
                       <div class="col-md-3 media-list span3 text-left">
-                          <a href="{{ route('comics_search') }}">Tất cả</a>
+                          <a href="{{ route('comics_search.genre', ['genre' => 0]) }}">Tất cả</a>
                       </div>
                       @foreach ($genres as $genre)
                       <div class="col-md-3 media-list span3 text-left">
