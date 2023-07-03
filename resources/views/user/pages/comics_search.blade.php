@@ -95,12 +95,12 @@
     $("[id='sta_btn']").click(function() {
         $("[id='sta_btn']").removeClass("active");
         $(this).addClass("active");
-        $('#comiclist').load('/foundcomic/'+'{{ $selectedGenre->id }}'+'/'+$('#sta_btn.active').attr("value")+'/'+$('#fil_btn.active').attr("data-value"))
+        $('#comiclist').load('/foundcomic/'+'{{ $selectedGenre ? $selectedGenre->id : 0 }}'+'/'+$('#sta_btn.active').attr("value")+'/'+$('#fil_btn.active').attr("data-value"))
     });
     $("[id='fil_btn']").click(function() {
         $("[id='fil_btn']").removeClass("active");
         $(this).addClass("active");
-        $('#comiclist').load('/foundcomic/'+'{{ $selectedGenre->id }}'+'/'+$('#sta_btn.active').attr("value")+'/'+$('#fil_btn.active').attr("data-value"))
+        $('#comiclist').load('/foundcomic/'+'{{ $selectedGenre ? $selectedGenre->id : 0 }}'+'/'+$('#sta_btn.active').attr("value")+'/'+$('#fil_btn.active').attr("data-value"))
     });
 </script>
 @stop

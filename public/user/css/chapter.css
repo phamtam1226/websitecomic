@@ -37,18 +37,26 @@
     font-weight: 700;
 }
 a#prevChapter {
-    background: url(https://baotangtruyengo.com/content/images/prev-next.jpg) no-repeat;
     display: inline-block;
-    height: 29px;
     width: 33px;
-    line-height: 30px;
+    background: #d9534f;
+    color: #fff;
+    text-align: center;
+    border-color: #d43f3a;
+    height: 34px;
+    padding-top: 7px;
+    border-radius: 4px 0 0 4px;
 }
 a#nextChapter {
-    background: url(https://baotangtruyengo.com/content/images/prev-next.jpg) no-repeat -33px 0;
     display: inline-block;
-    height: 29px;
     width: 33px;
-    line-height: 30px;
+    background: #d9534f;
+    color: #fff;
+    text-align: center;
+    border-color: #d43f3a;
+    height: 34px;
+    padding-top: 7px;
+    border-radius: 0 4px 4px 0;
 }
 .select-chapter {
     border-radius: 4px;
@@ -67,6 +75,7 @@ a.follow-link.btn.btn {
     display: inline-block;
     margin-bottom: 0;
     font-weight: 400;
+    
     text-align: center;
     vertical-align: middle;
     -ms-touch-action: manipulation;
@@ -84,6 +93,8 @@ a.follow-link.btn.btn {
     -ms-user-select: none;
     user-select: none;
 }
+
+
 /* bình luận chi tiết */
 .comment-detail .nav-tabs>li.active>a, .comment-detail .nav-tabs>li.active>a:hover {
     border-top: 2px solid #b9060a !important;
