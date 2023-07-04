@@ -119,7 +119,7 @@ $(document).ready(function(){
                   html += '<div class="col-md-3">';
                   html += '<img src="' + comic.cover_image + '" alt="' + comic.comic_name + '" style="width: 100%;height: 80px;"/>';
                   html += '</div>';
-                  html += '<div class="col-md-9">';
+                  html += '<div class="col-md-8">';
                   html += '<h3>' + comic.comic_name + '</h3>';
                   html += '<p>' + comic.latest_chapter + '</p>';
                   html += '<p>' + comic.genre_names.join(', ') + '</p>';

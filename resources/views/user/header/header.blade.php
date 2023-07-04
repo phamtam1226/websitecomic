@@ -1,4 +1,102 @@
 <style>
+
+  .col-md-12 {
+    margin-top: 40px;
+  }
+
+  .mrt5 {
+    margin-top: 5px;
+  }
+
+  .row {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+  .col-sm-4 {
+    width: 33.33333333%;
+    float: left;
+  }
+
+  label {
+    margin-bottom: 5px;
+    font-weight: 700;
+    display: inline-block;
+  }
+
+  .col-sm-10 {
+    width: 83.33333333%;
+    float: right;
+  }
+
+  .mrb10 {
+    margin-bottom: 10px;
+  }
+
+  .mrb5 {
+    margin-bottom: 5px;
+  }
+
+  .comic-filter h1 {
+    font-size: 25px;
+  }
+
+  .btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+  }
+
+  .hidden {
+    display: none!important;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .time-dialog {
+    width: 60px;
+    height: 30px
+  }
+  .search-results {
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    width: 23.2%;
+    background-color: white;
+    overflow: auto;
+    right: 35px;
+  }
+  .suggested-comics {
+    border: 1px solid #00000052;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .suggested-comics:hover {
+    background: #e0e0e0;
+  }
+  .suggested-row {
+    display: flex;
+  }
+  .col-md-9 h3 {
+    font-size: 16px;
+    padding-left: 5px;
+    font-weight: 700;
+    font-family: -webkit-body;
+  }
+
+  .col-md-9 p {
+    padding-left: 5px;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+  }
+  .list-unstyled {
+    max-height: 470px;
+    overflow-y: auto;
+  }
+  
   #snackbar {
     visibility: hidden;
     min-width: 250px;
@@ -16,7 +114,7 @@
   }
 
   .nav-item.dropdown:hover .dropdown-menu {
-    display: block;
+    display: block;   
   }
 
 
