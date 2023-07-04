@@ -21,6 +21,6 @@
         </figcaption>
     </div>
 </div>
-{{$hítory->links()}}
+
 @endforeach
 </div>

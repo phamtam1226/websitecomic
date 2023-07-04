@@ -42,7 +42,7 @@
           <li>
             <div class="row">
               <div class="col-md-4 media-list span4 text-left">
-                <a rel="nofollow" href="https://baotangtruyengo.com/tim-truyen?status=-1&amp;sort=10"> <i class="fa fa-eye"> </i> Top all</a>
+                <a rel="nofollow" href="http://127.0.0.1:8000/comics_search"> <i class="fa fa-eye"> </i> Top all</a>
               </div>
               <div class="col-md-4 media-list span4 text-left">
                 <a href="https://baotangtruyengo.com/tim-truyen?status=2&amp;sort=0">
@@ -50,7 +50,7 @@
                 </a>
               </div>
               <div class="col-md-4 media-list span4 text-left">
-              <a rel="nofollow" href="https://baotangtruyengo.com/tim-truyen?status=-1&amp;sort=20"> <i class="fa fa-thumbs-o-up"> </i> Yêu Thích</a>
+              <a rel="nofollow"  id="fil_btn" data-value="day"> <i class="fa fa-thumbs-o-up"> </i> Yêu Thích</a>
               </div>
               <div class="col-md-4 media-list span4 text-left">
               <a rel="nofollow" href="https://baotangtruyengo.com/tim-truyen?status=-1&amp;sort=11"> <i class="fa fa-eye"> </i> Top tháng</a>

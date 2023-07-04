@@ -14,7 +14,7 @@
         @foreach($history as $historyct)
             @if($chapter->id == $historyct->chapter_id)
                 
-                <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapter chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+                <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" style="color: silver;" title="{{ $chapter->chapter_name }}" class="chapter chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
                 <?php $check = 1 ?>
               
             @endif
@@ -31,14 +31,14 @@
                 <?php $paychap = 1 ?>
                 @endif     
                 @endforeach
-            @if($paychap == 1)    
-            <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-            <?php $paychap = 0 ?>
-            @else
-            <a data-bs-toggle="modal" data-bs-target="#myModal{{$chapter->id}}" type="button" title="{{ $chapter->chapter_name }}" class=" chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }} <i class='fas fa-lock' ></i></a><span style="color: gold; float:right;">{{$chapter->coin}} <i class='fas fa-coins' style="color: gold;"></i></span>
+                @if($paychap == 1)    
+                <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+                <?php $paychap = 0 ?>
+                @else
+                <a data-bs-toggle="modal" data-bs-target="#myModal{{$chapter->id}}" type="button" title="{{ $chapter->chapter_name }}" class=" chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }} <i class='fas fa-lock' ></i></a><span style="color: gold; float:right;">{{$chapter->coin}} <i class='fas fa-coins' style="color: gold;"></i></span>
 
-            
-            @endif
+                
+                @endif
 
 
         @endif

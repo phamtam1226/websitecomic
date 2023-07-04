@@ -9,7 +9,7 @@
                 <a id='name' href="">Until Your Sword Breaks</a>
             </h3>
             <ul class="d-flex justify-content-start">
-                <a href="" id="chapname"></a>
+                <a href="" id="chapname" style="margin-left: -25px;"></a>
             </ul>
         </div>
     </li>

@@ -6,12 +6,12 @@
     <input style="display: none" name='user_id' type="text" value="{{ $user_id }}">
     <input style="display: none" name='chapter' type="text" value="1">
 </form> --}}
-<div class="buttontheodoi">
+<span class="buttontheodoi">
 <a class="follow-link btn btn-success d-none" id="123" ><i class="fa fa-heart" ></i> <span>Theo dõi</span></a>
 
 <a class="follow-link btn btn-danger d-none" id="456"><i class="fa fa-heart" ></i> <span>Bỏ theo dõi</span></a>
 
-</div>
+</span>
 
 
 

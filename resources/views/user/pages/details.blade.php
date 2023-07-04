@@ -127,7 +127,7 @@
                 @foreach($chapter as $chapter)
                 <li class="row ">
                     <div class="col-md-5 chapter">
-                        @if($chapter->coin ==0)
+                        @if($chapter->coin == 0)
                         <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
                   @else
                   <a  type="button" onclick="alert('Bạn cần đăng nhập trước')" title="{{ $chapter->chapter_name }}"  data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }} <i class='fas fa-lock' ></i></a><span style="color: gold; float:right;">{{$chapter->coin}} <i class='fas fa-coins' style="color: gold;"></i></span>
@@ -140,9 +140,7 @@
                 @endif
 
             </ul>
-            <a class="hidden view-more"  onclick="myFunction()" id="myBtn">
-                <i class="fa fa-plus "></i> Xem thêm
-            </a>
+           
         </nav>
     </div>
 

@@ -55,7 +55,7 @@
                                         @endforeach
                                     </td>
 
-                                    <td style="max-width: 360px; text-overflow: ellipsis; overflow: hidden">{{ $comic->description }}</td>
+                                    <td style="max-width: 260px; text-overflow: ellipsis; overflow: hidden">{{ $comic->description }}</td>
 
                                     <td>
                                         @if($comic->status == 0)

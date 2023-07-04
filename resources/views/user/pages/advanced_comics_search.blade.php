@@ -13,7 +13,7 @@
       <div class="text-center mrb5">
         <button type="button" class="btn btn-info btn-collapse">
           <span class="show-text hidden">Hiện khung tìm kiếm <i class="fa fa-angle-double-down"></i></span>
-          <span class="hide-text">Ẩn khung tìm kiếm <i class="fa fa-angle-double-up"></i></span>
+          <span class="hide-text" style="display: none;">Ẩn khung tìm kiếm <i class="fa fa-angle-double-up"></i></span>
         </button>
       </div>
     </div>

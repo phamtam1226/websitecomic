@@ -61,7 +61,7 @@
                 @endif
                 
                 @endif
-                <div class="theodoi">
+                <span class="theodoi">
              @if (session()->has('infoUser') == null)
                 <form class="hidden" id="FORM" enctype="multipart/form-data" style="display: inline-flex;">
                     @csrf
@@ -78,7 +78,7 @@
                 </form>
                 @include('user.pages.button')
                 @endif
-                </div>
+</span>
             </div>
              <!-- Theo doi -->
             

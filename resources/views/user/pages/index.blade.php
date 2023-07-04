@@ -65,7 +65,7 @@
 									@foreach($history as $historyct)
 									@if($chapter->id == $historyct->chapter_id)
 
-									<a style="margin-left: -25px;" href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapter chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+									<a style="margin-left: -25px;color: silver;" href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapter chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
 									<?php $check = 1 ?>
 
 									@endif

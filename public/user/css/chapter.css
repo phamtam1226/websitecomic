@@ -58,6 +58,11 @@ a#nextChapter {
     padding-top: 7px;
     border-radius: 0 4px 4px 0;
 }
+.buttontheodoi {
+    position: absolute;
+    margin-top: -39px;
+    margin-left: 269px;
+}
 .select-chapter {
     border-radius: 4px;
     color: #555;
