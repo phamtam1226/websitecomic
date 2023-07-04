@@ -26,17 +26,7 @@
 				
 			
 			<br>
-			<ul class="pagination justify-content-center ">
-
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">...</a></li>
-				<li class="page-item"><a class="page-link" href="#">20</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#">></a>
-				</li>
-			</ul>
+			
 		</div>
 		<!-- truyện theo dõi -->
 		<div class="col-md-4 col-sm-6">
@@ -71,64 +61,37 @@
 						<div class="tab-pane fade  show active" id="content-topmonth" role="tabpanel" aria-labelledby="tab-topmonth">
 							<div class="tab-pane">
 								<div id="topMonth">
+									@foreach ($topmonthComic as $comic)
 									<ul class="list-unstyled relative">
 										<li class="clearfix" style="display:block">
-											<span class="txt-rank fn-order pos1">01</span>
+											{{-- <span class="txt-rank fn-order pos1">01</span> --}}
 											<div class="t-item">
-												<a class="thumb" title="Until Your Sword Breaks" href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">
-													<img class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/API/20230511/until-your-sword-breaks.jpg" alt="Until Your Sword Breaks" style="display: inline;">
+												<a class="thumb" title="{{ $comic->comic_name }}" href="{{ route('details', ['comicId' => $comic->id]) }}">
+													<img class=" ls-is-cached lazyloaded" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;">
 												</a>
 												<h3 class="title">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">Until Your Sword Breaks iusdui uec eegfe ehfuehu eheu</a>
+													<a href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
 												</h3>
 												<p class="chapter top">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks/chapter-1/778897" title="Chapter 1">Chapter 1</a>
-													<span class="view pull-right">
-														<i class="fa fa-eye"></i> 127K
-													</span>
+												<ul style=" list-style-type: none;">
+													@foreach($comic->chapters as $chapter)
+													<li class="chapter clearfix">
+														<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+														{{-- <i class="time">{{ $chapter->created_at->diffForHumans() }}</i> --}}
+														<span class="view pull-right">
+															<i class="fa fa-eye"></i> {{ $comic->day_views }}
+														</span>
+													</li>
+													@endforeach
+												</ul>
+
 												</p>
 											</div>
 										</li>
-										<li class="clearfix" style="display:block">
-											<span class="txt-rank fn-order pos1">02</span>
-											<div class="t-item">
-												<a class="thumb" title="Until Your Sword Breaks" href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">
-													<img class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/API/20230511/until-your-sword-breaks.jpg" alt="Until Your Sword Breaks" style="display: inline;">
-												</a>
-												<h3 class="title">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">Until Your Sword Breaks</a>
-												</h3>
-												<p class="chapter top">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks/chapter-1/778897" title="Chapter 1">Chapter 1</a>
-													<span class="view pull-right">
-														<i class="fa fa-eye"></i> 127K
-													</span>
-												</p>
-											</div>
-										</li>
-										<li class="clearfix" style="display:block">
-											<span class="txt-rank fn-order pos1">03</span>
-											<div class="t-item">
-												<a class="thumb" title="Until Your Sword Breaks" href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">
-													<img class=" ls-is-cached lazyloaded" src="https://img.baotangtruyenvip.com/Upload02/AvatarStory/API/20230511/until-your-sword-breaks.jpg" alt="Until Your Sword Breaks" style="display: inline;">
-												</a>
-												<h3 class="title">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks-30994">Until Your</a>
-												</h3>
-												<p class="chapter top">
-													<a href="https://baotangtruyengo.com/truyen-tranh/until-your-sword-breaks/chapter-1/778897" title="Chapter 1">Chapter 1</a>
-													<span class="view pull-right">
-														<i class="fa fa-eye"></i> 127K
-													</span>
-												</p>
-											</div>
-										</li>
-
-
-
 
 									</ul>
-									<a href="topmonth:;" class="tr-topthang-viewmore "><i class="fa fa-plus"></i> Xem tiếp</a>
+									@endforeach
+									{{-- <a href="topmonth:;" class="tr-topthang-viewmore "><i class="fa fa-plus"></i> Xem tiếp</a> --}}
 								</div>
 								<div id="topWeek">
 								</div>
@@ -137,14 +100,73 @@
 							</div>
 						</div>
 						<div class="tab-pane fade" id="content-topweek" role="tabpanel" aria-labelledby="tab-topweek">
-							top thang
+							@foreach ($topweekComic as $comic)
+							<ul class="list-unstyled relative">
+								<li class="clearfix" style="display:block">
+									{{-- <span class="txt-rank fn-order pos1">01</span> --}}
+									<div class="t-item">
+										<a class="thumb" title="{{ $comic->comic_name }}" href="{{ route('details', ['comicId' => $comic->id]) }}">
+											<img class=" ls-is-cached lazyloaded" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;">
+										</a>
+										<h3 class="title">
+											<a href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
+										</h3>
+										<p class="chapter top">
+										<ul style=" list-style-type: none;">
+											@foreach($comic->chapters as $chapter)
+											<li class="chapter clearfix">
+												<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+												{{-- <i class="time">{{ $chapter->created_at->diffForHumans() }}</i> --}}
+												<span class="view pull-right">
+													<i class="fa fa-eye"></i> {{ $comic->day_views }}
+												</span>
+											</li>
+											@endforeach
+										</ul>
+
+										</p>
+									</div>
+								</li>
+
+							</ul>
+							@endforeach
 						</div>
 						<div class="tab-pane fade" id="content-topday" role="tabpanel" aria-labelledby="tab-topday">
-							top ngay
+							@foreach ($topdayComic as $comic)
+							<ul class="list-unstyled relative">
+								<li class="clearfix" style="display:block">
+									{{-- <span class="txt-rank fn-order pos1">01</span> --}}
+									<div class="t-item">
+										<a class="thumb" title="{{ $comic->comic_name }}" href="{{ route('details', ['comicId' => $comic->id]) }}">
+											<img class=" ls-is-cached lazyloaded" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;">
+										</a>
+										<h3 class="title">
+											<a href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
+										</h3>
+										<p class="chapter top">
+										<ul style=" list-style-type: none;">
+											@foreach($comic->chapters as $chapter)
+											<li class="chapter clearfix">
+												<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
+												{{-- <i class="time">{{ $chapter->created_at->diffForHumans() }}</i> --}}
+												<span class="view pull-right">
+													<i class="fa fa-eye"></i> {{ $comic->day_views }}
+												</span>
+											</li>
+											@endforeach
+										</ul>
+
+										</p>
+									</div>
+								</li>
+
+							</ul>
+							@endforeach
 						</div>
 					</div>
 				</div>
 				<br>
+				
 			</div>
 		</div>
 

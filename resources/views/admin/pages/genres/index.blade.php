@@ -50,7 +50,7 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- /.card-body -->
+                       {{$genres->links()}}
                     </div>
                 </div>
             </div>

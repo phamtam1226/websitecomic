@@ -37,7 +37,7 @@
 			<div class="row">
 				@foreach($comics as $comic)
 				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column border height100">
+					<div class="d-flex flex-column height100">
 						<div class="image">
 							<a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">
 								<img src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}">
@@ -99,40 +99,40 @@
 
 									<!-- <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a> -->
 									<input type="hidden" name="user_id" hidden class="form-control" id="id_userhistory" value="{{$infoUser['id']}}">
-									
+
 									<div class="modal" id="myModal{{$chapter->id}}">
-    <div class="modal-dialog modal-dialog-centered">
+										<div class="modal-dialog modal-dialog-centered">
 
-        <form method="POST" enctype="multipart/form-data" id="save1">
-            @csrf
-            <div class="modal-content">
+											<form method="POST" enctype="multipart/form-data" id="save1">
+												@csrf
+												<div class="modal-content">
 
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Mở chap</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+													<!-- Modal Header -->
+													<div class="modal-header">
+														<h4 class="modal-title">Mở chap</h4>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+													</div>
 
-                <!-- Modal body -->
+													<!-- Modal body -->
 
-                <div class="modal-body">
-                    Bạn có muốn dùng 300 xu để mở khóa {{$chapter->chapter_name}}
-                </div>
+													<div class="modal-body">
+														Bạn có muốn dùng 300 xu để mở khóa {{$chapter->chapter_name}}
+													</div>
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <input type="hidden" name="user_id" hidden class="form-control" id="id_user" value="{{$infoUser['id']}}">
-                    <input type="hidden" name="chapter_id" hidden class="form-control" id="id_chapter" value="{{$chapter->id}}">
-                    <input type="hidden" name="coin" hidden class="form-control" id="coin" value="{{$chapter->coin}}">
+													<!-- Modal footer -->
+													<div class="modal-footer">
+														<input type="hidden" name="user_id" hidden class="form-control" id="id_user" value="{{$infoUser['id']}}">
+														<input type="hidden" name="chapter_id" hidden class="form-control" id="id_chapter" value="{{$chapter->id}}">
+														<input type="hidden" name="coin" hidden class="form-control" id="coin" value="{{$chapter->coin}}">
 
-                    <button type="button" class="submitchapter btn btn-primary" data-bs-dismiss="modal" data-id="{{$chapter->id}}">Xác nhận</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Thoát</button>
-                </div>
-            </div>
-        </form>
+														<button type="button" class="submitchapter btn btn-primary" data-bs-dismiss="modal" data-id="{{$chapter->id}}">Xác nhận</button>
+														<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Thoát</button>
+													</div>
+												</div>
+											</form>
 
-    </div>
-</div>
+										</div>
+									</div>
 									@else
 									@if($chapter->coin ==0)
 									<a style="margin-left: -25px;" href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
@@ -161,7 +161,16 @@
 				<div class="d-flex flex-column text-center border height100">
 
 					<h5>Truyện theo dõi</h5>
+					@if (session()->has('infoUser') == null)
 					<p>Không có dữ liệu</p>
+					@else
+					<?php $infoUser = session()->get('infoUser') ?>
+					<form class="hidden" id="form" enctype="multipart/form-data">
+						@csrf
+						<input style="display: none" name='user_id' type="text" value="{{$infoUser['id']}}">
+					</form>
+					@include('user.pages.f_panel')
+					@endif
 				</div>
 				<br>
 				@if(session()->has('infoUser'))

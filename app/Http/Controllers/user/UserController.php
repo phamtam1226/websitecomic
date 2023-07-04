@@ -26,7 +26,7 @@ class UserController extends Controller
          // Lấy danh sách thể loại
          $genres = Genre::all();
 
-         $comics = Comic::orderBy('updated_at', 'desc')->paginate(4);
+         $comics = Comic::orderBy('created_at', 'desc')->paginate(8);
          $comment = Comment::orderBy('created_at', 'desc')->get();
          $history = History::where('status', 0)->where('status', 0)->orderBy('created_at', 'desc')->get();
          $comics->each(function ($comic) {
@@ -55,8 +55,17 @@ class UserController extends Controller
         $nominatedComics = Comic::orderBy('created_at', 'desc')->get();
     
         $topdayComic = Comic::orderBy('day_views','desc')->take(5)->get();
+        $topdayComic->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(1)->get();
+        });
         $topweekComic = Comic::orderBy('week_views','desc')->take(5)->get();
+        $topweekComic->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(1)->get();
+        });
         $topmonthComic = Comic::orderBy('month_views','desc')->take(5)->get();
+        $topmonthComic->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(1)->get();
+        });
         // Trả về view và truyền biến genres và comics
        
         $opchapter = ChapterBill::all();
@@ -291,7 +300,19 @@ class UserController extends Controller
     public function history()
     {
         $genres = Genre::all();
-        return view('user.pages.history', compact('genres'));
+        $topdayComic = Comic::orderBy('day_views','desc')->take(5)->get();
+        $topdayComic->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(1)->get();
+        });
+        $topweekComic = Comic::orderBy('week_views','desc')->take(5)->get();
+        $topweekComic->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(1)->get();
+        });
+        $topmonthComic = Comic::orderBy('month_views','desc')->take(5)->get();
+        $topmonthComic->each(function ($comic) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(1)->get();
+        });
+        return view('user.pages.history', compact('genres','topdayComic','topweekComic','topmonthComic'));
     }
 
     public function chapter($chapterId)
@@ -432,8 +453,11 @@ class UserController extends Controller
     public function getcomic($comicId)
     {
         $comic = Comic::find($comicId);
+        foreach ($comic as $comics) {
+            $comic->chapters = $comic->chapters()->orderBy('created_at', 'desc')->take(1)->get();
+        }
         return Response::json([$comic], 200);
-    }   
+    }
 
     public function f_list($userId){
         $comicId = Follow::select('comic_id')->where('user_id',$userId);
@@ -477,7 +501,7 @@ class UserController extends Controller
     }
     public function loadHistory(Request $request)
     {
-        $history = History::where('user_id',  $request->user_id)->where('status', 0)->orderBy('created_at', 'desc')->get();
+        $history = History::where('user_id',  $request->user_id)->where('status', 0)->orderBy('created_at', 'desc')->paginate(8);
         return view('user.pages.listhistory', compact('history'));
     }
 

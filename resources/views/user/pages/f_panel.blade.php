@@ -8,12 +8,9 @@
             <h3 class="title d-flex justify-content-start">
                 <a id='name' href="">Until Your Sword Breaks</a>
             </h3>
-            <p class="d-flex justify-content-start">
-                <a href="">Chapter 1</a>
-                {{-- <span class="view pull-right">
-                    <i class="fa fa-eye"></i> 127K
-                </span> --}}
-            </p>
+            <ul class="d-flex justify-content-start">
+                <a href="" id="chapname"></a>
+            </ul>
         </div>
     </li>
 </ul>
@@ -46,6 +43,8 @@
                     $('.d-none #name').text(data[0].comic_name);
                     $('.d-none #img').attr('src','storage'+data[0].cover_image.substring(6))
                     $('.d-none .thumb').attr('href','/details/'+data[0].id)
+                    $('.d-none #chapname').text(data[0].chapters[0].chapter_name);
+                    $('.d-none #chapname').attr('href','/chapter/'+data[0].chapters[0].id)
                     $('#test').append($('.d-none #012').html())
                 })
                 limit = limit + 1;

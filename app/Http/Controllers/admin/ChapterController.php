@@ -13,7 +13,7 @@ class ChapterController extends Controller
 {
     public function index()
     {
-        $comics = Comic::orderBy('created_at', 'desc')->paginate(1);
+        $comics = Comic::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.pages.chapters.index', compact('comics'));
     }
 

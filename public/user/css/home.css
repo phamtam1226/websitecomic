@@ -35,6 +35,9 @@ img.lazyOwl {
 
 
 }
+a.chapter.clearfix {
+    float: left;
+}
 .slide-caption .time {
     float: right;
     margin-top: -24px;

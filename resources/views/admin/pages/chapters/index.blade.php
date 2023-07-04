@@ -33,12 +33,14 @@
                             <thead>
                                 <tr>
                                     <th>Danh Sách Truyện</th>
+                                    <th>Số Chapter</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($comics as $comic)
                                     <tr onclick="window.location=`{{ route('admin.chapters.showAll', $comic) }}`;">
                                         <td style="max-width: 180px; text-overflow: ellipsis; overflow: hidden">{{ $comic->comic_name }}</td>
+                                        <td style="max-width: 20px; text-overflow: ellipsis; overflow: hidden">{{ $comic->number_chapters }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

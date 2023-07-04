@@ -59,15 +59,16 @@
                 @if($nextChapter!=null)
                 <a id="nextChapter" href="{{ $nextChapter ? route('chapter.details', ['chapterId' => $nextChapter->id]) : '#' }}" class="next a_next chapterview" data-id="{{ $nextChapter->id }}"><i class="fa fa-angle-right"></i></a>
                 @endif
+                
                 @endif
-                <!-- Theo doi -->
-                @if (session()->has('infoUser') == null)
-                <form class="hidden" id="FORM" enctype="multipart/form-data">
+                <div class="theodoi">
+             @if (session()->has('infoUser') == null)
+                <form class="hidden" id="FORM" enctype="multipart/form-data" style="display: inline-flex;">
                     @csrf
                     <input style="display: none" name='comic_id' type="text" value="{{ $chapter->comic->id }}">
                     <input style="display: none" name='user_id' type="text" value="1">
                 </form>
-                <button class="btn btn-success" onclick="alert('Bạn cần đăng nhập trước')"><i class="fa fa-heart"></i> <span>Theo dõi</span></button>
+                <button class="btn btn-success theodoi" onclick="alert('Bạn cần đăng nhập trước')"><i class="fa fa-heart"></i> <span>Theo dõi</span></button>
                 @else
                 <?php $infoUser = session()->get('infoUser') ?>
                 <form class="hidden" id="FORM" enctype="multipart/form-data">
@@ -77,7 +78,10 @@
                 </form>
                 @include('user.pages.button')
                 @endif
+                </div>
             </div>
+             <!-- Theo doi -->
+            
         </div>
 
         <div class="reading-detail box_doc text-center">
