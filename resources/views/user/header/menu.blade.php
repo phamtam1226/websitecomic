@@ -18,7 +18,7 @@
 
       <!-- Thể loại -->
       <li class="nav-item dropdown">
-          <a class="nav-link" href="{{ route('comics_search') }}">Thể Loại</a>
+          <a class="nav-link" href="{{ route('comics_search') }}">Thể Loại <i class="fa fa-sort"></i></a>
           <ul class="dropdown-menu mega-menu">
               <li>
                   <div class="row" style="text-align: center;">
@@ -34,47 +34,13 @@
               </li> 
           </ul>
       </li>
-
-      <!-- Xếp hạng -->
-      <li class="nav-item dropdown">
-        <a rel="nofollow" href="#" class="nav-link " data-toggle="dropdown" role="button" aria-expanded="false">Xếp hạng <i class="fa fa-sort"></i></a>
-        <ul class="dropdown-menu mega-menu">
-          <li>
-            <div class="row">
-              <div class="col-md-4 media-list span4 text-left">
-                <a rel="nofollow" href="http://127.0.0.1:8000/comics_search"> <i class="fa fa-eye"> </i> Top all</a>
-              </div>
-              <div class="col-md-4 media-list span4 text-left">
-                <a href="https://baotangtruyengo.com/tim-truyen?status=2&amp;sort=0">
-                  <strong> <i class="fa fa-signal"> </i> Truyện full</strong>
-                </a>
-              </div>
-              <div class="col-md-4 media-list span4 text-left">
-              <a rel="nofollow"  id="fil_btn" data-value="day"> <i class="fa fa-thumbs-o-up"> </i> Yêu Thích</a>
-              </div>
-              <div class="col-md-4 media-list span4 text-left">
-              <a rel="nofollow" href="https://baotangtruyengo.com/tim-truyen?status=-1&amp;sort=11"> <i class="fa fa-eye"> </i> Top tháng</a>
-              </div>
-              <div class="col-md-4 media-list span4 text-left">
-              <a rel="nofollow" href="https://baotangtruyengo.com/tim-truyen?status=-1&amp;sort=12"> <i class="fa fa-eye"> </i> Top tuần</a>
-              </div>
-              <div class="col-md-4 media-list span4 text-left">
-              <a rel="nofollow" href="https://baotangtruyengo.com/tim-truyen?status=-1&amp;sort=13"> <i class="fa fa-eye"> </i> Top ngày</a>
-              </div>
-              <div class="col-md-4 media-list span4 text-left">
-              <a href="https://baotangtruyengo.com/tim-truyen"> <i class="fa fa fa-refresh"> </i> Mới cập nhật</a>
-              </div>
-              <div class="col-md-4 media-list span4 text-left">
-              <a rel="nofollow" href="https://baotangtruyengo.com/tim-truyen?status=-1&amp;sort=15"> <i class="fa fa-cloud-upload"> </i> Truyện mới</a>
-              </div>
-            </div>
-           
-          </li>
-        </ul>
-      </li>
       <!-- Tìm truyện -->
       <li class="nav-item">
           <a class="nav-link" href="{{ route('advanced_comics_search') }}">Tìm Truyện</a>
+      </li>
+     <!-- Theo dõi -->
+     <li class="nav-item">
+        <a class="nav-link" href="{{ url('/follow') }}">Theo Dõi</a>
       </li>
       <!-- Lịch sử -->
       <li class="nav-item">

@@ -22,6 +22,10 @@ class ChapterBill extends Model
     {
         return $this->belongsTo('App\Models\User','user_id','id');
     }
+    public function Chapter()
+    {
+        return $this->belongsTo('App\Models\Chapter','chapter_id','id');
+    }
     
     
     

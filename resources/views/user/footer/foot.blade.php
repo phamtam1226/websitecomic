@@ -219,6 +219,8 @@
     });
 </script>
 
+
+
 <script>
     $(document).ready(function() {
 
@@ -328,5 +330,26 @@
             });
 
         });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+
+        load_follow();
+
+        function load_follow() {
+            $.ajax({
+                url: "{{route('loadfollow')}}",
+                method: 'POST',
+                data: {
+                    "_token": '{{csrf_token()}}',
+                    "user_id": $("#id_userfollow").val(),
+
+                },
+                success: function(data) {
+                    $('#follow_show').html(data);
+                }
+            });
+        }
     });
 </script>

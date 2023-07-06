@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\ComicController;
 use App\Http\Controllers\admin\ChapterController;
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CommentController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\LoginController;
 use App\Http\Controllers\user\RegisterController;
@@ -27,6 +28,8 @@ Route::get('/history', [UserController::class, 'history'])->name('history');
 Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
 
 //Theo dõi
+Route::get('/follow', [UserController::class, 'follow'])->name('follow');
+Route::post('/loadfollow', [UserController::class, 'loadfollow'])->name('loadfollow');
 Route::post('/theodoi',[UserController::class,'theodoi'])->name('theodoi');
 Route::post('/botheodoi', [UserController::class, 'botheodoi'])->name('botheodoi');
 Route::post('/check', [UserController::class, 'check'])->name('check');
@@ -132,4 +135,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/commentreply/{comic}/{chapter}/{comment}', [CommentController::class, 'showcmtreply'])->name('admin.comment.showcmtreply');
     Route::delete('/comment/{comic}/{chapter}/{comment}', [CommentController::class, 'destroy'])->name('admin.comment.destroy');
     Route::delete('/comment/{comic}/{chapter}/{comment}/{commentreply}', [CommentController::class, 'destroyreply'])->name('admin.comment.destroyreply');
+
+    //Đơn hàng
+    Route::get('/order', [OrderController::class, 'index'])->name('admin.order.index');
+    Route::post('/order/search', [OrderController::class, 'search'])->name('admin.order.search');
 });

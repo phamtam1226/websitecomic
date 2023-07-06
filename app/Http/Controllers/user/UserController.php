@@ -314,6 +314,20 @@ class UserController extends Controller
         });
         return view('user.pages.history', compact('genres','topdayComic','topweekComic','topmonthComic'));
     }
+    public function follow()
+    {
+        $genres = Genre::all();
+      
+        return view('user.pages.follow', compact('genres'));
+    }
+    public function loadfollow(Request $request)
+    {
+   
+        $follows = Follow::where('user_id',  $request->user_id)->orderBy('created_at', 'desc')->get();
+      
+        return view('user.pages.listfollow', compact('follows'));
+    }
+
 
     public function chapter($chapterId)
     {

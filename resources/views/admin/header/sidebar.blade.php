@@ -45,7 +45,12 @@
               <span class="menu-title">Quản lý bình luận</span>
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.order.index') }}" aria-expanded="false" aria-controls="tables">
+              <i class="fas fa-comments menu-icon"></i>
+              <span class="menu-title">Quản lý đơn hàng</span>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-sign-out-alt menu-icon"></i>

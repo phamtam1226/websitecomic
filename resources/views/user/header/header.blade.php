@@ -306,7 +306,9 @@
       <div class="col-md-6 logo-w3layouts top-info text-center">
         <h1 class="logo-w3layouts">
           <a class="navbar-brand" href="{{ url('/') }}">
-            COMIC </a>
+          <img src="https://th.bing.com/th/id/R.3bea9f7f5c30911f879cc9acd5d11a7e?rik=IbPG64YkyFCwTw&riu=http%3a%2f%2fct.mob0.com%2fStyles%2fComic.png&ehk=tSYZQoUVIRMpkhAtH9%2bKnz4vrtY21yt5Y%2buZp4oe%2fQ4%3d&risl=&pid=ImgRaw&r=0" alt="people" style="width:300px">
+</a>
+
         </h1>
       </div>
       <!--Cá nhân -->

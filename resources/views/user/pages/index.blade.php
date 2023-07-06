@@ -173,6 +173,7 @@
 					@endif
 				</div>
 				<br>
+				<!-- Lịch sử -->
 				@if(session()->has('infoUser'))
 				<div class="d-flex flex-column text-center border height100">
 
