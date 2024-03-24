@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Account;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +14,7 @@ class AccountController extends Controller
 {
     public function index()
     {
-        $account = User::all();
+        $account = Account::all();
         return view('admin.pages.account.index', compact('account'));
     }
 
@@ -25,24 +25,22 @@ class AccountController extends Controller
 
     public function store(Request $request)
     {
-        $account = new User();
+        $account = new Account();
         $this->validate($request, [
             'name' => 'required',
-            'password' => 'required',
             'email' => 'required',
+            'password' => 'required',
             'role' => 'required',
-            'avatar' => 'nullable',
+
             'status' => 'required',
         ]);
         // $request->image = $this->imageUpload($request);
-        $account->name = $request->name;
+
         $account->password = Hash::make($request->password);
+        $account->name = $request->name;
         $account->email = $request->email;
         $account->role = $request->role;
         $account->status = $request->status;
-        if ($request->avatar == null) $imageName = $account->avatar;
-        else
-            $account->avatar = $request->file('avatar')->store('public/account');
 
         if ($account->save()) {
             Session::flash('message', 'thêm tài khoản thành công');
@@ -52,17 +50,17 @@ class AccountController extends Controller
         return redirect()->route('admin.account.index');
     }
 
-    public function show(User $accounts)
+    public function show(Account $accounts)
     {
         return view('admin.pages.account.show', compact('accounts'));
     }
 
-    public function edit(User $accounts)
+    public function edit(Account $accounts)
     {
         return view('admin.pages.account.edit', compact('accounts'));
     }
 
-    public function update(Request $request, User $accounts)
+    public function update(Request $request, Account $accounts)
     {
 
         $data = $request->validate([
@@ -72,14 +70,7 @@ class AccountController extends Controller
             'status' => 'required',
 
         ]);
-        if ($request->avatar == null) $imageName = $accounts->avatar;
-        else {
-            if ($accounts->avatar != null) {
-                Storage::delete($accounts->avatar);
-                $data['avatar'] = $request->file('avatar')->store('public/account');
-            } else
-                $data['avatar'] = $request->file('avatar')->store('public/account');
-        }
+
         if ($accounts->update($data)) {
             Session::flash('message', 'Cập nhật thành công!');
         } else
@@ -87,7 +78,7 @@ class AccountController extends Controller
         return redirect()->route('admin.account.index');
     }
 
-    public function destroy(User $accounts)
+    public function destroy(Account $accounts)
     {
         // Storage::delete($accounts->avatar);
         $accounts->delete();
@@ -96,7 +87,7 @@ class AccountController extends Controller
     }
     public function search(Request $request)
     {
-        $account = User::where([['name', 'like', '%' . $request->namesearch . '%']])
+        $account = Account::where([['name', 'like', '%' . $request->namesearch . '%']])
             ->orwhere([['email', 'like', '%' . $request->namesearch . '%']])
             ->paginate(5);
         return View('admin.pages.account.index', ['account' => $account]);

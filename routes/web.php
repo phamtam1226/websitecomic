@@ -3,40 +3,23 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\GenreController;
-use App\Http\Controllers\admin\ComicController;
-use App\Http\Controllers\admin\ChapterController;
+use App\Http\Controllers\admin\EmployeeController;
+use App\Http\Controllers\admin\FoodController;
+use App\Http\Controllers\admin\BoardController;
 use App\Http\Controllers\admin\AccountController;
-use App\Http\Controllers\admin\CommentController;
-use App\Http\Controllers\admin\OrderController;
+use App\Http\Controllers\admin\BillController;
+use App\Http\Controllers\admin\ThongkeController;
+
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\user\OrderController;
+use App\Http\Controllers\user\KitchenController;
 use App\Http\Controllers\user\LoginController;
 use App\Http\Controllers\user\RegisterController;
 use App\Http\Controllers\user\ForgotPasswordController;
-
+use App\Http\Controllers\user\CashierController;
 // User
-Route::get('/', [UserController::class, 'index'])->name('user.index');
-Route::get('/details/{comicId}', [UserController::class, 'details'])->name('details');
-Route::get('/comics_search', [UserController::class, 'comics_search'])->name('comics_search');
+Route::get('/',  [LoginController::class, 'getLogin'])->name('getLogin');
 
-Route::get('/foundcomic/{genreId}/{status}/{filter}', [UserController::class, 'foundcomic'])->name('foundcomic');
-
-Route::get('/comics_search/{genre}', [UserController::class, 'comics_search'])->name('comics_search.genre');
-Route::get('/comics_search_keyword', [UserController::class, 'comics_search_keyword'])->name('comics_search_keyword');
-Route::get('/advanced_comics_search', [UserController::class, 'advanced_comics_search'])->name('advanced_comics_search');
-Route::get('/history', [UserController::class, 'history'])->name('history');
-Route::get('/chapter/{chapterId}', [UserController::class, 'chapter'])->name('chapter.details');
-
-//Theo dõi
-Route::get('/follow', [UserController::class, 'follow'])->name('follow');
-Route::post('/loadfollow', [UserController::class, 'loadfollow'])->name('loadfollow');
-Route::post('/theodoi',[UserController::class,'theodoi'])->name('theodoi');
-Route::post('/botheodoi', [UserController::class, 'botheodoi'])->name('botheodoi');
-Route::post('/check', [UserController::class, 'check'])->name('check');
-//Route::post('/count',[UserController::class,'followcount'])->name('count');
-Route::post('/list',[UserController::class,'followlist'])->name('list');
-Route::get('/gett/{comicId}', [UserController::class, 'getcomic'])->name('getcomic');
-Route::get('/list/{userId}', [UserController::class, 'f_list'])->name('f_list');
 
 
 //Đăng nhập, đăng kí, xác thực otp
@@ -55,68 +38,76 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'postResetPassw
 Route::get('/logout', [LoginController::class, 'getLogout'])->name('getLogout');
 
 //Thông tin tài khoản
-Route::get('/account', [LoginController::class, 'index'])->name("user.account");
+Route::get('/accounti', [LoginController::class, 'index'])->name("user.account");
 Route::post('/updateinfomation/{id}', [LoginController::class, 'updateinfomation'])->name("user.updateinfomation");
 
 //Đổi mật khẩu
 Route::post('/account/{id}', [LoginController::class, 'updateAccount'])->name('user.updateAccount');
 
-//Bình Luận
-Route::post('/commtent', [UserController::class, 'postComment'])->name('postComment');
-Route::post('/loadcommtent', [UserController::class, 'loadComment'])->name('loadComment');
-Route::post('/loadNumbercomment', [UserController::class, 'loadNumbercomment'])->name('loadNumbercomment');
-Route::post('/commentreply', [UserController::class, 'postCommentReply'])->name('postCommentReply');
-Route::post('/commentreplyuser', [UserController::class, 'postCmtReplyuser'])->name('postCmtReplyuser');
+//order
+Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order/{board_id}', [OrderController::class, 'order'])->name('order.order');
+Route::get('/order/back', [OrderController::class, 'back'])->name('order.back');
 
-//View
-Route::post('/view', [UserController::class, 'postView'])->name('postView');
-//Lich su
-Route::post('/history', [UserController::class, 'postHistory'])->name('postHistory');
-Route::post('/destroyhistory', [UserController::class, 'destroyHistory'])->name('destroyHistory');
-Route::post('/loadhistory', [UserController::class, 'loadHistory'])->name('loadHistory');
-//check
-Route::post('/checkchapter', [UserController::class, 'checkchapter'])->name('checkchapter');
-//mo chap
-Route::post('/openchapter', [UserController::class, 'openchapter'])->name("openchapter");
-//
-Route::post('/coin', [UserController::class, 'loadcoin'])->name("loadcoin");
-//thanh toan 
-Route::post('/payment/{id}', [UserController::class, 'payment'])->name("payment");
+Route::post('/addorder', [OrderController::class, 'addorder'])->name('order.addorder');
+Route::post('/deleteorder', [OrderController::class, 'deleteorder'])->name('order.deleteorder');
+Route::post('/requestpay', [OrderController::class, 'requestpay'])->name('order.requestpay');
+Route::post('/order/search', [OrderController::class, 'search'])->name('order.search');
+
+Route::get('/comics_search_keyword', [OrderController::class, 'comics_search_keyword'])->name('order.comics_search_keyword');
+//bill
+Route::post('/bill', [OrderController::class, 'add_bill'])->name('order.add_bill');
+Route::post('/deletefood', [OrderController::class, 'deletefood'])->name('order.deletefood');
 
 
+//kitchen
+Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.index');
+Route::post('/kitchen', [KitchenController::class, 'billdetail'])->name('kitchen.billdetail');
+Route::post('/complte', [KitchenController::class, 'complete'])->name('kitchen.complete');
+Route::post('/over', [KitchenController::class, 'over'])->name('kitchen.over');
+Route::post('/still', [KitchenController::class, 'still'])->name('kitchen.still');
+Route::get('/kitchen/{food_type}', [KitchenController::class, 'checktype'])->name('kitchen.checktype');
+Route::post('/kitchen/search', [KitchenController::class, 'search'])->name('kitchen.search');
+
+
+//cashier
+Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
+Route::post('/cashier', [CashierController::class, 'billdetail'])->name('cashier.billdetail');
+Route::post('/pay', [CashierController::class, 'pay'])->name('cashier.pay');
+Route::get('/bill/{id}/pdf', [CashierController::class, 'inbill'])->name('cashier.inbill');
+Route::get('/bill/showtotal', [CashierController::class, 'showtotal'])->name('cashier.showtotal');
 
 // Admin
 Route::prefix('admin')->group(function () {
     Route::get('/index', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    // Genres
-    Route::get('/genres', [GenreController::class, 'index'])->name('admin.genres.index');
-    Route::get('/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
-    Route::post('/genres', [GenreController::class, 'store'])->name('admin.genres.store');
-    Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('admin.genres.show');
-    Route::get('/genres/{genre}/edit', [GenreController::class, 'edit'])->name('admin.genres.edit');
-    Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('admin.genres.update');
-    Route::delete('/genres/{genre}', [GenreController::class, 'destroy'])->name('admin.genres.destroy');
+    // employee
+    Route::get('/employee', [EmployeeController::class, 'index'])->name('admin.employee.index');
+    Route::get('/employee/create', [EmployeeController::class, 'create'])->name('admin.employee.create');
+    Route::post('/employee', [EmployeeController::class, 'store'])->name('admin.employee.store');
+    Route::get('/employee/{user}/edit', [EmployeeController::class, 'edit'])->name('admin.employee.edit');
+    Route::put('/employee/{user}', [EmployeeController::class, 'update'])->name('admin.employee.update');
+    Route::delete('/employee/{user}', [EmployeeController::class, 'destroy'])->name('admin.employee.destroy');
+    Route::post('/employee/search', [EmployeeController::class, 'search'])->name('admin.employee.search');
 
-    // Comics
-    Route::get('/comics', [ComicController::class, 'index'])->name('admin.comics.index');
-    Route::get('/comics/create', [ComicController::class, 'create'])->name('admin.comics.create');
-    Route::post('/comics', [ComicController::class, 'store'])->name('admin.comics.store');
-    Route::get('/comics/{comic}', [ComicController::class, 'show'])->name('admin.comics.show');
-    Route::get('/comics/{comic}/edit', [ComicController::class, 'edit'])->name('admin.comics.edit');
-    Route::put('/comics/{comic}', [ComicController::class, 'update'])->name('admin.comics.update');
-    Route::delete('/comics/{comic}', [ComicController::class, 'destroy'])->name('admin.comics.destroy');
+    // board
+    Route::get('/board', [BoardController::class, 'index'])->name('admin.board.index');
+    Route::get('/board/create', [BoardController::class, 'create'])->name('admin.board.create');
+    Route::post('/board', [BoardController::class, 'store'])->name('admin.board.store');
+    Route::get('/board/{user}/edit', [BoardController::class, 'edit'])->name('admin.board.edit');
+    Route::put('/board/{user}', [BoardController::class, 'update'])->name('admin.board.update');
+    Route::delete('/board/{board}', [BoardController::class, 'destroy'])->name('admin.board.destroy');
 
-    // Chapters
-    Route::get('/chapters', [ChapterController::class, 'index'])->name('admin.chapters.index');
-    Route::get('/chapters/search', [ChapterController::class, 'search'])->name('admin.chapters.search');
-    Route::get('/chapters/{comic}', [ChapterController::class, 'showAll'])->name('admin.chapters.showAll');
-    Route::get('/chapters/{comic}/create', [ChapterController::class, 'create'])->name('admin.chapters.create');
-    Route::post('/chapters/{comic}', [ChapterController::class, 'store'])->name('admin.chapters.store');
-    Route::get('/chapters/{comic}/{chapter}', [ChapterController::class, 'show'])->name('admin.chapters.show');
-    Route::get('/chapters/{comic}/{chapter}/edit', [ChapterController::class, 'edit'])->name('admin.chapters.edit');
-    Route::put('/chapters/{comic}/{chapter}', [ChapterController::class, 'update'])->name('admin.chapters.update');
-    Route::delete('/chapters/{comic}/{chapter}', [ChapterController::class, 'destroy'])->name('admin.chapters.destroy');
+
+    // food
+    Route::get('/food', [FoodController::class, 'index'])->name('admin.food.index');
+    Route::get('/food/create', [FoodController::class, 'create'])->name('admin.food.create');
+    Route::post('/food', [FoodController::class, 'store'])->name('admin.food.store');
+    Route::get('/food/{food}/edit', [FoodController::class, 'edit'])->name('admin.food.edit');
+    Route::put('/food/{food}', [FoodController::class, 'update'])->name('admin.food.update');
+    Route::delete('/food/{food}', [FoodController::class, 'destroy'])->name('admin.food.destroy');
+    Route::post('/food/type', [FoodController::class, 'checktype'])->name('admin.food.checktype');
+    Route::post('/food/search', [FoodController::class, 'search'])->name('admin.food.search');
 
     //Tài khoản
     Route::get('/account', [AccountController::class, 'index'])->name('admin.account.index');
@@ -128,15 +119,9 @@ Route::prefix('admin')->group(function () {
     Route::delete('/account/{accounts}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
     Route::post('/account/search', [AccountController::class, 'search'])->name('admin.account.search');
 
-    //Bình luận
-    Route::get('/comment', [CommentController::class, 'index'])->name('admin.comment.index');
-    Route::get('/comment/{comic}', [CommentController::class, 'showChapter'])->name('admin.comment.showChapter');
-    Route::get('/comment/{comic}/{chapter}', [CommentController::class, 'show'])->name('admin.comment.show');
-    Route::get('/commentreply/{comic}/{chapter}/{comment}', [CommentController::class, 'showcmtreply'])->name('admin.comment.showcmtreply');
-    Route::delete('/comment/{comic}/{chapter}/{comment}', [CommentController::class, 'destroy'])->name('admin.comment.destroy');
-    Route::delete('/comment/{comic}/{chapter}/{comment}/{commentreply}', [CommentController::class, 'destroyreply'])->name('admin.comment.destroyreply');
+    //Hóa đơn
+    Route::get('/bill', [BillController::class, 'index'])->name('admin.bill.index');
 
-    //Đơn hàng
-    Route::get('/order', [OrderController::class, 'index'])->name('admin.order.index');
-    Route::post('/order/search', [OrderController::class, 'search'])->name('admin.order.search');
+    //thống kê
+    Route::get('/thongke', [ThongkeController::class, 'index'])->name('admin.thongke.index');
 });

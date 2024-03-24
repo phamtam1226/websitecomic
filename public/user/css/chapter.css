@@ -71,6 +71,19 @@ a#nextChapter {
     border: 1px solid #ccc;
     width: 25%;
 }
+button.cmreplyuser {
+    display: block;
+    padding: 3px 4px;
+    background: #b9060a;
+    color: #fff;
+    margin: 5px 0 0;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 10px;
+    cursor: pointer;
+}
 a.follow-link.btn.btn-success {
     color: #fff;
     background-color: #5cb85c;

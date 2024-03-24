@@ -36,7 +36,7 @@
                   <tr>
                     <th>Họ Tên</th>
                     <th>Email</th>
-                    <th>Ảnh Đại Diện</th>
+
                     <th>Loại Tài Khoản</th>
                     <th>Trạng thái</th>
                     <th>Tùy Chỉnh</th>
@@ -47,11 +47,15 @@
                   <tr>
                     <td>{{$accounts->name}}</td>
                     <td>{{$accounts->email}}</td>
-                  
-                    <td><img src="{{ Storage::url($accounts->avatar) }}" style="width:50px; height:50px; border-radius:0%"></td>
-                    <td>@if($accounts->role == 1) {{"Admin"}}
-                      @else {{"Khách Hàng"}}
-                      @endif</td>
+
+
+                    <td>
+                      @if($accounts->role == 0) {{"Admin"}}
+                      @elseif($accounts->role == 1) {{"Thu ngân"}}
+                      @elseif($accounts->role == 2) {{"Bếp"}}
+                      @else {{"Phục vụ"}}
+                      @endif
+                    </td>
 
                     @if($accounts->status == 1)
                     <td style="text-align:center"><input type="checkbox" disabled="disabled" checked /></td>

@@ -2,371 +2,259 @@
 @section('content')
 
 
-<!-- Slider truyện đề cử -->
+<div id="content-wrapper" class="ng-scope">
 
-<div class="container-fluid">
-	<div class="inner-sec-shop px-lg-4 px-3">
-		<h3 class="tittle-w3layouts my-lg-4 my-4">TRUYỆN ĐỀ CỬ > </h3>
-		<div class="owl-carousel owl-theme">
-			@foreach($nominatedComics as $comic)
-			<div class="item">
-				<a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}"><img class="lazyOwl" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;"></a>
-				<div class="slide-caption">
-					<h3><a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">{{ $comic->comic_name }}</a></h3>
-					@if($comic->chapters->isNotEmpty())
-					@php
-					$latestChapter = $comic->chapters->last();
-					@endphp
-					<a href="{{ route('chapter.details', ['chapterId' => $latestChapter->id]) }}" title="{{ $latestChapter->chapter_name }}">{{ $latestChapter->chapter_name }}</a>
-					<span class="time"><i class="fa fa-clock-o"></i> {{ $latestChapter->created_at->diffForHumans() }}</span>
-					@endif
-				</div>
+
+
+	<div class="row" id="content-header">
+		<div class="col-lg-12">
+			<div class="pull-left">
+				<h1 ng-bind="$root.title" class="ng-binding">Tổng quan</h1>
+			</div>
+			<div class="pull-right">
+
 
 			</div>
-			@endforeach
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="main-box">
+					<div class="clearfix">
+						<div class="infographic-box merged merged-top pull-left has-pointer" ng-click="$root.goTo($root.menuUrl.order)">
+							<i class="fa fa-tags emerald-bg"></i>
+							<span class="value emerald ng-binding">0</span>
+							<span class="headline ng-binding">ĐƠN HÀNG</span>
+						</div>
+						<div class="infographic-box merged merged-top merged-right pull-left has-pointer" ng-click="$root.goTo($root.menuUrl.order)">
+							<i class="fa fa-cart-arrow-down emerald-bg"></i>
+							<span class="value emerald ng-binding">0</span>
+							<span class="headline ng-binding">DOANH THU</span>
+						</div>
+					</div>
+					<div class="clearfix" ng-show="$root.IsRestaurant">
+						<div class="infographic-box merged pull-left has-pointer" ng-click="$root.goTo($root.menuUrl.roomhistory)">
+							<i class="fa fa-reply emerald-bg"></i>
+							<span class="value emerald ng-binding">0</span>
+							<span class="headline ng-binding">HỦY/TRẢ ĐỒ</span>
+						</div>
+
+						<div class="infographic-box merged merged-right pull-left has-pointer" ng-click="$root.goTo($root.menuUrl.roomhistory)">
+							<i class="fa fa-reply-all emerald-bg"></i>
+							<span class="value emerald ng-binding">0</span>
+							<span class="headline ng-binding">GIÁ TRỊ TRẢ LẠI</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="main-box">
+					<div class="clearfix">
+						<div class="infographic-box merged merged-top pull-left has-pointer" ng-click="$root.goTo($root.menuUrl.cashflow)">
+							<i class="fa fa-money emerald-bg"></i>
+							<span class="value emerald ng-binding">0</span>
+							<span class="headline ng-binding">TIỀN MẶT</span>
+						</div>
+						<div class="infographic-box merged merged-top merged-right pull-left has-pointer" ng-click="$root.goTo($root.menuUrl.cashflow)">
+							<i class="fa fa-cc-visa emerald-bg"></i>
+							<span class="value emerald ng-binding">0</span>
+							<span class="headline ng-binding">Tài khoản khác</span>
+						</div>
+					</div>
+					<div class="clearfix">
+						<div class="infographic-box merged pull-left has-pointer" ng-click="$root.goTo($root.menuUrl.customer)">
+							<i class="fa fa-address-card emerald-bg"></i>
+							<span class="value emerald ng-binding">0</span>
+							<span class="headline ng-binding">Ghi nợ</span>
+						</div>
+
+						<div class="infographic-box merged merged-right pull-left has-pointer" ng-show="$root.IsRestaurant" ng-click="$root.goTo($root.menuUrl.room)">
+							<i class="fa fa-crosshairs emerald-bg"></i>
+							<span class="value emerald ng-binding">0 / 30</span>
+							<span class="headline ng-binding">BÀN SỬ DỤNG</span>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 
-<!-- Slider truyện mới cập nhật -->
-
-<div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8 col-sm-6" style="margin-top: 40px;">
-			<p style="font-style:italic;">Truyện mới cập nhật</p>
+		<div class="col-md-9">
 			<div class="row">
-				@foreach($comics as $comic)
-				<div class="col-6 col-sm-6 col-md-3 p-2">
-					<div class="d-flex flex-column height100">
-						<div class="image">
-							<a href="{{ route('details', ['comicId' => $comic->id]) }}" title="{{ $comic->comic_name }}">
-								<img src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}">
-							</a>
-							<div class="view clearfix">
-								<span class="pull-left">
-
-									<!-- Cần thêm logic để hiển thị số lượt xem, số bình luận và số yêu thích -->
-									<i class="fa fa-eye">{{ $comic->number_views}}</i> <i class="fa fa-comment">{{ $comic->number_comments}}</i> <i class="fa fa-heart">{{ $comic->number_follows}}</i>
-
-								</span>
-							</div>
-						</div>
-						<figcaption>
-							<h3>
-								<a class="jtip" data-jtip="#truyen-tranh-229" href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
-							</h3>
-							<ul style=" list-style-type: none;">
-								<?php $check = 0 ?>
-								<?php $paychap = 0 ?>
-								@foreach($comic->chapters as $chapter)
-								<li class="chapter clearfix">
-									@if(session()->has('infoUser'))
-									<?php $infoUser = session()->get('infoUser') ?>
-									@foreach($history as $historyct)
-									@if($chapter->id == $historyct->chapter_id)
-
-									<a style="margin-left: -25px;color: silver;" href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapter chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-									<?php $check = 1 ?>
-
-									@endif
-
-									@endforeach
-
-									@if($check != 1)
-									<input type="hidden" name="user_id" hidden class="form-control" id="id_userhistory" value="{{$infoUser['id']}}">
-									@if($chapter->coin == 0)
-									<a style="margin-left: -25px;" href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-									@else
-									@foreach($opchapter as $openchap)
-									@if($chapter->id == $openchap->chapter_id)
-									<?php $paychap = 1 ?>
-									@endif
-									@endforeach
-									@if($paychap == 1)
-									<a style="margin-left: -25px;" href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-									<?php $paychap = 0 ?>
-									@else
-									<a style="margin-left: -25px;" data-bs-toggle="modal" data-bs-target="#myModal{{$chapter->id}}" type="button" title="{{ $chapter->chapter_name }}" class=" chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }} <i class='fas fa-lock'></i></a>
+				<div class="col-lg-12">
+					<div class="main-box">
+						<header class="main-box-header clearfix dashboard">
+							<h2 class="pull-left ng-binding">Doanh thu trong 7 ngày trước</h2>
+							<div class="pull-right">
 
 
-									@endif
-
-
-									@endif
-									@else
-									<?php $check = 0 ?>
-									@endif
-
-									<!-- <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview chapterhistory" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a> -->
-									<input type="hidden" name="user_id" hidden class="form-control" id="id_userhistory" value="{{$infoUser['id']}}">
-
-									<div class="modal" id="myModal{{$chapter->id}}">
-										<div class="modal-dialog modal-dialog-centered">
-
-											<form method="POST" enctype="multipart/form-data" id="save1">
-												@csrf
-												<div class="modal-content">
-
-													<!-- Modal Header -->
-													<div class="modal-header">
-														<h4 class="modal-title">Mở chap</h4>
-														<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-													</div>
-
-													<!-- Modal body -->
-
-													<div class="modal-body">
-														Bạn có muốn dùng 300 xu để mở khóa {{$chapter->chapter_name}}
-													</div>
-
-													<!-- Modal footer -->
-													<div class="modal-footer">
-														<input type="hidden" name="user_id" hidden class="form-control" id="id_user" value="{{$infoUser['id']}}">
-														<input type="hidden" name="chapter_id" hidden class="form-control" id="id_chapter" value="{{$chapter->id}}">
-														<input type="hidden" name="coin" hidden class="form-control" id="coin" value="{{$chapter->coin}}">
-
-														<button type="button" class="submitchapter btn btn-primary" data-bs-dismiss="modal" data-id="{{$chapter->id}}">Xác nhận</button>
-														<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Thoát</button>
-													</div>
-												</div>
-											</form>
-
-										</div>
-									</div>
-									@else
-									@if($chapter->coin ==0)
-									<a style="margin-left: -25px;" href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-									@else
-									<a style="margin-left: -25px;" type="button" onclick="alert('Bạn cần đăng nhập trước')" title="{{ $chapter->chapter_name }}" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }} <i class='fas fa-lock'></i></a>
-									@endif
-									<!-- <a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a> -->
-									@endif <i class="time">{{ $chapter->created_at->diffForHumans() }}</i>
-								</li>
-								@endforeach
-							</ul>
-						</figcaption>
-					</div>
-				</div>
-				@endforeach
-			</div>
-			<br>
-			<ul class="pagination justify-content-center ">
-				{{$comics->links()}}
-			</ul>
-		</div>
-
-		<!-- truyện theo dõi -->
-		<div class="col-md-4 col-sm-6">
-			<div class="col-12 col-sm-6 col-md-12 p-2" style="margin-top: 40px;">
-				<div class="d-flex flex-column text-center border height100">
-
-					<h5>Truyện theo dõi</h5>
-					@if (session()->has('infoUser') == null)
-					<p>Không có dữ liệu</p>
-					@else
-					<?php $infoUser = session()->get('infoUser') ?>
-					<form class="hidden" id="form" enctype="multipart/form-data">
-						@csrf
-						<input style="display: none" name='user_id' type="text" value="{{$infoUser['id']}}">
-					</form>
-					@include('user.pages.f_panel')
-					@endif
-				</div>
-				<br>
-				<!-- Lịch sử -->
-				@if(session()->has('infoUser'))
-				<div class="d-flex flex-column text-center border height100">
-
-					<a href="{{ url('/history') }}">
-						<h5>Lịch sử đọc truyện</h5>
-					</a>
-
-					<hr>
-
-					<?php $infoUser = session()->get('infoUser') ?>
-					@foreach($history as $history)
-					<li class="clearfix" style="display:block">
-						<div class="t-item">
-							<a class="thumb" title="{{ $history->comic->comic_name }}" href="{{ route('details', ['comicId' => $history->comic->id]) }}">
-								<img class=" ls-is-cached lazyloaded" src="{{ Storage::url($history->comic->cover_image) }}" alt="{{ $history->comic->comic_name }}" style="display: inline;">
-							</a>
-							<h3 class="title title_history">
-								<a href="{{ route('details', ['comicId' => $history->comic->id]) }}">{{ $history->comic->comic_name }}</a>
-
-							</h3>
-							<span class="chapter clearfix">
-								<br>
-								<a href="{{ route('chapter.details', ['chapterId' => $history->chapter_id]) }}" class="chapter clearfix" title="{{ $history->chapter->chapter_name }}">Đọc tiếp {{ $history->chapter->chapter_name }} <i class="fa fa-angle-right"></i></a>
-
-							</span>
-						</div>
-					</li>
-					@endforeach
-
-				</div>
-				@endif
-				<br>
-				<!-- top -->
-				<div class="d-flex flex-column  border height100">
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item">
-							<a class="nav-link  active" id="tab-topmonth" data-toggle="tab" href="#content-topmonth" role="tab" aria-controls="content-topmonth" aria-selected="true">
-								Top tháng
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="tab-topweek" data-toggle="tab" href="#content-topweek" role="tab" aria-controls="content-topweek" aria-selected="false">
-								Top tuần
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="tab-topday" data-toggle="tab" href="#content-topday" role="tab" aria-controls="content-topday" aria-selected="false">
-								Top ngày
-							</a>
-						</li>
-					</ul>
-
-					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade  show active" id="content-topmonth" role="tabpanel" aria-labelledby="tab-topmonth">
-							<div class="tab-pane">
-								<div id="topMonth">
-									@foreach ($topmonthComic as $comic)
-									<ul class="list-unstyled relative">
-										<li class="clearfix" style="display:block">
-											{{-- <span class="txt-rank fn-order pos1">01</span> --}}
-											<div class="t-item">
-												<a class="thumb" title="{{ $comic->comic_name }}" href="{{ route('details', ['comicId' => $comic->id]) }}">
-													<img class=" ls-is-cached lazyloaded" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;">
-												</a>
-												<h3 class="title">
-													<a href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
-												</h3>
-												<p class="chapter top">
-												<ul style=" list-style-type: none;">
-													@foreach($comic->chapters as $chapter)
-													<li class="chapter clearfix">
-														<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-														{{-- <i class="time">{{ $chapter->created_at->diffForHumans() }}</i> --}}
-														<span class="view pull-right">
-															<i class="fa fa-eye"></i> {{ $comic->day_views }}
-														</span>
-													</li>
-													@endforeach
-												</ul>
-
-												</p>
-											</div>
-										</li>
-
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">7 ngày trước</a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="#">Link</a></li>
+										<li><a class="dropdown-item" href="#">Another link</a></li>
+										<li><a class="dropdown-item" href="#">A third link</a></li>
 									</ul>
-									@endforeach
-									{{-- <a href="topmonth:;" class="tr-topthang-viewmore "><i class="fa fa-plus"></i> Xem tiếp</a> --}}
-								</div>
-								<div id="topWeek">
-								</div>
-								<div id="topDay">
-								</div>
+								</li>
 							</div>
-						</div>
-						<div class="tab-pane fade" id="content-topweek" role="tabpanel" aria-labelledby="tab-topweek">
-							@foreach ($topweekComic as $comic)
-							<ul class="list-unstyled relative">
-								<li class="clearfix" style="display:block">
-									{{-- <span class="txt-rank fn-order pos1">01</span> --}}
-									<div class="t-item">
-										<a class="thumb" title="{{ $comic->comic_name }}" href="{{ route('details', ['comicId' => $comic->id]) }}">
-											<img class=" ls-is-cached lazyloaded" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;">
-										</a>
-										<h3 class="title">
-											<a href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
-										</h3>
-										<p class="chapter top">
-										<ul style=" list-style-type: none;">
-											@foreach($comic->chapters as $chapter)
-											<li class="chapter clearfix">
-												<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-												{{-- <i class="time">{{ $chapter->created_at->diffForHumans() }}</i> --}}
-												<span class="view pull-right">
-													<i class="fa fa-eye"></i> {{ $comic->day_views }}
-												</span>
-											</li>
-											@endforeach
-										</ul>
-
-										</p>
-									</div>
-								</li>
-
-							</ul>
-							@endforeach
-						</div>
-						<div class="tab-pane fade" id="content-topday" role="tabpanel" aria-labelledby="tab-topday">
-							@foreach ($topdayComic as $comic)
-							<ul class="list-unstyled relative">
-								<li class="clearfix" style="display:block">
-									{{-- <span class="txt-rank fn-order pos1">01</span> --}}
-									<div class="t-item">
-										<a class="thumb" title="{{ $comic->comic_name }}" href="{{ route('details', ['comicId' => $comic->id]) }}">
-											<img class=" ls-is-cached lazyloaded" src="{{ Storage::url($comic->cover_image) }}" alt="{{ $comic->comic_name }}" style="display: inline;">
-										</a>
-										<h3 class="title">
-											<a href="{{ route('details', ['comicId' => $comic->id]) }}">{{ $comic->comic_name }}</a>
-										</h3>
-										<p class="chapter top">
-										<ul style=" list-style-type: none;">
-											@foreach($comic->chapters as $chapter)
-											<li class="chapter clearfix">
-												<a href="{{ route('chapter.details', ['chapterId' => $chapter->id]) }}" title="{{ $chapter->chapter_name }}" class="chapterview" data-id="{{ $chapter->id }}">{{ $chapter->chapter_name }}</a>
-												{{-- <i class="time">{{ $chapter->created_at->diffForHumans() }}</i> --}}
-												<span class="view pull-right">
-													<i class="fa fa-eye"></i> {{ $comic->day_views }}
-												</span>
-											</li>
-											@endforeach
-										</ul>
-
-										</p>
-									</div>
-								</li>
-
-							</ul>
-							@endforeach
+						</header>
+						<div class="main-box-body clearfix">
+							<div kendo-chart="chartRevenueForDays" k-options="chartRevenueForDaysOptions" style="height: 300px; position: relative;" data-role="chart" class=" k-chart"><svg style="width: 100%; height: 100%; overflow: hidden; left: -0.0666675px; top: -0.950012px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+									<defs></defs>
+									<g>
+										<path d="M0 0 L 881 0 881 300 0 300Z" stroke="none" fill="#fff"></path>
+										<path d="M21 5 L 875 5 875 286 21 286Z" stroke="none" fill="#fff" fill-opacity="0"></path>
+										<g>
+											<g></g>
+											<g>
+												<path d="M21.5 5.5 L 875.5 5.5" stroke="#c7c7c7" stroke-width="1" fill="none"></path>
+											</g>
+											<g>
+												<g>
+													<g>
+														<path d="M21.5 286.5 L 875.5 286.5" stroke="#c7c7c7" stroke-width="1" fill="none"></path>
+														<path d="M21.5 286.5 L 21.5 290.5" stroke="#c7c7c7" stroke-width="1" fill="none"></path>
+													</g>
+												</g>
+											</g>
+											<g>
+												<g>
+													<path d="M21.5 5.5 L 21.5 286.5" stroke="#c7c7c7" stroke-width="1" fill="none"></path>
+													<path d="M17.5 286.5 L 21.5 286.5" stroke="#c7c7c7" stroke-width="1" fill="none"></path>
+													<path d="M17.5 5.5 L 21.5 5.5" stroke="#c7c7c7" stroke-width="1" fill="none"></path>
+												</g>
+											</g>
+											<g><text style="font:12px Arial, Helvetica, sans-serif;white-space:pre;" x="5" y="290" stroke="none" fill="#777777" fill-opacity="1">0</text></g>
+										</g>
+										<g></g>
+									</g>
+								</svg></div>
+							<div class="total-dashboard"><i class="fa fa-caret-right"></i> <span id="totalRevenue">0</span></div>
 						</div>
 					</div>
 				</div>
-				<br>
-				<!-- Bình luận -->
-				<div class="new-comments d-flex flex-column border height100">
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="main-box">
+						<header class="main-box-header clearfix dashboard">
+							<h2 class="pull-left ng-binding">Hàng bán chạy</h2>
+							<div class="pull-right">
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">7 ngày trước</a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="#">Link</a></li>
+										<li><a class="dropdown-item" href="#">Another link</a></li>
+										<li><a class="dropdown-item" href="#">A third link</a></li>
+									</ul>
+								</li>
+							</div>
+						</header>
+						<div class="main-box-body clearfix">
+							<div class="table-responsive" style="min-height: 315px;">
+								<table class="table table-striped table-hover" style="margin-bottom:0px;">
 
-					<h5>Bình luận mới</h5>
-					<ul class="list-unstyled">
-						<div data-spy="scroll" data-target="#myScrollspy" data-offset="10" style="height:500px;overflow-y: scroll;padding:5px; ">
-							@foreach($comment as $comment)
-							<li id="cmt-57469">
-								<h3 class="title">
-									<a href="{{ route('details', ['comicId' => $comment->comic_id]) }}">{{ $comment->comic->comic_name }}</a>
-									<a class="cmchapter-link" href="{{ route('chapter.details', ['chapterId' => $comment->chapter_id]) }}"><span class="cmchapter">{{$comment->chapter->chapter_name}}</span></a>
-								</h3>
-								<a class="thumb" title="Kiếm Sư Cấp 9 Trở Lại" href="{{ route('details', ['comicId' => $comic->id]) }}">
-									<img alt="Author" class=" ls-is-cached lazyloaded" src="{{ Storage::url($comment->user->avatar) }}" style="display: inline;">
-								</a>
-								<span class="authorname">{{$comment->user->name}}</span><abbr title="5/25/2023 1:09:55 PM"><i class="fa fa-clock-o"></i> {{ $comment->created_at->diffForHumans() }}</abbr>
-
-								<p class="wrapper-content-cmt"><br>{{$comment->content}}</p>
-							</li>
-							<hr>
-							@endforeach
+									<tbody>
+										<!-- ngRepeat: product in PopularProducts -->
+									</tbody>
+								</table>
+							</div>
 						</div>
-					</ul>
+					</div>
 				</div>
+				<div class="col-md-8">
+					<div class="main-box">
+						<header class="main-box-header clearfix dashboard">
+							<h2 class="pull-left ng-binding">Doanh thu theo chi nhánh</h2>
+							<div class="pull-right">
+								<i class="fa fa-pie-chart has-pointer red" aria-hidden="true" ng-click="changeRevenueByBranchType('pie')"></i>
+								<i class="fa fa-bar-chart has-pointer " aria-hidden="true" ng-click="changeRevenueByBranchType('bar')"></i>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">7 ngày trước</a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="#">Link</a></li>
+										<li><a class="dropdown-item" href="#">Another link</a></li>
+										<li><a class="dropdown-item" href="#">A third link</a></li>
+									</ul>
+								</li>
+							</div>
+						</header>
+						<div class="main-box-body clearfix">
+							<div kendo-chart="chartRevenueByBranch" k-options="chartRevenueByBranchOptions" style="height: 300px; position: relative;" data-role="chart" class=" k-chart"><svg style="width: 100%; height: 100%; overflow: hidden; left: -0.616699px; top: -0.466675px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+									<defs></defs>
+									<g>
+										<path d="M0 0 L 575 0 575 300 0 300Z" stroke="none" fill="none"></path>
+										<path d="M0 0 L 0 0 0 0 0 0Z" stroke="none" fill="#fff" fill-opacity="0"></path>
+										<g>
+											<g></g>
+										</g>
+										<g>
+											<g></g>
+										</g>
+									</g>
+								</svg></div>
+							<div class="total-dashboard"><i class="fa fa-caret-right"></i> <span id="totalRevenueByBranch">0</span></div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
+		<div class="col-md-3">
+
+                    <div class="main-box">
+                        <div class="main-box-body clearfix" style="padding:5px 10px 5px 15px;cursor:pointer">
+                            <h2 class="pull-left" style="padding-top:5px;">
+                                HOTLINE : <a href="tel:19004515" style="text-decoration: none;">
+                                    <strong style="color:#dd191d" class="ng-binding">1900 4515</strong>
+                                </a>
+                            </h2>
+                            <div class="pull-right">
+                                <i class="fa fa-phone-square themecolor" style="font-size:2em"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="main-box" ng-show="$root.domainwww != 'www.posio.vn'">
+                        <div class="main-box-body clearfix" style="padding:5px 10px 5px 15px;cursor:pointer" ng-click="$root.goTo($root.menuUrl.karavan)">
+                            <div class="col-lg-12"><img src="https://about.karavan.vn/wp-content/uploads/pos365/dashboard-banner.png" style="width:100%" /></div>
+                        </div>
+                    </div>-->
+                   
+                    <div class="main-box">
+                        <div class="main-box-body clearfix" style="padding:5px 10px 5px 15px;cursor:pointer">
+                            <h2 class="pull-left ng-binding" style="padding-top:5px;">Lịch đặt Phòng/Bàn</h2>
+                            <div class="pull-right">
+                                <i class="fa fa-calendar themecolor" style="font-size:2em"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-box">
+                        <div class="main-box-body clearfix" style="padding:5px 10px 5px 15px;cursor:pointer" ng-click="$root.goTo($root.menuUrl.sms)">
+                            <h2 class="pull-left ng-binding" style="padding-top:5px;">Gửi tin SMS</h2>
+                            <div class="pull-right">
+                                <i class="fa fa-envelope themecolor" style="font-size:2em"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Next-->
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h2 class="pull-left ng-binding">Hoạt động gần đây</h2>
+                        </header>
+                        <div class="main-box-body clearfix feed">
+                            <ul>
+                                <!-- ngRepeat: item in activities -->
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
 	</div>
 </div>
-<br>
-
-<!--//banner-sec-->
-
-<!-- about -->
 @stop

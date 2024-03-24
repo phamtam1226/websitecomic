@@ -8,19 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model
 {
     use HasFactory;
-    protected $table='bill';
+    protected $table = 'bill';
     protected $fillable = [
-        'id',
-        'coin',
-        'user_id',
-      
-        
+        'board_id',
+        'status',
+        'board_number',
+        'totalpice'
+
+
     ];
- 
-    public function User()
+    public function food()
     {
-        return $this->belongsTo('App\Models\User','user_id','id');
+        return $this->belongsToMany(Food::class, 'bill_food', 'bill_id', 'food_id');
     }
-    
-    
+
+    public function Board()
+    {
+        return $this->belongsTo('App\Models\Board', 'board_id', 'id');
+    }
 }
